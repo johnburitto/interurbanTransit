@@ -1,4 +1,3 @@
-<#import "/spring.ftl" as spring/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +45,8 @@
                                 <td class="align-middle hover-td" id="createdAt">${route.createdAt}</td>
                                 <td class="align-middle hover-td" id="updatedAt">${route.updatedAt}</td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-outline-dark oswald-bold">Delete</button>
+                                    <button type="button" class="btn btn-outline-dark oswald-bold"
+                                            onclick="location.href='/ui/v1/routes/delete/${route.id}'">Delete</button>
                                 </td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold">Edit</button>
