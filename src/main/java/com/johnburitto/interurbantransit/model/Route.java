@@ -11,12 +11,14 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.RouteForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Data
@@ -26,14 +28,14 @@ public class Route {
     @Id
     private String id;
     private double distance;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private LocalTime departureTime;
+    private LocalTime arrivalTime;
     private String fromCity;
     private String toCity;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Route(String id, double distance, LocalDateTime departureTime, LocalDateTime arrivalTime,
+    public Route(String id, double distance, LocalTime departureTime, LocalTime arrivalTime,
                  String fromCity, String toCity) {
         this.id = id;
         this.distance = distance;
@@ -41,6 +43,14 @@ public class Route {
         this.arrivalTime = arrivalTime;
         this.fromCity = fromCity;
         this.toCity = toCity;
+    }
+
+    public void fillFromForm(RouteForm form) {
+        this.distance = form.getDistance();
+        this.departureTime = form.getDepartureTime();
+        this.arrivalTime = form.getArrivalTime();
+        this.fromCity = form.getFromCity();
+        this.toCity = form.getToCity();
     }
 
     @Override

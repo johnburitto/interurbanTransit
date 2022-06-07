@@ -28,6 +28,7 @@ public class RouteService implements IService<Route> {
 
     @Override
     public Route create(Route route) {
+        route.setId(generateNextIndex());
         route.setCreatedAt(LocalDateTime.now());
         route.setUpdatedAt(LocalDateTime.now());
 
@@ -55,5 +56,9 @@ public class RouteService implements IService<Route> {
     @Override
     public List<Route> getAll() {
         return repository.findAll();
+    }
+
+    private String generateNextIndex() {
+        return String.valueOf(repository.findAll().size() + 1);
     }
 }
