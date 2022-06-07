@@ -30,6 +30,8 @@ public class Flight {
     private Route route;
     private Passenger passenger;
     private double costOfTicket;
+    private LocalDateTime day;
+    private FlightStatus flightStatus;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

@@ -17,6 +17,8 @@ import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,26 +28,32 @@ public class RouteService implements IService<Route> {
 
     @Override
     public Route create(Route route) {
-        return null;
+        route.setCreatedAt(LocalDateTime.now());
+        route.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(route);
     }
 
     @Override
     public Route get(String id) {
-        return null;
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public Route update(Route route) {
-        return null;
+        route.setCreatedAt(repository.findById(route.getId()).orElse(null).getCreatedAt());
+        route.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(route);
     }
 
     @Override
     public void delete(String id) {
-
+        repository.deleteById(id);
     }
 
     @Override
     public List<Route> getAll() {
-        return null;
+        return repository.findAll();
     }
 }

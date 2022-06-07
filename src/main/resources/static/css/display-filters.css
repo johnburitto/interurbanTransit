@@ -1,0 +1,162 @@
+.filters-container {
+    display: flex;
+    justify-content: center;
+}
+
+.filters-container label {
+    border-radius: 0;
+    border-right: 0;
+}
+
+.filters-container label:first-child {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+
+.filters-container label:last-child {
+    border-right: solid 1px #212529;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+.filter-hover:hover {
+    background-color: white;
+    color: #212529;
+    box-shadow: 0 0 10px #212529;
+}
+
+#id-display-filter, #name-display-filter, #description-display-filter, #distance-display-filter,
+#days-in-road-display-filter, #start-day-display-filter, #city-from-display-filter, #city-to-display-filter,
+#created-at-display-filter, #updated-at-display-filter {
+    display: none;
+}
+
+#id-display-filter ~ * #id {
+    display: none;
+}
+
+#id-display-filter:checked ~ * #id {
+    display: table-cell;
+}
+
+#name-display-filter ~ * #name {
+    display: none;
+}
+
+#name-display-filter:checked ~ * #name {
+    display: table-cell;
+}
+
+#description-display-filter ~ * #description {
+    display: none;
+}
+
+#description-display-filter:checked ~ * #description {
+    display: table-cell;
+}
+
+#distance-display-filter ~ * #distance {
+    display: none;
+}
+
+#distance-display-filter:checked ~ * #distance {
+    display: table-cell;
+}
+
+#days-in-road-display-filter ~ * #days-in-road {
+    display: none;
+}
+
+#days-in-road-display-filter:checked ~ * #days-in-road {
+    display: table-cell;
+}
+
+#start-day-display-filter ~ * #start-day {
+    display: none;
+}
+
+#start-day-display-filter:checked ~ * #start-day {
+    display: table-cell;
+}
+
+#city-from-display-filter ~ * #city-from {
+    display: none;
+}
+
+#city-from-display-filter:checked ~ * #city-from {
+    display: table-cell;
+}
+
+#city-to-display-filter ~ * #city-to {
+    display: none;
+}
+
+#city-to-display-filter:checked ~ * #city-to {
+    display: table-cell;
+}
+
+#created-at-display-filter ~ * #created-at {
+    display: none;
+}
+
+#created-at-display-filter:checked ~ * #created-at {
+    display: table-cell;
+}
+
+#updated-at-display-filter ~ * #updated-at {
+    display: none;
+}
+
+#updated-at-display-filter:checked ~ * #updated-at {
+    display: table-cell;
+}
+
+#id-display-filter:checked ~ * #for-id {
+    background-color: #212529;
+    color: white;
+}
+
+#name-display-filter:checked ~ * #for-name {
+    background-color: #212529;
+    color: white;
+}
+
+#description-display-filter:checked ~ * #for-description {
+    background-color: #212529;
+    color: white;
+}
+
+#distance-display-filter:checked ~ * #for-distance {
+    background-color: #212529;
+    color: white;
+}
+
+#days-in-road-display-filter:checked ~ * #for-days-in-road {
+    background-color: #212529;
+    color: white;
+}
+
+#start-day-display-filter:checked ~ * #for-start-day {
+    background-color: #212529;
+    color: white;
+}
+
+#city-from-display-filter:checked ~ * #for-city-from {
+    background-color: #212529;
+    color: white;
+}
+
+#city-to-display-filter:checked ~ * #for-city-to {
+    background-color: #212529;
+    color: white;
+}
+
+#created-at-display-filter:checked ~ * #for-created-at {
+    background-color: #212529;
+    color: white;
+}
+
+#updated-at-display-filter:checked ~ * #for-updated-at {
+    background-color: #212529;
+    color: white;
+}

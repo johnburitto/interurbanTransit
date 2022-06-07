@@ -33,6 +33,16 @@ public class Route {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public Route(String id, double distance, LocalDateTime departureTime, LocalDateTime arrivalTime,
+                 String fromCity, String toCity) {
+        this.id = id;
+        this.distance = distance;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
