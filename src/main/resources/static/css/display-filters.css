@@ -25,9 +25,8 @@
     box-shadow: 0 0 10px #212529;
 }
 
-#id-display-filter, #name-display-filter, #description-display-filter, #distance-display-filter,
-#days-in-road-display-filter, #start-day-display-filter, #city-from-display-filter, #city-to-display-filter,
-#created-at-display-filter, #updated-at-display-filter {
+#id-display-filter, #name-display-filter, #distance-display-filter,#departure-time-display-filter, #arrival-time-display-filter,
+#city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter {
     display: none;
 }
 
@@ -47,14 +46,6 @@
     display: table-cell;
 }
 
-#description-display-filter ~ * #description {
-    display: none;
-}
-
-#description-display-filter:checked ~ * #description {
-    display: table-cell;
-}
-
 #distance-display-filter ~ * #distance {
     display: none;
 }
@@ -63,19 +54,19 @@
     display: table-cell;
 }
 
-#days-in-road-display-filter ~ * #days-in-road {
+#departure-time-display-filter ~ * #departure-time {
     display: none;
 }
 
-#days-in-road-display-filter:checked ~ * #days-in-road {
+#departure-time-display-filter:checked ~ * #departure-time {
     display: table-cell;
 }
 
-#start-day-display-filter ~ * #start-day {
+#arrival-time-display-filter ~ * #arrival-time {
     display: none;
 }
 
-#start-day-display-filter:checked ~ * #start-day {
+#arrival-time-display-filter:checked ~ * #arrival-time {
     display: table-cell;
 }
 
@@ -121,22 +112,17 @@
     color: white;
 }
 
-#description-display-filter:checked ~ * #for-description {
-    background-color: #212529;
-    color: white;
-}
-
 #distance-display-filter:checked ~ * #for-distance {
     background-color: #212529;
     color: white;
 }
 
-#days-in-road-display-filter:checked ~ * #for-days-in-road {
+#departure-time-display-filter:checked ~ * #for-departure-time {
     background-color: #212529;
     color: white;
 }
 
-#start-day-display-filter:checked ~ * #for-start-day {
+#arrival-time-display-filter:checked ~ * #for-arrival-time {
     background-color: #212529;
     color: white;
 }

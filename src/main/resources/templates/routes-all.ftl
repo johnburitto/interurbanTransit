@@ -8,9 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/static/css/project.css?version=300" type="text/css" rel="stylesheet"/>
-    <link href="/static/css/display-filters.css?version=1110" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/display-filters.css?version=1310" type="text/css" rel="stylesheet"/>
 </head>
 <body>
+    <input type="checkbox" id="id-display-filter" checked/>
+    <input type="checkbox" id="distance-display-filter" checked/>
+    <input type="checkbox" id="departure-time-display-filter" checked/>
+    <input type="checkbox" id="arrival-time-display-filter" checked/>
+    <input type="checkbox" id="city-from-display-filter" checked/>
+    <input type="checkbox" id="city-to-display-filter" checked/>
+    <input type="checkbox" id="created-at-display-filter"/>
+    <input type="checkbox" id="updated-at-display-filter"/>
     <div class="app-container">
         <div class="table-container">
             <input class="custom-checkbox" type="checkbox" id="list" checked/>
@@ -40,12 +48,12 @@
                             <tr>
                                 <td class="align-middle hover-td" id="id">${route.id}</td>
                                 <td class="align-middle hover-td" id="distance">${route.distance}</td>
-                                <td class="align-middle hover-td" id="departureTime">${route.departureTime}</td>
-                                <td class="align-middle hover-td" id="arrivalTime">${route.arrivalTime}</td>
-                                <td class="align-middle hover-td" id="fromCity">${route.fromCity}</td>
-                                <td class="align-middle hover-td" id="toCity">${route.toCity}</td>
-                                <td class="align-middle hover-td" id="createdAt">${route.createdAt}</td>
-                                <td class="align-middle hover-td" id="updatedAt">${route.updatedAt}</td>
+                                <td class="align-middle hover-td" id="departure-time">${route.departureTime}</td>
+                                <td class="align-middle hover-td" id="arrival-time">${route.arrivalTime}</td>
+                                <td class="align-middle hover-td" id="city-from">${route.fromCity}</td>
+                                <td class="align-middle hover-td" id="city-to">${route.toCity}</td>
+                                <td class="align-middle hover-td" id="created-at">${route.createdAt}</td>
+                                <td class="align-middle hover-td" id="updated-at">${route.updatedAt}</td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/routes/delete/${route.id}'">Delete</button>
@@ -58,6 +66,16 @@
                         </#list>
                     </tbody>
                 </table>
+                <div class="width-100 filters-container oswald-bold">
+                    <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-distance" for="distance-display-filter">Distance</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-departure-time" for="departure-time-display-filter">Departure time</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-arrival-time" for="arrival-time-display-filter">Arrival time</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-city-from" for="city-from-display-filter">City from</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-city-to" for="city-to-display-filter">City to</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
+                </div>
             </div>
         </div>
     </div>
