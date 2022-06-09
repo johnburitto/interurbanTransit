@@ -27,8 +27,7 @@ public class Driver {
     private String id;
     private PersonalInf personalInf;
     private TransportCategory transportCategory;
-    //todo - create logic of calculating expOfWork
-    private double expOfWork;
+    private WorkingBook workingBook;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

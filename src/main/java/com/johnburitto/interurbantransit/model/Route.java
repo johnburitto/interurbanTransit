@@ -46,11 +46,11 @@ public class Route {
     }
 
     public void fillFromForm(RouteForm form) {
-        this.distance = form.getDistance();
-        this.departureTime = form.getDepartureTime();
-        this.arrivalTime = form.getArrivalTime();
-        this.fromCity = form.getFromCity();
-        this.toCity = form.getToCity();
+        distance = form.getDistance();
+        departureTime = form.getDepartureTime();
+        arrivalTime = form.getArrivalTime();
+        fromCity = form.getFromCity();
+        toCity = form.getToCity();
     }
 
     @Override

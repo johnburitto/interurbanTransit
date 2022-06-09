@@ -42,7 +42,7 @@ public class RouteService implements IService<Route> {
 
     @Override
     public Route update(Route route) {
-        route.setCreatedAt(repository.findById(route.getId()).orElse(null).getCreatedAt());
+        route.setCreatedAt(get(route.getId()).getCreatedAt());
         route.setUpdatedAt(LocalDateTime.now());
 
         return repository.save(route);

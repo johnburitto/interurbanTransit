@@ -27,10 +27,10 @@ public class RouteForm {
     private String toCity;
 
     public void fillFromRoute(Route route) {
-        this.distance = route.getDistance();
-        this.departureTime = route.getDepartureTime();
-        this.arrivalTime = route.getArrivalTime();
-        this.fromCity = route.getFromCity();
-        this.toCity = route.getToCity();
+        distance = route.getDistance();
+        departureTime = route.getDepartureTime();
+        arrivalTime = route.getArrivalTime();
+        fromCity = route.getFromCity();
+        toCity = route.getToCity();
     }
 }

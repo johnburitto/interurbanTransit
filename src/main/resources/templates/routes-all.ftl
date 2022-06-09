@@ -30,18 +30,18 @@
             <div class="width-100">
                 <table class="table table-hover text-center oswald">
                     <thead class="table-dark">
-                    <tr>
-                        <th id="id">Id</th>
-                        <th id="distance">Distance</th>
-                        <th id="departure-time">Departure time</th>
-                        <th id="arrival-time">Arrival time</th>
-                        <th id="city-from">City from</th>
-                        <th id="city-to">City to</th>
-                        <th id="created-at">Created at</th>
-                        <th id="updated-at">Updated at</th>
-                        <th>Delete</th>
-                        <th>Edit</th>
-                    </tr>
+                        <tr>
+                            <th id="id">Id</th>
+                            <th id="distance">Distance</th>
+                            <th id="departure-time">Departure time</th>
+                            <th id="arrival-time">Arrival time</th>
+                            <th id="city-from">City from</th>
+                            <th id="city-to">City to</th>
+                            <th id="created-at">Created at</th>
+                            <th id="updated-at">Updated at</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <#list routes as route>
