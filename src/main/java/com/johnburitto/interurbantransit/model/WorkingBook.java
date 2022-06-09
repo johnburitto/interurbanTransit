@@ -44,6 +44,16 @@ public class WorkingBook {
         placesOfWork.add(placeOfWorkToAdd);
     }
 
+    public double getExpOfWork() {
+        double expOfWork = 0;
+
+        for (PlaceOfWork placeOfWork : placesOfWork) {
+            expOfWork += placeOfWork.getExpOfWork();
+        }
+
+        return expOfWork;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

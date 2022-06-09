@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Data
 @AllArgsConstructor
@@ -25,6 +26,16 @@ public class PlaceOfWork {
     private String company;
     private LocalDate workFrom;
     private LocalDate workTo;
+
+    public double getExpOfWork() {
+        Period periodOfWork = Period.between(workFrom, workTo);
+
+        return convertPeriodInExpOfWork(periodOfWork);
+    }
+
+    private double convertPeriodInExpOfWork(Period periodOfWork) {
+        return periodOfWork.getYears() + (periodOfWork.getMonths() / 12.0) + (periodOfWork.getDays() / 365.0);
+    }
 
     public void fillFromForm(PlaceOfWorkForm form) {
         company = form.getCompany();
