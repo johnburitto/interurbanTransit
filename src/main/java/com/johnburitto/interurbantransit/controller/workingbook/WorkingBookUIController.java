@@ -28,8 +28,6 @@ public class WorkingBookUIController {
     @Autowired
     WorkingBookService service;
 
-    //todo - create widget for all places of work
-
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("workingBooks", service.getAll());

@@ -6,6 +6,18 @@ td {
     font-size: 17px;
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    width: 350px;
+    margin: 0;
+    padding: 0;
+}
+
 .hover-td:hover {
     background-color: #e1e1e1;
 }
@@ -125,5 +137,40 @@ input[type="checkbox"].custom-checkbox + label > button {
 }
 
 input[type="checkbox"].custom-checkbox:checked + label > button {
+    display: block;
+}
+
+.widget-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.widget-holder:hover {
+    color: rgba(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+}
+
+.widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 3px #dce0e4;
+    border-radius: 0.375em;
+    background-color: white;
+}
+
+.widget-holder > .widget {
+    display: none;
+}
+
+.widget-holder:hover > .widget {
+    color: black;
+    position: relative;
+    left: 25000%;
+    bottom: 5000%;
     display: block;
 }
