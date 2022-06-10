@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="app-container">
-    <fieldset>
+    <fieldset class="oswald">
         <legend class="oswald">Delete place of work</legend>
         <form name="item" action="" method="POST" class="inputs-container" autocomplete="off">
             <div class="input-container">

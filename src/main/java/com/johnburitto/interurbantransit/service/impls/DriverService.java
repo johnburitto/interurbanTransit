@@ -17,6 +17,7 @@ import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,26 +27,41 @@ public class DriverService implements IService<Driver> {
 
     @Override
     public Driver create(Driver driver) {
-        return null;
+        driver.setId(generateNextIndex());
+        driver.setCreatedAt(LocalDateTime.now());
+        driver.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(driver);
     }
 
     @Override
     public Driver get(String id) {
-        return null;
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public Driver update(Driver driver) {
-        return null;
+        driver.setCreatedAt(get(driver.getId()).getCreatedAt());
+        driver.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(driver);
     }
 
     @Override
     public void delete(String id) {
-
+        repository.deleteById(id);
     }
 
     @Override
     public List<Driver> getAll() {
-        return null;
+        return repository.findAll();
+    }
+
+    public String getWorkingBookNumber(String driverId) {
+        return get(driverId).getWorkingBook().getNumberOfWorkingBook();
+    }
+
+    private String generateNextIndex() {
+        return String.valueOf(repository.findAll().size() + 1);
     }
 }

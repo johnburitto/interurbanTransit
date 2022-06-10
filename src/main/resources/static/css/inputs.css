@@ -85,7 +85,7 @@ li > .option-container {
     border-top-left-radius: 0.375em;
     border-bottom-left-radius: 0.375em;
     user-select: none;
-    font-family: 'Oswald', sans-serif;
+    text-align: center;
 }
 
 .option-container {
@@ -152,7 +152,6 @@ select {
     overflow: hidden;
     white-space: pre;
     text-overflow: ellipsis;
-    -webkit-appearance: none;
 }
 
 select:hover {
@@ -162,4 +161,51 @@ select:hover {
 select:focus {
     outline: none;
     border: solid 3px #ced4da;
+}
+
+#input-hider {
+    display: none;
+}
+
+#input-hider ~ * label{
+    width: 70%;
+    height: 50px;
+    border: solid 1px #ced4da;
+    border-radius: 0.375em;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    user-select: none;
+    text-align: center;
+}
+
+#input-hider ~ * label:hover{
+    background-color: #e9ecef;
+}
+
+#input-hider ~ * #hidden-input {
+    display: none;
+}
+
+#input-hider:checked ~ * label {
+    background-color: #e9ecef;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#input-hider:checked ~ * #hidden-input {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    border-right: solid 1px #ced4da;
+    border-left: solid 1px #ced4da;
+    border-bottom: solid 1px #ced4da;
+    border-bottom-right-radius: 0.375em;
+    border-bottom-left-radius: 0.375em;
 }

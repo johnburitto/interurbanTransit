@@ -33,7 +33,7 @@ public class RouteUIController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable String id) {
+    public String deleteRoute(@PathVariable String id) {
         service.delete(id);
 
         return "redirect:/ui/v1/routes/";

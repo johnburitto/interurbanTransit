@@ -11,17 +11,29 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.DriverForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class PersonalInf {
     private Name name;
-    private LocalDateTime dayOfBirth;
+    private LocalDate dateOfBirth;
     private BloodType bloodType;
+
+    public PersonalInf() {
+        this.name = new Name();
+    }
+
+    public void fillFromForm(DriverForm form) {
+        name.setFirstName(form.getFirstName());
+        name.setMiddleName(form.getMiddleName());
+        name.setLastName(form.getLastName());
+        dateOfBirth = LocalDate.parse(form.getDateOfBirth());
+        bloodType = form.getBloodType();
+    }
 }

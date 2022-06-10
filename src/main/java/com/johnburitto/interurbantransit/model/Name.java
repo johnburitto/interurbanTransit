@@ -22,4 +22,9 @@ public class Name {
     private String firstName;
     private String middleName;
     private String lastName;
+
+    @Override
+    public String toString() {
+        return firstName + " " + middleName + " " + lastName;
+    }
 }

@@ -45,13 +45,6 @@ public class WorkingBookUIController {
         return "working-books-all";
     }
 
-    @RequestMapping("/delete/{numberOfWorkingBook}")
-    public String delete(@PathVariable String numberOfWorkingBook) {
-        service.delete(numberOfWorkingBook);
-
-        return "redirect:/ui/v1/working-books/";
-    }
-
     @RequestMapping(value = "/{numberOfWorkingBook}/add/place-of-work", method = RequestMethod.GET)
     public String addPlaceOfWork(Model model, @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
         model.addAttribute("form", new PlaceOfWorkForm());

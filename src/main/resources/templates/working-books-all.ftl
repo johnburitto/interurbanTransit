@@ -29,7 +29,6 @@
                         <th id="places-of-work">Places of work</th>
                         <th id="created-at">Created at</th>
                         <th id="updated-at">Updated at</th>
-                        <th>Delete</th>
                         <th>Add place of work</th>
                         <th>Delete place of work</th>
                     </tr>
@@ -56,10 +55,6 @@
                             <td class="align-middle hover-td" id="updated-at">${workingBook.updatedAt}</td>
                             <td class="align-middle">
                                 <button type="button" class="btn btn-outline-dark oswald-bold"
-                                        onclick="location.href='/ui/v1/working-books/delete/${workingBook.numberOfWorkingBook}'">Delete</button>
-                            </td>
-                            <td class="align-middle">
-                                <button type="button" class="btn btn-outline-dark oswald-bold"
                                         onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/add/place-of-work'">Add</button>
                             </td>
                             <td class="align-middle">
@@ -72,7 +67,7 @@
                 </table>
                 <div class="width-100 filters-container oswald-bold">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-places-of-work-display" for="places-of-work-display-filter">Places of work</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-places-of-work" for="places-of-work-display-filter">Places of work</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>
