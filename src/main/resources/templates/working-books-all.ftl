@@ -7,10 +7,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/static/css/project.css?version=600" type="text/css" rel="stylesheet"/>
-    <link href="/static/css/display-filters.css?version=1310" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/project.css?version=700" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/display-filters.css?version=1410" type="text/css" rel="stylesheet"/>
 </head>
 <body>
+    <input type="checkbox" id="id-display-filter" checked/>
+    <input type="checkbox" id="places-of-work-display-filter" checked/>
+    <input type="checkbox" id="created-at-display-filter"/>
+    <input type="checkbox" id="updated-at-display-filter"/>
     <div class="app-container">
         <div class="table-container">
             <input class="custom-checkbox" type="checkbox" id="list" checked/>
@@ -26,8 +30,8 @@
                         <th id="created-at">Created at</th>
                         <th id="updated-at">Updated at</th>
                         <th>Delete</th>
-                        <th>Edit</th>
                         <th>Add place of work</th>
+                        <th>Delete place of work</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,7 +44,9 @@
                                     <div class="widget">
                                         <ul>
                                             <#list workingBook.placesOfWork as placeOfWork>
-                                                <li>"${placeOfWork.company}" <b>From:</b> ${placeOfWork.workFrom} <b>To:</b> ${placeOfWork.workTo}</li>
+                                                <li>
+                                                    "${placeOfWork.company}" <b>From:</b> ${placeOfWork.workFrom} <b>To:</b> ${placeOfWork.workTo}
+                                                </li>
                                             </#list>
                                         </ul>
                                     </div>
@@ -49,19 +55,27 @@
                             <td class="align-middle hover-td" id="created-at">${workingBook.createdAt}</td>
                             <td class="align-middle hover-td" id="updated-at">${workingBook.updatedAt}</td>
                             <td class="align-middle">
-                                <button type="button" class="btn btn-outline-dark oswald-bold">Delete</button>
-                            </td>
-                            <td class="align-middle">
-                                <button type="button" class="btn btn-outline-dark oswald-bold">Edit</button>
+                                <button type="button" class="btn btn-outline-dark oswald-bold"
+                                        onclick="location.href='/ui/v1/working-books/delete/${workingBook.numberOfWorkingBook}'">Delete</button>
                             </td>
                             <td class="align-middle">
                                 <button type="button" class="btn btn-outline-dark oswald-bold"
                                         onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/add/place-of-work'">Add</button>
                             </td>
+                            <td class="align-middle">
+                                <button type="button" class="btn btn-outline-dark oswald-bold"
+                                        onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/delete/place-of-work'">Delete place of work</button>
+                            </td>
                         </tr>
                     </#list>
                     </tbody>
                 </table>
+                <div class="width-100 filters-container oswald-bold">
+                    <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-places-of-work-display" for="places-of-work-display-filter">Places of work</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
+                </div>
             </div>
         </div>
     </div>

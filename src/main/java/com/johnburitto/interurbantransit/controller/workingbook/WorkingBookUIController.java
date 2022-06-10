@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.workingbook;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.DeletePlaceOfWorkForm;
 import com.johnburitto.interurbantransit.form.PlaceOfWorkForm;
 import com.johnburitto.interurbantransit.model.WorkingBook;
 import com.johnburitto.interurbantransit.service.impls.WorkingBookService;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Collections;
 
 @Controller
 @RequestMapping("/ui/v1/working-books")
@@ -35,25 +38,53 @@ public class WorkingBookUIController {
         return "working-books-all";
     }
 
-    @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable String id) {
-        service.delete(id);
+    @RequestMapping("/{numberOfWorkingBook}")
+    public String showOne(Model model, @PathVariable String numberOfWorkingBook) {
+        model.addAttribute("workingBooks", service.getOneAsList(numberOfWorkingBook));
+
+        return "working-books-all";
+    }
+
+    @RequestMapping("/delete/{numberOfWorkingBook}")
+    public String delete(@PathVariable String numberOfWorkingBook) {
+        service.delete(numberOfWorkingBook);
 
         return "redirect:/ui/v1/working-books/";
     }
 
     @RequestMapping(value = "/{numberOfWorkingBook}/add/place-of-work", method = RequestMethod.GET)
-    public String addPlaceOfWork(Model model, @PathVariable("numberOfWorkingBook") String id) {
+    public String addPlaceOfWork(Model model, @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
         model.addAttribute("form", new PlaceOfWorkForm());
 
         return "place-of-work-add";
     }
 
     @RequestMapping(value = "/{numberOfWorkingBook}/add/place-of-work", method = RequestMethod.POST)
-    public String addPlaceOfWork(@ModelAttribute("form") PlaceOfWorkForm form, @PathVariable("numberOfWorkingBook") String id) {
-        WorkingBook workingBookToEdit = service.get(id);
+    public String addPlaceOfWork(@ModelAttribute("form") PlaceOfWorkForm form,
+                                 @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
+        WorkingBook workingBookToEdit = service.get(numberOfWorkingBook);
 
         workingBookToEdit.addPlaceOfWork(form);
+        service.update(workingBookToEdit);
+
+        return "redirect:/ui/v1/working-books/";
+    }
+
+    @RequestMapping(value = "/{numberOfWorkingBook}/delete/place-of-work", method = RequestMethod.GET)
+    public String deletePlaceOfWork(Model model, @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
+        model.addAttribute("form", new DeletePlaceOfWorkForm());
+        model.addAttribute("SPLITTER", DeletePlaceOfWorkForm.SPLITTER);
+        model.addAttribute("placesOfWork", service.getPlacesOfWorkFromWorkingBook(numberOfWorkingBook));
+
+        return "place-of-work-delete";
+    }
+
+    @RequestMapping(value = "/{numberOfWorkingBook}/delete/place-of-work", method = RequestMethod.POST)
+    public String deletePlaceOfWork(@ModelAttribute("form") DeletePlaceOfWorkForm form,
+                                    @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
+        WorkingBook workingBookToEdit = service.get(numberOfWorkingBook);
+
+        workingBookToEdit.deletePlaceOfWor(form.generatePlaceOfWork());
         service.update(workingBookToEdit);
 
         return "redirect:/ui/v1/working-books/";

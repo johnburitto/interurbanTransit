@@ -171,6 +171,6 @@ input[type="checkbox"].custom-checkbox:checked + label > button {
     color: black;
     position: relative;
     left: 25000%;
-    bottom: 5000%;
+    bottom: 2000%;
     display: block;
 }

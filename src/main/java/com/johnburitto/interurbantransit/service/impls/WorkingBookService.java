@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.model.PlaceOfWork;
 import com.johnburitto.interurbantransit.model.WorkingBook;
 import com.johnburitto.interurbantransit.repository.WorkingBookMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -57,11 +59,11 @@ public class WorkingBookService implements IService<WorkingBook> {
         return repository.findAll();
     }
 
-    public List<String> getWorkingBookNumbers() {
-        List<String> numbers = new ArrayList<>();
+    public List<WorkingBook> getOneAsList(String numberOfWorkingBook) {
+        return Collections.singletonList(get(numberOfWorkingBook));
+    }
 
-        repository.findAll().forEach(workingBook ->  numbers.add(workingBook.getNumberOfWorkingBook()));
-
-        return numbers;
+    public List<PlaceOfWork> getPlacesOfWorkFromWorkingBook(String numberOfWorkingBook) {
+        return get(numberOfWorkingBook).getPlacesOfWork();
     }
 }

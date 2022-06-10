@@ -26,7 +26,7 @@
 }
 
 #id-display-filter, #name-display-filter, #distance-display-filter,#departure-time-display-filter, #arrival-time-display-filter,
-#city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter {
+#city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter, #places-of-work-display-filter {
     display: none;
 }
 
@@ -102,6 +102,14 @@
     display: table-cell;
 }
 
+#places-of-work-display-filter ~ * #places-of-work {
+    display: none;
+}
+
+#places-of-work-display-filter:checked ~ * #places-of-work {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -143,6 +151,11 @@
 }
 
 #updated-at-display-filter:checked ~ * #for-updated-at {
+    background-color: #212529;
+    color: white;
+}
+
+#places-of-work-display-filter:checked ~ * #for-places-of-work-display {
     background-color: #212529;
     color: white;
 }
