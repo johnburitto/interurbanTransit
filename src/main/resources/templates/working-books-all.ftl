@@ -24,45 +24,45 @@
             <div class="width-100">
                 <table class="table table-hover text-center oswald">
                     <thead class="table-dark">
-                    <tr>
-                        <th id="id">Working book number</th>
-                        <th id="places-of-work">Places of work</th>
-                        <th id="created-at">Created at</th>
-                        <th id="updated-at">Updated at</th>
-                        <th>Add place of work</th>
-                        <th>Delete place of work</th>
-                    </tr>
+                        <tr>
+                            <th id="id">Working book number</th>
+                            <th id="places-of-work">Places of work</th>
+                            <th id="created-at">Created at</th>
+                            <th id="updated-at">Updated at</th>
+                            <th>Add place of work</th>
+                            <th>Delete place of work</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <#list workingBooks as workingBook>
-                        <tr>
-                            <td class="align-middle hover-td" id="id">${workingBook.numberOfWorkingBook}</td>
-                            <td class="align-middle hover-td" id="places-of-work">
-                                <div class="widget-holder">
-                                    Places of work
-                                    <div class="widget">
-                                        <ul>
-                                            <#list workingBook.placesOfWork as placeOfWork>
-                                                <li>
-                                                    "${placeOfWork.company}" <b>From:</b> ${placeOfWork.workFrom} <b>To:</b> ${placeOfWork.workTo}
-                                                </li>
-                                            </#list>
-                                        </ul>
+                        <#list workingBooks as workingBook>
+                            <tr>
+                                <td class="align-middle hover-td" id="id">${workingBook.numberOfWorkingBook}</td>
+                                <td class="align-middle hover-td" id="places-of-work">
+                                    <div class="widget-holder">
+                                        Places of work
+                                        <div class="widget">
+                                            <ul>
+                                                <#list workingBook.placesOfWork as placeOfWork>
+                                                    <li>
+                                                        "${placeOfWork.company}" <b>From:</b> ${placeOfWork.workFrom} <b>To:</b> ${placeOfWork.workTo}
+                                                    </li>
+                                                </#list>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="align-middle hover-td" id="created-at">${workingBook.createdAt}</td>
-                            <td class="align-middle hover-td" id="updated-at">${workingBook.updatedAt}</td>
-                            <td class="align-middle">
-                                <button type="button" class="btn btn-outline-dark oswald-bold"
-                                        onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/add/place-of-work'">Add</button>
-                            </td>
-                            <td class="align-middle">
-                                <button type="button" class="btn btn-outline-dark oswald-bold"
-                                        onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/delete/place-of-work'">Delete place of work</button>
-                            </td>
-                        </tr>
-                    </#list>
+                                </td>
+                                <td class="align-middle hover-td" id="created-at">${workingBook.createdAt}</td>
+                                <td class="align-middle hover-td" id="updated-at">${workingBook.updatedAt}</td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-dark oswald-bold"
+                                            onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/add/place-of-work'">Add</button>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-dark oswald-bold"
+                                            onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/delete/place-of-work'">Delete place of work</button>
+                                </td>
+                            </tr>
+                        </#list>
                     </tbody>
                 </table>
                 <div class="width-100 filters-container oswald-bold">

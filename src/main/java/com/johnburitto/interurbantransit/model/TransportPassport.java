@@ -24,7 +24,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public class TransportPassport {
     @Id
-    private String id;
     private String transportNumber;
     private TransportCategory neededTransportCategory;
     private int numberOfPlaces;
@@ -34,16 +33,26 @@ public class TransportPassport {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public TransportPassport(String transportNumber, TransportCategory neededTransportCategory,
+                             int numberOfPlaces, double mileage, String companyName, boolean needInspection) {
+        this.transportNumber = transportNumber;
+        this.neededTransportCategory = neededTransportCategory;
+        this.numberOfPlaces = numberOfPlaces;
+        this.mileage = mileage;
+        this.companyName = companyName;
+        this.needInspection = needInspection;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransportPassport that = (TransportPassport) o;
-        return id.equals(that.id);
+        return transportNumber.equals(that.transportNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(transportNumber);
     }
 }

@@ -27,7 +27,8 @@
 
 #id-display-filter, #personal-inf-display-filter, #distance-display-filter,#departure-time-display-filter, #arrival-time-display-filter,
 #city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter, #places-of-work-display-filter,
-#transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter{
+#transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter, #number-of-places-display-filter,
+#mileage-display-filter, #company-display-filter {
     display: none;
 }
 
@@ -135,6 +136,30 @@
     display: table-cell;
 }
 
+#number-of-places-display-filter ~ * #number-of-places {
+    display: none;
+}
+
+#number-of-places-display-filter:checked ~ * #number-of-places {
+    display: table-cell;
+}
+
+#mileage-display-filter ~ * #mileage {
+    display: none;
+}
+
+#mileage-display-filter:checked ~ * #mileage {
+    display: table-cell;
+}
+
+#company-display-filter ~ * #company {
+    display: none;
+}
+
+#company-display-filter:checked ~ * #company {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -196,6 +221,21 @@
 }
 
 #exp-of-work-display-filter:checked ~ * #for-exp-of-work {
+    background-color: #212529;
+    color: white;
+}
+
+#number-of-places-display-filter:checked ~ * #for-number-of-places {
+    background-color: #212529;
+    color: white;
+}
+
+#mileage-display-filter:checked ~ * #for-mileage {
+    background-color: #212529;
+    color: white;
+}
+
+#company-display-filter:checked ~ * #for-company {
     background-color: #212529;
     color: white;
 }
