@@ -64,4 +64,8 @@ public class DriverService implements IService<Driver> {
     private String generateNextIndex() {
         return String.valueOf(repository.findAll().size() + 1);
     }
+
+    public Driver getByWorkingBookNumber(String workingBookNumber) {
+        return repository.queryFindByWorkingBookNumber(workingBookNumber);
+    }
 }

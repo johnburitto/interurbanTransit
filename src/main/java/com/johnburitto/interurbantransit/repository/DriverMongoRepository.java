@@ -13,9 +13,11 @@ package com.johnburitto.interurbantransit.repository;
 
 import com.johnburitto.interurbantransit.model.Driver;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DriverMongoRepository extends MongoRepository<Driver, String> {
-
+    @Query(value = "{workingBook_numberOfWorkingBook: ?0}")
+    public Driver queryFindByWorkingBookNumber(String workingBookNumber);
 }

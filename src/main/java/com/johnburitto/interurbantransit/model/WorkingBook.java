@@ -17,7 +17,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class WorkingBook {
         placesOfWork.add(placeOfWorkToAdd);
     }
 
-    public void deletePlaceOfWor(PlaceOfWork placeOfWork) {
+    public void deletePlaceOfWork(PlaceOfWork placeOfWork) {
         placesOfWork.remove(placeOfWork);
     }
 

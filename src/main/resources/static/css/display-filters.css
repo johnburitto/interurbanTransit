@@ -27,7 +27,7 @@
 
 #id-display-filter, #personal-inf-display-filter, #distance-display-filter,#departure-time-display-filter, #arrival-time-display-filter,
 #city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter, #places-of-work-display-filter,
-#transport-category-display-filter, #working-book-display-filter{
+#transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter{
     display: none;
 }
 
@@ -127,6 +127,14 @@
     display: table-cell;
 }
 
+#exp-of-work-display-filter ~ * #exp-of-work {
+    display: none;
+}
+
+#exp-of-work-display-filter:checked ~ * #exp-of-work {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -183,6 +191,11 @@
 }
 
 #working-book-display-filter:checked ~ * #for-working-book {
+    background-color: #212529;
+    color: white;
+}
+
+#exp-of-work-display-filter:checked ~ * #for-exp-of-work {
     background-color: #212529;
     color: white;
 }

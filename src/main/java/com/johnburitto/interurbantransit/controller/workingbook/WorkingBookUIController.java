@@ -13,7 +13,9 @@ package com.johnburitto.interurbantransit.controller.workingbook;
 
 import com.johnburitto.interurbantransit.form.DeletePlaceOfWorkForm;
 import com.johnburitto.interurbantransit.form.PlaceOfWorkForm;
+import com.johnburitto.interurbantransit.model.Driver;
 import com.johnburitto.interurbantransit.model.WorkingBook;
+import com.johnburitto.interurbantransit.service.impls.DriverService;
 import com.johnburitto.interurbantransit.service.impls.WorkingBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,24 +25,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.Collections;
-
 @Controller
 @RequestMapping("/ui/v1/working-books")
 public class WorkingBookUIController {
     @Autowired
-    WorkingBookService service;
+    WorkingBookService workingBookService;
+    @Autowired
+    DriverService driverService;
 
     @RequestMapping("/")
     public String showAll(Model model) {
-        model.addAttribute("workingBooks", service.getAll());
+        model.addAttribute("workingBooks", workingBookService.getAll());
 
         return "working-books-all";
     }
 
     @RequestMapping("/{numberOfWorkingBook}")
     public String showOne(Model model, @PathVariable String numberOfWorkingBook) {
-        model.addAttribute("workingBooks", service.getOneAsList(numberOfWorkingBook));
+        model.addAttribute("workingBooks", workingBookService.getOneAsList(numberOfWorkingBook));
 
         return "working-books-all";
     }
@@ -55,10 +57,13 @@ public class WorkingBookUIController {
     @RequestMapping(value = "/{numberOfWorkingBook}/add/place-of-work", method = RequestMethod.POST)
     public String addPlaceOfWork(@ModelAttribute("form") PlaceOfWorkForm form,
                                  @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
-        WorkingBook workingBookToEdit = service.get(numberOfWorkingBook);
+        WorkingBook workingBookToEdit = workingBookService.get(numberOfWorkingBook);
+        Driver driverToEdit = driverService.getByWorkingBookNumber(numberOfWorkingBook);
 
         workingBookToEdit.addPlaceOfWork(form);
-        service.update(workingBookToEdit);
+        driverToEdit.setWorkingBook(workingBookToEdit);
+        workingBookService.update(workingBookToEdit);
+        driverService.update(driverToEdit);
 
         return "redirect:/ui/v1/working-books/";
     }
@@ -67,7 +72,7 @@ public class WorkingBookUIController {
     public String deletePlaceOfWork(Model model, @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
         model.addAttribute("form", new DeletePlaceOfWorkForm());
         model.addAttribute("SPLITTER", DeletePlaceOfWorkForm.SPLITTER);
-        model.addAttribute("placesOfWork", service.getPlacesOfWorkFromWorkingBook(numberOfWorkingBook));
+        model.addAttribute("placesOfWork", workingBookService.getPlacesOfWorkFromWorkingBook(numberOfWorkingBook));
 
         return "place-of-work-delete";
     }
@@ -75,10 +80,13 @@ public class WorkingBookUIController {
     @RequestMapping(value = "/{numberOfWorkingBook}/delete/place-of-work", method = RequestMethod.POST)
     public String deletePlaceOfWork(@ModelAttribute("form") DeletePlaceOfWorkForm form,
                                     @PathVariable("numberOfWorkingBook") String numberOfWorkingBook) {
-        WorkingBook workingBookToEdit = service.get(numberOfWorkingBook);
+        WorkingBook workingBookToEdit = workingBookService.get(numberOfWorkingBook);
+        Driver driverToEdit = driverService.getByWorkingBookNumber(numberOfWorkingBook);
 
-        workingBookToEdit.deletePlaceOfWor(form.generatePlaceOfWork());
-        service.update(workingBookToEdit);
+        workingBookToEdit.deletePlaceOfWork(form.generatePlaceOfWork());
+        driverToEdit.setWorkingBook(workingBookToEdit);
+        workingBookService.update(workingBookToEdit);
+        driverService.update(driverToEdit);
 
         return "redirect:/ui/v1/working-books/";
     }

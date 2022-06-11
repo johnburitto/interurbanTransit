@@ -12,7 +12,9 @@ package com.johnburitto.interurbantransit.controller.driver;
  */
 
 import com.johnburitto.interurbantransit.model.Driver;
+import com.johnburitto.interurbantransit.model.WorkingBook;
 import com.johnburitto.interurbantransit.service.impls.DriverService;
+import com.johnburitto.interurbantransit.service.impls.WorkingBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,32 +24,37 @@ import java.util.List;
 @RequestMapping("/api/v1/drivers")
 public class DriverRestController {
     @Autowired
-    DriverService service;
+    DriverService driverService;
+    @Autowired
+    WorkingBookService workingBookService;
 
     @GetMapping("/")
     public List<Driver> showAll() {
-        return service.getAll();
+        return driverService.getAll();
     }
 
     @GetMapping("/{id}")
     public Driver showOne(@PathVariable String id) {
-        return service.get(id);
+        return driverService.get(id);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteOne(@PathVariable String id) {
-        service.delete(id);
+        workingBookService.delete(driverService.getWorkingBookNumber(id));
+        driverService.delete(id);
     }
 
     @PostMapping("/create")
     public Driver createOne(@RequestBody Driver driver) {
-        return service.create(driver);
+        workingBookService.create(driver.getWorkingBook());
+
+        return driverService.create(driver);
     }
 
     @PutMapping("/edit/{id}")
     public Driver updateOne(@RequestBody Driver driver, @PathVariable String id) {
         driver.setId(id);
 
-        return service.update(driver);
+        return driverService.update(driver);
     }
 }
