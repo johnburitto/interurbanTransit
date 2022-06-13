@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/static/css/inputs.css?version=1410" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/inputs.css?version=1610" type="text/css" rel="stylesheet"/>
     <link href="/static/css/project.css?version=1210" type="text/css" rel="stylesheet"/>
 </head>
 <body>

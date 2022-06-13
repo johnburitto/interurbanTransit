@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -54,5 +55,9 @@ public class TransportPassportService implements IService<TransportPassport> {
     @Override
     public List<TransportPassport> getAll() {
         return repository.findAll();
+    }
+
+    public List<TransportPassport> getOneAsList(String transportId) {
+        return Collections.singletonList(get(transportId));
     }
 }

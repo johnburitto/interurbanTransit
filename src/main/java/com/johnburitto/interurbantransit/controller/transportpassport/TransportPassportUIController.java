@@ -15,6 +15,7 @@ import com.johnburitto.interurbantransit.service.impls.TransportPassportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -26,6 +27,13 @@ public class TransportPassportUIController {
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("passports", service.getAll());
+
+        return "transport-passport-all";
+    }
+
+    @RequestMapping("/{transportNumber}")
+    public String showOne(Model model, @PathVariable String transportNumber) {
+        model.addAttribute("passports", service.getOneAsList(transportNumber));
 
         return "transport-passport-all";
     }

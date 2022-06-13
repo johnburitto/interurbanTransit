@@ -42,7 +42,7 @@ public class DriverUIController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable String id) {
+    public String deleteDriver(@PathVariable String id) {
         workingBookService.delete(driverService.getWorkingBookNumber(id));
         driverService.delete(id);
 

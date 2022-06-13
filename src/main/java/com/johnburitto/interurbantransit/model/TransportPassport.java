@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.TransportForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,15 @@ public class TransportPassport {
         this.mileage = mileage;
         this.companyName = companyName;
         this.needInspection = needInspection;
+    }
+
+    public void fillFromForm(TransportForm form) {
+        transportNumber = form.getTransportNumber();
+        neededTransportCategory = form.getNeededTransportCategory();
+        numberOfPlaces = form.getNumberOfPlaces();
+        mileage = form.getMileage();
+        companyName = form.getCompanyName();
+        needInspection = false;
     }
 
     @Override
