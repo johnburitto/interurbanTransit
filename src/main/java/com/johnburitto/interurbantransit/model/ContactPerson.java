@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.PassengerForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,13 @@ public class ContactPerson {
     private Name name;
     private String telephoneNumber;
     private String eMail;
+
+    public void fillFromForm(PassengerForm form) {
+        name = new Name();
+        name.setFirstName(form.getFirstName());
+        name.setMiddleName(form.getMiddleName());
+        name.setLastName(form.getLastName());
+        telephoneNumber = form.getTelephoneNumber();
+        eMail = form.getEMail();
+    }
 }

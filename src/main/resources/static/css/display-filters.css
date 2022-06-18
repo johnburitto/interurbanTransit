@@ -28,7 +28,8 @@
 #id-display-filter, #personal-inf-display-filter, #distance-display-filter,#departure-time-display-filter, #arrival-time-display-filter,
 #city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter, #places-of-work-display-filter,
 #transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter, #number-of-places-display-filter,
-#mileage-display-filter, #company-display-filter, #brand-display-filter, #model-display-filter, #passport-display-filter {
+#mileage-display-filter, #company-display-filter, #brand-display-filter, #model-display-filter, #passport-display-filter,
+#name-display-filter, #contact-inf-display-filter, #booked-place-display-filter {
     display: none;
 }
 
@@ -184,6 +185,30 @@
     display: table-cell;
 }
 
+#name-display-filter ~ * #name {
+    display: none;
+}
+
+#name-display-filter:checked ~ * #name {
+    display: table-cell;
+}
+
+#contact-inf-display-filter ~ * #contact-inf {
+    display: none;
+}
+
+#contact-inf-display-filter:checked ~ * #contact-inf {
+    display: table-cell;
+}
+
+#booked-place-display-filter ~ * #booked-place {
+    display: none;
+}
+
+#booked-place-display-filter:checked ~ * #booked-place {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -275,6 +300,21 @@
 }
 
 #passport-display-filter:checked ~ * #for-passport {
+    background-color: #212529;
+    color: white;
+}
+
+#name-display-filter:checked ~ * #for-name {
+    background-color: #212529;
+    color: white;
+}
+
+#contact-inf-display-filter:checked ~ * #for-contact-inf {
+    background-color: #212529;
+    color: white;
+}
+
+#booked-place-display-filter:checked ~ * #for-booked-place {
     background-color: #212529;
     color: white;
 }

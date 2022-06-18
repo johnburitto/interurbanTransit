@@ -17,6 +17,7 @@ import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,26 +27,37 @@ public class PassengerService implements IService<Passenger> {
 
     @Override
     public Passenger create(Passenger passenger) {
-        return null;
+        passenger.setId(generateNextIndex());
+        passenger.setCreatedAt(LocalDateTime.now());
+        passenger.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(passenger);
     }
 
     @Override
     public Passenger get(String id) {
-        return null;
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public Passenger update(Passenger passenger) {
-        return null;
+        passenger.setCreatedAt(get(passenger.getId()).getCreatedAt());
+        passenger.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(passenger);
     }
 
     @Override
     public void delete(String id) {
-
+        repository.deleteById(id);
     }
 
     @Override
     public List<Passenger> getAll() {
-        return null;
+        return repository.findAll();
+    }
+
+    private String generateNextIndex() {
+        return String.valueOf(repository.findAll().size() + 1);
     }
 }

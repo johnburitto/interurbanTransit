@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.PassengerForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,19 @@ public class Passenger {
     private int bookedPlace;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Passenger(String id, ContactPerson contactPerson, int bookedPlace) {
+        this.id = id;
+        this.contactPerson = contactPerson;
+        this.bookedPlace = bookedPlace;
+    }
+
+    public void fillFromForm(PassengerForm form) {
+        ContactPerson contactPersonToAdd = new ContactPerson();
+        contactPersonToAdd.fillFromForm(form);
+        contactPerson = contactPersonToAdd;
+        bookedPlace = form.getBookedPlace();
+    }
 
     @Override
     public boolean equals(Object o) {
