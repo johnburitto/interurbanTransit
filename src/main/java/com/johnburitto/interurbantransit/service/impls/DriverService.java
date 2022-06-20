@@ -34,6 +34,10 @@ public class DriverService implements IService<Driver> {
         return repository.save(driver);
     }
 
+    private String generateNextIndex() {
+        return String.valueOf(repository.findAll().size() + 1);
+    }
+
     @Override
     public Driver get(String id) {
         return repository.findById(id).orElse(null);
@@ -61,11 +65,15 @@ public class DriverService implements IService<Driver> {
         return get(driverId).getWorkingBook().getNumberOfWorkingBook();
     }
 
-    private String generateNextIndex() {
-        return String.valueOf(repository.findAll().size() + 1);
-    }
-
     public Driver getByWorkingBookNumber(String workingBookNumber) {
         return repository.queryFindByWorkingBookNumber(workingBookNumber);
+    }
+
+    public List<Driver> getAllFreeDrivers(List<Driver> busyDrivers) {
+        List<Driver> freeDrivers = repository.findAll();
+
+        freeDrivers.removeAll(busyDrivers);
+
+        return freeDrivers;
     }
 }

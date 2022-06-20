@@ -14,7 +14,6 @@
     <input type="checkbox" id="id-display-filter" checked/>
     <input type="checkbox" id="name-display-filter" checked/>
     <input type="checkbox" id="contact-inf-display-filter" checked/>
-    <input type="checkbox" id="booked-place-display-filter" checked/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
     <div class="app-container">
@@ -32,7 +31,6 @@
                             <th id="id">Id</th>
                             <th id="name">Name</th>
                             <th id="contact-inf">Contact Inf</th>
-                            <th id="booked-place">Booked place</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
                             <th>Delete</th>
@@ -48,7 +46,6 @@
                                     <b>Telephone:</b> ${passenger.contactPerson.telephoneNumber}<br>
                                     <b>E-mail:</b> ${passenger.contactPerson.getEMail()}
                                 </td>
-                                <td class="align-middle hover-td" id="booked-place">${passenger.bookedPlace}</td>
                                 <td class="align-middle hover-td" id="created-at">${passenger.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${passenger.updatedAt}</td>
                                 <td class="align-middle">
@@ -67,7 +64,6 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-name" for="name-display-filter">Name</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-contact-inf" for="contact-inf-display-filter">Contact Inf</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-booked-place" for="booked-place-display-filter">Booked place</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>

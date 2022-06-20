@@ -12,10 +12,15 @@ package com.johnburitto.interurbantransit.repository;
  */
 
 import com.johnburitto.interurbantransit.model.Flight;
+import com.johnburitto.interurbantransit.model.FlightStatus;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface FlightMongoRepository extends MongoRepository<Flight, String> {
-
+    @Query(value = "{flightStatus: ?0}")
+    public List<Flight> queryFindByStatus(FlightStatus flightStatus);
 }

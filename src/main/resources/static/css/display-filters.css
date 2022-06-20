@@ -29,7 +29,8 @@
 #city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter, #places-of-work-display-filter,
 #transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter, #number-of-places-display-filter,
 #mileage-display-filter, #company-display-filter, #brand-display-filter, #model-display-filter, #passport-display-filter,
-#name-display-filter, #contact-inf-display-filter, #booked-place-display-filter {
+#name-display-filter, #contact-inf-display-filter, #booked-place-display-filter, #transport-display-filter, #driver-display-filter,
+#route-display-filter, #day-display-filter, #ticket-cost-display-filter, #flight-status-display-filter {
     display: none;
 }
 
@@ -209,6 +210,54 @@
     display: table-cell;
 }
 
+#transport-display-filter ~ * #transport {
+    display: none;
+}
+
+#transport-display-filter:checked ~ * #transport {
+    display: table-cell;
+}
+
+#driver-display-filter ~ * #driver {
+    display: none;
+}
+
+#driver-display-filter:checked ~ * #driver {
+    display: table-cell;
+}
+
+#route-display-filter ~ * #route {
+    display: none;
+}
+
+#route-display-filter:checked ~ * #route {
+    display: table-cell;
+}
+
+#day-display-filter ~ * #day {
+    display: none;
+}
+
+#day-display-filter:checked ~ * #day {
+    display: table-cell;
+}
+
+#ticket-cost-display-filter ~ * #ticket-cost {
+    display: none;
+}
+
+#ticket-cost-display-filter:checked ~ * #ticket-cost {
+    display: table-cell;
+}
+
+#flight-status-display-filter ~ * #flight-status {
+    display: none;
+}
+
+#flight-status-display-filter:checked ~ * #flight-status {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -315,6 +364,36 @@
 }
 
 #booked-place-display-filter:checked ~ * #for-booked-place {
+    background-color: #212529;
+    color: white;
+}
+
+#transport-display-filter:checked ~ * #for-transport {
+    background-color: #212529;
+    color: white;
+}
+
+#driver-display-filter:checked ~ * #for-driver {
+    background-color: #212529;
+    color: white;
+}
+
+#route-display-filter:checked ~ * #for-route {
+    background-color: #212529;
+    color: white;
+}
+
+#day-display-filter:checked ~ * #for-day {
+    background-color: #212529;
+    color: white;
+}
+
+#ticket-cost-display-filter:checked ~ * #for-ticket-cost {
+    background-color: #212529;
+    color: white;
+}
+
+#flight-status-display-filter:checked ~ * #for-flight-status {
     background-color: #212529;
     color: white;
 }

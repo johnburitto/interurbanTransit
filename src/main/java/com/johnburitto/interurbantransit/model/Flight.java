@@ -11,12 +11,14 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.FlightForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
@@ -28,12 +30,39 @@ public class Flight {
     private Transport transport;
     private Driver driver;
     private Route route;
-    private Passenger passenger;
     private double costOfTicket;
-    private LocalDateTime day;
+    private LocalDate startDay;
+    private LocalDate endDay;
     private FlightStatus flightStatus;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public Flight(String id, Transport transport, Driver driver, Route route, double costOfTicket, LocalDate startDay,
+                  LocalDate endDay, FlightStatus flightStatus) {
+        this.id = id;
+        this.transport = transport;
+        this.driver = driver;
+        this.route = route;
+        this.costOfTicket = costOfTicket;
+        this.startDay = startDay;
+        this.endDay = endDay;
+        this.flightStatus = flightStatus;
+    }
+
+    public String getDatesInRoad() {
+        if (startDay.equals(endDay)) {
+            return startDay.toString();
+        }
+
+        return startDay + "---" + endDay;
+    }
+
+    public void fillFromForm(FlightForm form) {
+        startDay = LocalDate.parse(form.getStartDay());
+        endDay = LocalDate.parse(form.getEndDay());
+        costOfTicket = form.getCostOfTicket();
+        flightStatus = FlightStatus.Waiting;
+    }
 
     @Override
     public boolean equals(Object o) {

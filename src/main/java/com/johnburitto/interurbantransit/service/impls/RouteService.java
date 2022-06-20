@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +34,10 @@ public class RouteService implements IService<Route> {
         route.setUpdatedAt(LocalDateTime.now());
 
         return repository.save(route);
+    }
+
+    private String generateNextIndex() {
+        return String.valueOf(repository.findAll().size() + 1);
     }
 
     @Override
@@ -58,7 +63,11 @@ public class RouteService implements IService<Route> {
         return repository.findAll();
     }
 
-    private String generateNextIndex() {
-        return String.valueOf(repository.findAll().size() + 1);
+    public List<Route> getAllFreeRoutes(List<Route> uncompletedRoutes) {
+        List<Route> freeRoutes = repository.findAll();
+
+        freeRoutes.removeAll(uncompletedRoutes);
+
+        return freeRoutes;
     }
 }

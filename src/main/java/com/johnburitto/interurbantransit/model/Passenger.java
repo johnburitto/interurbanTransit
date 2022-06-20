@@ -27,21 +27,18 @@ public class Passenger {
     @Id
     private String id;
     private ContactPerson contactPerson;
-    private int bookedPlace;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Passenger(String id, ContactPerson contactPerson, int bookedPlace) {
+    public Passenger(String id, ContactPerson contactPerson) {
         this.id = id;
         this.contactPerson = contactPerson;
-        this.bookedPlace = bookedPlace;
     }
 
     public void fillFromForm(PassengerForm form) {
         ContactPerson contactPersonToAdd = new ContactPerson();
         contactPersonToAdd.fillFromForm(form);
         contactPerson = contactPersonToAdd;
-        bookedPlace = form.getBookedPlace();
     }
 
     @Override

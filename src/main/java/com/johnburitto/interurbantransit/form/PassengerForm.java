@@ -23,7 +23,6 @@ public class PassengerForm {
     private String lastName;
     private String telephoneNumber;
     private String eMail;
-    private int bookedPlace;
 
     public void fillFromPassenger(Passenger passenger) {
         firstName = passenger.getContactPerson().getName().getFirstName();
@@ -31,6 +30,5 @@ public class PassengerForm {
         lastName = passenger.getContactPerson().getName().getLastName();
         telephoneNumber = passenger.getContactPerson().getTelephoneNumber();
         eMail = passenger.getContactPerson().getEMail();
-        bookedPlace = passenger.getBookedPlace();
     }
 }

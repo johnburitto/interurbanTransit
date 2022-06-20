@@ -35,10 +35,6 @@
                 <span class="input-text">E-mail:</span>
                 <input type="email" id="eMail" name="eMail" value="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="example@example.com"/>
             </div>
-            <div class="input-container">
-                <span class="input-text">Booked place:</span>
-                <input type="text" id="bookedPlace" name="bookedPlace" value="" placeholder="Booked place"/>
-            </div>
             <input  class="btn btn-outline-dark oswald-bold" type=submit value="Create">
         </form>
     </fieldset>

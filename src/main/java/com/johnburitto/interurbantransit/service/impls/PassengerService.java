@@ -34,6 +34,10 @@ public class PassengerService implements IService<Passenger> {
         return repository.save(passenger);
     }
 
+    private String generateNextIndex() {
+        return String.valueOf(repository.findAll().size() + 1);
+    }
+
     @Override
     public Passenger get(String id) {
         return repository.findById(id).orElse(null);
@@ -55,9 +59,5 @@ public class PassengerService implements IService<Passenger> {
     @Override
     public List<Passenger> getAll() {
         return repository.findAll();
-    }
-
-    private String generateNextIndex() {
-        return String.valueOf(repository.findAll().size() + 1);
     }
 }
