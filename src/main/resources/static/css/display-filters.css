@@ -31,7 +31,8 @@
 #mileage-display-filter, #company-display-filter, #brand-display-filter, #model-display-filter, #passport-display-filter,
 #name-display-filter, #contact-inf-display-filter, #booked-place-display-filter, #transport-display-filter, #driver-display-filter,
 #route-display-filter, #day-display-filter, #ticket-cost-display-filter, #flight-status-display-filter, #flight-display-filter,
-#passenger-display-filter, #day-of-booking-display-filter {
+#passenger-display-filter, #day-of-booking-display-filter, #start-day-display-filter, #end-day-display-filter,
+#number-of-passengers-display-filter, #profitability-display-filter {
     display: none;
 }
 
@@ -283,6 +284,38 @@
     display: table-cell;
 }
 
+#start-day-display-filter ~ * #start-day {
+    display: none;
+}
+
+#start-day-display-filter:checked ~ * #start-day {
+    display: table-cell;
+}
+
+#end-day-display-filter ~ * #end-day {
+    display: none;
+}
+
+#end-day-display-filter:checked ~ * #end-day {
+    display: table-cell;
+}
+
+#number-of-passengers-display-filter ~ * #number-of-passengers {
+    display: none;
+}
+
+#number-of-passengers-display-filter:checked ~ * #number-of-passengers {
+    display: table-cell;
+}
+
+#profitability-display-filter ~ * #profitability {
+    display: none;
+}
+
+#profitability-display-filter:checked ~ * #profitability {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -434,6 +467,26 @@
 }
 
 #day-of-booking-display-filter:checked ~ * #for-day-of-booking {
+    background-color: #212529;
+    color: white;
+}
+
+#start-day-display-filter:checked ~ * #for-start-day {
+    background-color: #212529;
+    color: white;
+}
+
+#end-day-display-filter:checked ~ * #for-end-day {
+    background-color: #212529;
+    color: white;
+}
+
+#number-of-passengers-display-filter:checked ~ * #for-number-of-passengers {
+    background-color: #212529;
+    color: white;
+}
+
+#profitability-display-filter:checked ~ * #for-profitability {
     background-color: #212529;
     color: white;
 }

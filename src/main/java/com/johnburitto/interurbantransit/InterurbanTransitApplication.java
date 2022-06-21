@@ -1,6 +1,6 @@
 package com.johnburitto.interurbantransit;
 
-import com.johnburitto.interurbantransit.model.BookedPlace;
+import com.johnburitto.interurbantransit.model.RouteProfitability;
 import com.johnburitto.interurbantransit.service.impls.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,11 +12,9 @@ import java.time.LocalDate;
 @SpringBootApplication
 public class InterurbanTransitApplication implements CommandLineRunner {
     @Autowired
-    BookedPlaceService bookedPlaceService;
+    RouteProfitabilityService routeProfitabilityService;
     @Autowired
-    FlightService flightService;
-    @Autowired
-    PassengerService passengerService;
+    RouteService routeService;
 
     public static void main(String[] args) {
         SpringApplication.run(InterurbanTransitApplication.class, args);
