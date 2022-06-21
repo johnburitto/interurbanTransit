@@ -30,7 +30,8 @@
 #transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter, #number-of-places-display-filter,
 #mileage-display-filter, #company-display-filter, #brand-display-filter, #model-display-filter, #passport-display-filter,
 #name-display-filter, #contact-inf-display-filter, #booked-place-display-filter, #transport-display-filter, #driver-display-filter,
-#route-display-filter, #day-display-filter, #ticket-cost-display-filter, #flight-status-display-filter {
+#route-display-filter, #day-display-filter, #ticket-cost-display-filter, #flight-status-display-filter, #flight-display-filter,
+#passenger-display-filter, #day-of-booking-display-filter {
     display: none;
 }
 
@@ -258,6 +259,30 @@
     display: table-cell;
 }
 
+#flight-display-filter ~ * #flight {
+    display: none;
+}
+
+#flight-display-filter:checked ~ * #flight {
+    display: table-cell;
+}
+
+#passenger-display-filter ~ * #passenger {
+    display: none;
+}
+
+#passenger-display-filter:checked ~ * #passenger {
+    display: table-cell;
+}
+
+#day-of-booking-display-filter ~ * #day-of-booking {
+    display: none;
+}
+
+#day-of-booking-display-filter:checked ~ * #day-of-booking {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -394,6 +419,21 @@
 }
 
 #flight-status-display-filter:checked ~ * #for-flight-status {
+    background-color: #212529;
+    color: white;
+}
+
+#flight-display-filter:checked ~ * #for-flight {
+    background-color: #212529;
+    color: white;
+}
+
+#passenger-display-filter:checked ~ * #for-passenger {
+    background-color: #212529;
+    color: white;
+}
+
+#day-of-booking-display-filter:checked ~ * #for-day-of-booking {
     background-color: #212529;
     color: white;
 }
