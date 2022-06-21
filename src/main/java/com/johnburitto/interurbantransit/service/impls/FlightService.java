@@ -89,20 +89,26 @@ public class FlightService implements IService<Flight> {
         if (conditionOfInRoad(flight)) {
             flight.setFlightStatus(FlightStatus.InRoad);
         }
-        else if (conditionOfCompleted(flight)) {
+        if (conditionOfCompleted(flight)) {
             flight.setFlightStatus(FlightStatus.Completed);
         }
     }
 
     private boolean conditionOfInRoad(Flight flight) {
-        return LocalTime.now().isAfter(flight.getRoute().getDepartureTime()) &&
-                LocalDate.now().isAfter(flight.getStartDay()) &&
+        if (LocalDate.now().isAfter(flight.getStartDay()) && flight.getFlightStatus().equals(FlightStatus.Waiting)) {
+            return true;
+        }
+        else return !LocalDate.now().isAfter(flight.getStartDay()) &&
+                LocalTime.now().isAfter(flight.getRoute().getDepartureTime()) &&
                 flight.getFlightStatus().equals(FlightStatus.Waiting);
     }
 
-    private boolean conditionOfCompleted(Flight flight) {
-        return LocalTime.now().isAfter(flight.getRoute().getArrivalTime()) &&
-                LocalDate.now().isAfter(flight.getEndDay()) &&
+    public boolean conditionOfCompleted(Flight flight) {
+        if (LocalDate.now().isAfter(flight.getEndDay()) && flight.getFlightStatus().equals(FlightStatus.InRoad)) {
+            return true;
+        }
+        else return !LocalDate.now().isAfter(flight.getEndDay()) &&
+                LocalTime.now().isAfter(flight.getRoute().getArrivalTime()) &&
                 flight.getFlightStatus().equals(FlightStatus.InRoad);
     }
 
