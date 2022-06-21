@@ -40,6 +40,10 @@ public class WorkingBookService implements IService<WorkingBook> {
         return repository.findById(id).orElse(null);
     }
 
+    public List<WorkingBook> getOneAsList(String numberOfWorkingBook) {
+        return Collections.singletonList(get(numberOfWorkingBook));
+    }
+
     @Override
     public WorkingBook update(WorkingBook workingBook) {
         workingBook.setCreatedAt(get(workingBook.getNumberOfWorkingBook()).getCreatedAt());
@@ -56,10 +60,6 @@ public class WorkingBookService implements IService<WorkingBook> {
     @Override
     public List<WorkingBook> getAll() {
         return repository.findAll();
-    }
-
-    public List<WorkingBook> getOneAsList(String numberOfWorkingBook) {
-        return Collections.singletonList(get(numberOfWorkingBook));
     }
 
     public List<PlaceOfWork> getPlacesOfWorkFromWorkingBook(String numberOfWorkingBook) {

@@ -50,7 +50,7 @@
                             <tr>
                                 <td class="align-middle hover-td" id="id">${flight.id}</td>
                                 <td class="align-middle hover-td" id="transport"
-                                    onclick="location.href='/ui/v1/transport-passports/${flight.transport.passport.transportNumber}'">
+                                    onclick="location.href='/ui/v1/transports/${flight.transport.id}'">
                                     <b>Transport:</b> ${flight.transport.brand} ${flight.transport.model}<br>
                                     <b>Number:</b> ${flight.transport.passport.transportNumber}<br>
                                     <b>Mileage:</b> ${flight.transport.passport.mileage}

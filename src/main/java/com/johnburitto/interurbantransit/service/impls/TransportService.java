@@ -14,6 +14,7 @@ package com.johnburitto.interurbantransit.service.impls;
 import com.johnburitto.interurbantransit.model.Driver;
 import com.johnburitto.interurbantransit.model.FlightStatus;
 import com.johnburitto.interurbantransit.model.Transport;
+import com.johnburitto.interurbantransit.model.WorkingBook;
 import com.johnburitto.interurbantransit.repository.TransportMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -46,6 +48,10 @@ public class TransportService implements IService<Transport> {
     @Override
     public Transport get(String id) {
         return transportRepository.findById(id).orElse(null);
+    }
+
+    public List<Transport> getOneAsList(String id) {
+        return Collections.singletonList(get(id));
     }
 
     @Override

@@ -39,6 +39,13 @@ public class TransportUIController {
         return "transports-all";
     }
 
+    @RequestMapping("/{id}")
+    public String showOne(Model model, @PathVariable String id) {
+        model.addAttribute("transports", transportService.getOneAsList(id));
+
+        return "transports-all";
+    }
+
     @RequestMapping("/delete/{id}")
     public String deleteOne(@PathVariable String id) {
         transportPassportService.delete(transportService.get(id).getTransportNumber());
