@@ -44,7 +44,9 @@ public class FlightService implements IService<Flight> {
     }
 
     private String generateNextIndex() {
-        return String.valueOf(flightRepository.findAll().size() + 1);
+        List<Flight> data = flightRepository.findAll();
+
+        return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
     }
 
     @Override
@@ -112,7 +114,7 @@ public class FlightService implements IService<Flight> {
                 flight.getFlightStatus().equals(FlightStatus.InRoad);
     }
 
-    private List<Flight> findByStatus(FlightStatus flightStatus) {
+    public List<Flight> findByStatus(FlightStatus flightStatus) {
         return flightRepository.queryFindByStatus(flightStatus);
     }
 

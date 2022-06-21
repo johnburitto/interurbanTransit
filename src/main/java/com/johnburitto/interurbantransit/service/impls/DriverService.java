@@ -35,7 +35,9 @@ public class DriverService implements IService<Driver> {
     }
 
     private String generateNextIndex() {
-        return String.valueOf(repository.findAll().size() + 1);
+        List<Driver> data = repository.findAll();
+
+        return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
     }
 
     @Override

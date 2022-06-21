@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.model.Driver;
 import com.johnburitto.interurbantransit.model.Route;
 import com.johnburitto.interurbantransit.repository.RouteMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
@@ -37,7 +38,9 @@ public class RouteService implements IService<Route> {
     }
 
     private String generateNextIndex() {
-        return String.valueOf(repository.findAll().size() + 1);
+        List<Route> data = repository.findAll();
+
+        return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
     }
 
     @Override
