@@ -98,7 +98,7 @@ public class FlightService implements IService<Flight> {
         if (LocalDate.now().isAfter(flight.getStartDay()) && flight.getFlightStatus().equals(FlightStatus.Waiting)) {
             return true;
         }
-        else return !LocalDate.now().isAfter(flight.getStartDay()) &&
+        else return LocalDate.now().equals(flight.getStartDay()) &&
                 LocalTime.now().isAfter(flight.getRoute().getDepartureTime()) &&
                 flight.getFlightStatus().equals(FlightStatus.Waiting);
     }
@@ -107,7 +107,7 @@ public class FlightService implements IService<Flight> {
         if (LocalDate.now().isAfter(flight.getEndDay()) && flight.getFlightStatus().equals(FlightStatus.InRoad)) {
             return true;
         }
-        else return !LocalDate.now().isAfter(flight.getEndDay()) &&
+        else return LocalDate.now().equals(flight.getEndDay()) &&
                 LocalTime.now().isAfter(flight.getRoute().getArrivalTime()) &&
                 flight.getFlightStatus().equals(FlightStatus.InRoad);
     }
