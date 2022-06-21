@@ -46,7 +46,12 @@ public class FlightService implements IService<Flight> {
     private String generateNextIndex() {
         List<Flight> data = flightRepository.findAll();
 
-        return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
+        try {
+            return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
+        }
+        catch (Exception e) {
+            return "0";
+        }
     }
 
     @Override

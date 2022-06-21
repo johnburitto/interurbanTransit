@@ -42,7 +42,12 @@ public class TransportService implements IService<Transport> {
     private String generateNextIndex() {
         List<Transport> data = transportRepository.findAll();
 
-        return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
+        try {
+            return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
+        }
+        catch (Exception e) {
+            return "0";
+        }
     }
 
     @Override
