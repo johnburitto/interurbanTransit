@@ -11,12 +11,15 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.FlightForm;
+import com.johnburitto.interurbantransit.form.FlightPostponeForm;
 import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.repository.FlightMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -67,11 +70,15 @@ public class FlightService implements IService<Flight> {
         }
     }
 
-    public void postpone(String id) {
+    public void postpone(String id, FlightPostponeForm form) {
         Flight flightToPostpone = get(id);
 
         if (flightToPostpone.conditionOfPostponing()) {
             flightToPostpone.setFlightStatus(FlightStatus.Postponed);
+            flightToPostpone.setStartDay(LocalDate.parse(form.getStartDay()));
+            flightToPostpone.setEndDay(LocalDate.parse(form.getEndDay()));
+            flightToPostpone.getRoute().setDepartureTime(form.getDepartureTime());
+            flightToPostpone.getRoute().setArrivalTime(form.getArrivalTime());
             update(flightToPostpone);
         }
     }
@@ -101,9 +108,17 @@ public class FlightService implements IService<Flight> {
     }
 
     private void updateFlight(Flight flight) {
-        flight.setTransport(transportService.get(flight.getTransport().getId()));
-        flight.setDriver(driverService.get(flight.getDriver().getId()));
-        flight.setRoute(routeService.get(flight.getRoute().getId()));
+        if (!flight.isPostponed()) {
+            if (!(flight.getTransport() == null)) {
+                flight.setTransport(transportService.get(flight.getTransport().getId()));
+            }
+            if (!(flight.getDriver() == null)) {
+                flight.setDriver(driverService.get(flight.getDriver().getId()));
+            }
+            if (!(flight.getRoute() == null)) {
+                flight.setRoute(routeService.get(flight.getRoute().getId()));
+            }
+        }
         updateStatus(flight);
         generateNextFlightItItNeed(flight);
 
@@ -135,7 +150,7 @@ public class FlightService implements IService<Flight> {
     }
 
     public List<Flight> getFreeFlights() {
-        List<Flight> freeFlights = findByStatus(FlightStatus.InRoad);
+        List<Flight> freeFlights = findByStatus(FlightStatus.Waiting);
         freeFlights.addAll(findByStatus(FlightStatus.Postponed));
 
         return freeFlights;

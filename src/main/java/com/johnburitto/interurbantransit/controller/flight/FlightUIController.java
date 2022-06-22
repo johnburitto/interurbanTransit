@@ -12,6 +12,7 @@ package com.johnburitto.interurbantransit.controller.flight;
  */
 
 import com.johnburitto.interurbantransit.form.FlightForm;
+import com.johnburitto.interurbantransit.form.FlightPostponeForm;
 import com.johnburitto.interurbantransit.model.Flight;
 import com.johnburitto.interurbantransit.service.impls.DriverService;
 import com.johnburitto.interurbantransit.service.impls.FlightService;
@@ -58,9 +59,16 @@ public class FlightUIController {
         return "redirect:/ui/v1/booked-places/redirect/flights";
     }
 
-    @RequestMapping("/postpone/{id}")
-    public String postponeFlight(@PathVariable String id) {
-        flightService.postpone(id);
+    @RequestMapping(value = "/postpone/{id}", method = RequestMethod.GET)
+    public String postponeFlight(Model model, @PathVariable String id) {
+        model.addAttribute("form", new FlightPostponeForm());
+
+        return "flight-postpone";
+    }
+
+    @RequestMapping(value = "/postpone/{id}", method = RequestMethod.POST)
+    public String postponeFlight(@ModelAttribute("form") FlightPostponeForm form, @PathVariable String id) {
+        flightService.postpone(id, form);
 
         return "redirect:/ui/v1/flights/";
     }

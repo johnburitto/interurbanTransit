@@ -48,7 +48,7 @@ public class BookedPlaceUIController {
     public String cancelBookedPlace(@PathVariable String id) {
         BookedPlace bookedPlaceToCancel = bookedPlaceService.get(id);
 
-        if (bookedPlaceToCancel.canBeCanceledRoReturn()) {
+        if (bookedPlaceToCancel.canBeCanceledRoReturn() && !(bookedPlaceToCancel.getFlight() == null)) {
             Transport transportToUpdate = transportService.get(bookedPlaceToCancel.getFlight().getTransport().getId());
             transportToUpdate.unbookPlace();
 
@@ -59,6 +59,9 @@ public class BookedPlaceUIController {
             flightService.update(flightToUpdate);
             bookedPlaceService.cancel(bookedPlaceToCancel);
         }
+        else {
+            bookedPlaceService.cancel(bookedPlaceToCancel);
+        }
 
         return "redirect:/ui/v1/booked-places/";
     }
@@ -67,7 +70,7 @@ public class BookedPlaceUIController {
     public String returnBookedPlace(@PathVariable String id) {
         BookedPlace bookedPlaceToReturn = bookedPlaceService.get(id);
 
-        if (bookedPlaceToReturn.canBeCanceledRoReturn()) {
+        if (bookedPlaceToReturn.canBeCanceledRoReturn() && !(bookedPlaceToReturn.getFlight() == null)) {
             Transport transportToUpdate = transportService.get(bookedPlaceToReturn.getFlight().getTransport().getId());
             transportToUpdate.unbookPlace();
 
@@ -76,6 +79,9 @@ public class BookedPlaceUIController {
 
             transportService.update(transportToUpdate);
             flightService.update(flightToUpdate);
+            bookedPlaceService.returnPlace(bookedPlaceToReturn);
+        }
+        else {
             bookedPlaceService.returnPlace(bookedPlaceToReturn);
         }
 

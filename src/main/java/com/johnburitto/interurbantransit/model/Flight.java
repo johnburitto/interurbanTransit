@@ -12,6 +12,7 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.FlightForm;
+import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -92,7 +93,8 @@ public class Flight {
 
     public boolean conditionOfPostponing() {
         return flightStatus.equals(FlightStatus.Waiting) ||
-               flightStatus.equals(FlightStatus.InRoad);
+               flightStatus.equals(FlightStatus.InRoad) ||
+               flightStatus.equals(FlightStatus.Postponed);
     }
 
     public boolean conditionOfNeedingNextFlight() {

@@ -92,10 +92,13 @@ public class BookedPlaceService implements IService<BookedPlace> {
     }
 
     private void updateBookedPlace(BookedPlace bookedPlace) {
-        bookedPlace.setFlight(flightService.get(bookedPlace.getFlight().getId()));
-        updateStatus(bookedPlace);
+        Flight flightToUpdate = flightService.get(bookedPlace.getFlight().getId());
 
-        update(bookedPlace);
+        if (!(flightToUpdate == null)) {
+            bookedPlace.setFlight(flightToUpdate);
+            updateStatus(bookedPlace);
+            update(bookedPlace);
+        }
     }
 
     private void updateStatus(BookedPlace bookedPlace) {
