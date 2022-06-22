@@ -16,5 +16,6 @@ public enum FlightStatus {
     Canceled,
     InRoad,
     Completed,
+    Completed_HasNext,
     Postponed
 }

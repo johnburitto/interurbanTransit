@@ -17,7 +17,6 @@ import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -102,41 +101,37 @@ public class FlightService implements IService<Flight> {
         flight.setDriver(driverService.get(flight.getDriver().getId()));
         flight.setRoute(routeService.get(flight.getRoute().getId()));
         updateStatus(flight);
+        generateNextFlightItItNeed(flight);
 
         update(flight);
     }
 
     private void updateStatus(Flight flight) {
-        if (conditionOfInRoad(flight)) {
-            flight.setFlightStatus(FlightStatus.InRoad);
+        if (flight.conditionOfInRoad()) {
+            inRoad(flight);
         }
-        if (conditionOfCompleted(flight)) {
-            flight.setFlightStatus(FlightStatus.Completed);
+        if (flight.conditionOfCompleted()) {
+            complete(flight);
         }
     }
 
-    private boolean conditionOfInRoad(Flight flight) {
-        if (LocalDate.now().isAfter(flight.getStartDay()) && flight.getFlightStatus().equals(FlightStatus.Waiting)) {
-            return true;
-        }
-        else return LocalDate.now().equals(flight.getStartDay()) &&
-                LocalTime.now().isAfter(flight.getRoute().getDepartureTime()) &&
-                flight.getFlightStatus().equals(FlightStatus.Waiting);
+    private void inRoad(Flight flight) {
+        flight.setFlightStatus(FlightStatus.InRoad);
     }
 
-    public boolean conditionOfCompleted(Flight flight) {
-        if (LocalDate.now().isAfter(flight.getEndDay()) && flight.getFlightStatus().equals(FlightStatus.InRoad)) {
-            return true;
+    private void complete(Flight flight) {
+        flight.setFlightStatus(FlightStatus.Completed);
+    }
+
+    private void generateNextFlightItItNeed(Flight flight) {
+        if (flight.isCompleted()) {
+            create(flight.generateNextFlight());
+            flight.setFlightStatus(FlightStatus.Completed_HasNext);
         }
-        else return LocalDate.now().equals(flight.getEndDay()) &&
-                LocalTime.now().isAfter(flight.getRoute().getArrivalTime()) &&
-                flight.getFlightStatus().equals(FlightStatus.InRoad);
     }
 
     public List<Flight> getFreeFlights() {
-        List<Flight> freeFlights = new ArrayList<>();
-
-        freeFlights = findByStatus(FlightStatus.InRoad);
+        List<Flight> freeFlights = findByStatus(FlightStatus.InRoad);
         freeFlights.addAll(findByStatus(FlightStatus.Postponed));
 
         return freeFlights;

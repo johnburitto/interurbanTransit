@@ -19,6 +19,8 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Data
@@ -64,12 +66,58 @@ public class Flight {
         flightStatus = FlightStatus.Waiting;
     }
 
+    public boolean conditionOfInRoad() {
+        if (LocalDate.now().isAfter(startDay) && flightStatus.equals(FlightStatus.Waiting)) {
+            return true;
+        }
+        else return LocalDate.now().equals(startDay) &&
+                    LocalTime.now().isAfter(route.getDepartureTime()) &&
+                    flightStatus.equals(FlightStatus.Waiting);
+    }
+
+    public boolean conditionOfCompleted() {
+        if (LocalDate.now().isAfter(endDay) && flightStatus.equals(FlightStatus.InRoad)) {
+            return true;
+        }
+        else return LocalDate.now().equals(endDay) &&
+                    LocalTime.now().isAfter(route.getArrivalTime()) &&
+                    flightStatus.equals(FlightStatus.InRoad);
+    }
+
+    private long daysBetweenNextFlight() {
+        long daysBetween = ChronoUnit.DAYS.between(startDay, endDay);
+
+        if (daysBetween > 0) {
+            return daysBetween + 2;
+        }
+
+        return daysBetween + 1;
+    }
+
+    public Flight generateNextFlight() {
+        Flight nextFlight = new Flight();
+
+        nextFlight.setTransport(transport);
+        nextFlight.setDriver(driver);
+        nextFlight.setRoute(route);
+        nextFlight.setCostOfTicket(costOfTicket);
+        nextFlight.setStartDay(startDay.plusDays(daysBetweenNextFlight()));
+        nextFlight.setEndDay(endDay.plusDays(daysBetweenNextFlight()));
+        nextFlight.setFlightStatus(FlightStatus.Waiting);
+
+        return nextFlight;
+    }
+
     public boolean isCanceled() {
         return flightStatus.equals(FlightStatus.Canceled);
     }
 
     public boolean isPostponed() {
         return flightStatus.equals(FlightStatus.Postponed);
+    }
+
+    public boolean isCompleted() {
+        return flightStatus.equals(FlightStatus.Completed);
     }
 
     @Override
