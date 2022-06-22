@@ -50,6 +50,10 @@ public class BookedPlace {
         status = BookedPlaceStatus.OK;
     }
 
+    public boolean canBeCanceledRoReturn() {
+        return status.equals(BookedPlaceStatus.OK) || status.equals(BookedPlaceStatus.Postponed_OK);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -12,7 +12,8 @@ package com.johnburitto.interurbantransit.service.impls;
  */
 
 import com.johnburitto.interurbantransit.model.BookedPlace;
-import com.johnburitto.interurbantransit.model.Driver;
+import com.johnburitto.interurbantransit.model.BookedPlaceStatus;
+import com.johnburitto.interurbantransit.model.Flight;
 import com.johnburitto.interurbantransit.repository.BookedPlaceMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,9 @@ import java.util.List;
 @Service
 public class BookedPlaceService implements IService<BookedPlace> {
     @Autowired
-    BookedPlaceMongoRepository repository;
+    BookedPlaceMongoRepository bookedPlaceRepository;
+    @Autowired
+    FlightService flightService;
 
     @Override
     public BookedPlace create(BookedPlace bookedPlace) {
@@ -32,11 +35,11 @@ public class BookedPlaceService implements IService<BookedPlace> {
         bookedPlace.setCreatedAt(LocalDateTime.now());
         bookedPlace.setUpdatedAt(LocalDateTime.now());
 
-        return repository.save(bookedPlace);
+        return bookedPlaceRepository.save(bookedPlace);
     }
 
     private String generateNextIndex() {
-        List<BookedPlace> data = repository.findAll();
+        List<BookedPlace> data = bookedPlaceRepository.findAll();
 
         try {
             return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
@@ -48,7 +51,17 @@ public class BookedPlaceService implements IService<BookedPlace> {
 
     @Override
     public BookedPlace get(String id) {
-        return repository.findById(id).orElse(null);
+        return bookedPlaceRepository.findById(id).orElse(null);
+    }
+
+    public void cancel(BookedPlace bookedPlaceToCancel) {
+        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Canceled);
+        update(bookedPlaceToCancel);
+    }
+
+    public void returnPlace(BookedPlace bookedPlaceToCancel) {
+        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Returned);
+        update(bookedPlaceToCancel);
     }
 
     @Override
@@ -56,16 +69,28 @@ public class BookedPlaceService implements IService<BookedPlace> {
         bookedPlace.setCreatedAt(get(bookedPlace.getId()).getCreatedAt());
         bookedPlace.setUpdatedAt(LocalDateTime.now());
 
-        return repository.save(bookedPlace);
+        return bookedPlaceRepository.save(bookedPlace);
     }
 
     @Override
     public void delete(String id) {
-        repository.deleteById(id);
+        bookedPlaceRepository.deleteById(id);
     }
 
     @Override
     public List<BookedPlace> getAll() {
-        return repository.findAll();
+        return bookedPlaceRepository.findAll();
+    }
+
+    public List<BookedPlace> updateAndGetAll() {
+        bookedPlaceRepository.findAll().forEach(this::updateBookedPlace);
+
+        return bookedPlaceRepository.findAll();
+    }
+
+    private void updateBookedPlace(BookedPlace bookedPlace) {
+        bookedPlace.setFlight(flightService.get(bookedPlace.getFlight().getId()));
+
+        update(bookedPlace);
     }
 }

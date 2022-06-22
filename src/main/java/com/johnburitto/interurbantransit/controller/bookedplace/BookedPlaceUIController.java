@@ -39,43 +39,45 @@ public class BookedPlaceUIController {
 
     @RequestMapping("/")
     public String showAll(Model model) {
-        model.addAttribute("bookedPlaces", bookedPlaceService.getAll());
+        model.addAttribute("bookedPlaces", bookedPlaceService.updateAndGetAll());
 
         return "booked-places-all";
     }
 
     @RequestMapping("/cancel/{id}")
     public String cancelBookedPlace(@PathVariable String id) {
-        Transport transportToUpdate = bookedPlaceService.get(id).getFlight().getTransport();
-        transportToUpdate.unbookPlace();
-
-        Flight flightToUpdate = bookedPlaceService.get(id).getFlight();
-        flightToUpdate.setTransport(transportToUpdate);
-
         BookedPlace bookedPlaceToCancel = bookedPlaceService.get(id);
-        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Canceled);
 
-        transportService.update(transportToUpdate);
-        flightService.update(flightToUpdate);
-        bookedPlaceService.update(bookedPlaceToCancel);
+        if (bookedPlaceToCancel.canBeCanceledRoReturn()) {
+            Transport transportToUpdate = transportService.get(bookedPlaceToCancel.getFlight().getTransport().getId());
+            transportToUpdate.unbookPlace();
+
+            Flight flightToUpdate = flightService.get(bookedPlaceToCancel.getFlight().getId());
+            flightToUpdate.setTransport(transportToUpdate);
+
+            transportService.update(transportToUpdate);
+            flightService.update(flightToUpdate);
+            bookedPlaceService.cancel(bookedPlaceToCancel);
+        }
 
         return "redirect:/ui/v1/booked-places/";
     }
 
     @RequestMapping("/return/{id}")
     public String returnBookedPlace(@PathVariable String id) {
-        Transport transportToUpdate = bookedPlaceService.get(id).getFlight().getTransport();
-        transportToUpdate.unbookPlace();
+        BookedPlace bookedPlaceToReturn = bookedPlaceService.get(id);
 
-        Flight flightToUpdate = bookedPlaceService.get(id).getFlight();
-        flightToUpdate.setTransport(transportToUpdate);
+        if (bookedPlaceToReturn.canBeCanceledRoReturn()) {
+            Transport transportToUpdate = transportService.get(bookedPlaceToReturn.getFlight().getTransport().getId());
+            transportToUpdate.unbookPlace();
 
-        BookedPlace bookedPlaceToCancel = bookedPlaceService.get(id);
-        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Returned);
+            Flight flightToUpdate = flightService.get(bookedPlaceToReturn.getFlight().getId());
+            flightToUpdate.setTransport(transportToUpdate);
 
-        transportService.update(transportToUpdate);
-        flightService.update(flightToUpdate);
-        bookedPlaceService.update(bookedPlaceToCancel);
+            transportService.update(transportToUpdate);
+            flightService.update(flightToUpdate);
+            bookedPlaceService.returnPlace(bookedPlaceToReturn);
+        }
 
         return "redirect:/ui/v1/booked-places/";
     }
