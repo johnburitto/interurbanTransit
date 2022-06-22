@@ -14,6 +14,7 @@ package com.johnburitto.interurbantransit.model;
 public enum FlightStatus {
     Waiting,
     Canceled,
+    Canceled_HasNext,
     InRoad,
     Completed,
     Completed_HasNext,

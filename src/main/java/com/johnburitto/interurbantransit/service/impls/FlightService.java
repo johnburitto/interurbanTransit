@@ -61,15 +61,19 @@ public class FlightService implements IService<Flight> {
     public void cancel(String id) {
         Flight flightToCancel = get(id);
 
-        flightToCancel.setFlightStatus(FlightStatus.Canceled);
-        update(flightToCancel);
+        if (flightToCancel.conditionOfCanceling()) {
+            flightToCancel.setFlightStatus(FlightStatus.Canceled);
+            update(flightToCancel);
+        }
     }
 
     public void postpone(String id) {
         Flight flightToPostpone = get(id);
 
-        flightToPostpone.setFlightStatus(FlightStatus.Postponed);
-        update(flightToPostpone);
+        if (flightToPostpone.conditionOfPostponing()) {
+            flightToPostpone.setFlightStatus(FlightStatus.Postponed);
+            update(flightToPostpone);
+        }
     }
 
     @Override
@@ -124,9 +128,9 @@ public class FlightService implements IService<Flight> {
     }
 
     private void generateNextFlightItItNeed(Flight flight) {
-        if (flight.isCompleted()) {
+        if (flight.conditionOfNeedingNextFlight()) {
             create(flight.generateNextFlight());
-            flight.setFlightStatus(FlightStatus.Completed_HasNext);
+            flight.setNewStatus();
         }
     }
 

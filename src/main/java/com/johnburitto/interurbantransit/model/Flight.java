@@ -84,6 +84,22 @@ public class Flight {
                     flightStatus.equals(FlightStatus.InRoad);
     }
 
+    public boolean conditionOfCanceling() {
+        return flightStatus.equals(FlightStatus.Waiting) ||
+               flightStatus.equals(FlightStatus.InRoad) ||
+               flightStatus.equals(FlightStatus.Postponed);
+    }
+
+    public boolean conditionOfPostponing() {
+        return flightStatus.equals(FlightStatus.Waiting) ||
+               flightStatus.equals(FlightStatus.InRoad);
+    }
+
+    public boolean conditionOfNeedingNextFlight() {
+        return flightStatus.equals(FlightStatus.Completed) ||
+               flightStatus.equals(FlightStatus.Canceled);
+    }
+
     private long daysBetweenNextFlight() {
         long daysBetween = ChronoUnit.DAYS.between(startDay, endDay);
 
@@ -118,6 +134,15 @@ public class Flight {
 
     public boolean isCompleted() {
         return flightStatus.equals(FlightStatus.Completed);
+    }
+
+    public void setNewStatus() {
+        if (isCompleted()) {
+            flightStatus = FlightStatus.Completed_HasNext;
+        }
+        else if (isCanceled()) {
+            flightStatus = FlightStatus.Canceled_HasNext;
+        }
     }
 
     @Override
