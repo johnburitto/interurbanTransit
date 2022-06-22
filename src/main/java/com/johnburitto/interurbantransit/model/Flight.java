@@ -64,6 +64,14 @@ public class Flight {
         flightStatus = FlightStatus.Waiting;
     }
 
+    public boolean isCanceled() {
+        return flightStatus.equals(FlightStatus.Canceled);
+    }
+
+    public boolean isPostponed() {
+        return flightStatus.equals(FlightStatus.Postponed);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

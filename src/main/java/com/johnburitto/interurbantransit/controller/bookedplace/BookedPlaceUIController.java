@@ -85,7 +85,7 @@ public class BookedPlaceUIController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addBookedPlace(Model model) {
         model.addAttribute("form", new BookedPlaceForm());
-        model.addAttribute("flights", flightService.findByStatus(FlightStatus.Waiting));
+        model.addAttribute("flights", flightService.getFreeFlights());
         model.addAttribute("passengers", passengerService.getAll());
 
         return "booked-place-add";
@@ -138,5 +138,12 @@ public class BookedPlaceUIController {
         bookedPlaceService.update(bookedPlaceToEdit);
 
         return "redirect:/ui/v1/booked-places/";
+    }
+
+    @RequestMapping("/redirect/flights")
+    public String redirectFlights() {
+        bookedPlaceService.updateAndGetAll();
+
+        return "redirect:/ui/v1/flights/";
     }
 }

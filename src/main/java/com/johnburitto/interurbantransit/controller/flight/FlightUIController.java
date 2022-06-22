@@ -51,6 +51,20 @@ public class FlightUIController {
         return "redirect:/ui/v1/flights/";
     }
 
+    @RequestMapping("/cancel/{id}")
+    public String cancelFlight(@PathVariable String id) {
+        flightService.cancel(id);
+
+        return "redirect:/ui/v1/booked-places/redirect/flights";
+    }
+
+    @RequestMapping("/postpone/{id}")
+    public String postponeFlight(@PathVariable String id) {
+        flightService.postpone(id);
+
+        return "redirect:/ui/v1/flights/";
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String createFlight(Model model) {
         model.addAttribute("form", new FlightForm());

@@ -15,5 +15,6 @@ public enum FlightStatus {
     Waiting,
     Canceled,
     InRoad,
-    Completed
+    Completed,
+    Postponed
 }

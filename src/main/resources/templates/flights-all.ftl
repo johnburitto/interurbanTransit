@@ -42,6 +42,8 @@
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
                             <th>Delete</th>
+                            <th>Cancel</th>
+                            <th>Postpone</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
@@ -72,6 +74,14 @@
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/flights/delete/${flight.id}'">Delete</button>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-dark oswald-bold"
+                                            onclick="location.href='/ui/v1/flights/cancel/${flight.id}'">Cancel</button>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-dark oswald-bold"
+                                            onclick="location.href='/ui/v1/flights/postpone/${flight.id}'">Postpone</button>
                                 </td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"

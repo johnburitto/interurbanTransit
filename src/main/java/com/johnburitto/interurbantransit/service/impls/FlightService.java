@@ -59,6 +59,20 @@ public class FlightService implements IService<Flight> {
         return flightRepository.findById(id).orElse(null);
     }
 
+    public void cancel(String id) {
+        Flight flightToCancel = get(id);
+
+        flightToCancel.setFlightStatus(FlightStatus.Canceled);
+        update(flightToCancel);
+    }
+
+    public void postpone(String id) {
+        Flight flightToPostpone = get(id);
+
+        flightToPostpone.setFlightStatus(FlightStatus.Postponed);
+        update(flightToPostpone);
+    }
+
     @Override
     public Flight update(Flight flight) {
         flight.setCreatedAt(get(flight.getId()).getCreatedAt());
@@ -117,6 +131,15 @@ public class FlightService implements IService<Flight> {
         else return LocalDate.now().equals(flight.getEndDay()) &&
                 LocalTime.now().isAfter(flight.getRoute().getArrivalTime()) &&
                 flight.getFlightStatus().equals(FlightStatus.InRoad);
+    }
+
+    public List<Flight> getFreeFlights() {
+        List<Flight> freeFlights = new ArrayList<>();
+
+        freeFlights = findByStatus(FlightStatus.InRoad);
+        freeFlights.addAll(findByStatus(FlightStatus.Postponed));
+
+        return freeFlights;
     }
 
     public List<Flight> findByStatus(FlightStatus flightStatus) {

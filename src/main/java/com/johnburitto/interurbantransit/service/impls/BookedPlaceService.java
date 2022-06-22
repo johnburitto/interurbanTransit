@@ -14,6 +14,7 @@ package com.johnburitto.interurbantransit.service.impls;
 import com.johnburitto.interurbantransit.model.BookedPlace;
 import com.johnburitto.interurbantransit.model.BookedPlaceStatus;
 import com.johnburitto.interurbantransit.model.Flight;
+import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.repository.BookedPlaceMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class BookedPlaceService implements IService<BookedPlace> {
     BookedPlaceMongoRepository bookedPlaceRepository;
     @Autowired
     FlightService flightService;
+    @Autowired
+    TransportService transportService;
 
     @Override
     public BookedPlace create(BookedPlace bookedPlace) {
@@ -90,7 +93,25 @@ public class BookedPlaceService implements IService<BookedPlace> {
 
     private void updateBookedPlace(BookedPlace bookedPlace) {
         bookedPlace.setFlight(flightService.get(bookedPlace.getFlight().getId()));
+        updateStatus(bookedPlace);
 
         update(bookedPlace);
+    }
+
+    private void updateStatus(BookedPlace bookedPlace) {
+        if (bookedPlace.getFlight().isCanceled()) {
+            Transport transportToUpdate = transportService.get(bookedPlace.getFlight().getTransport().getId());
+            Flight flightToUpdate = flightService.get(bookedPlace.getFlight().getId());
+
+            bookedPlace.setStatus(BookedPlaceStatus.Canceled);
+            transportToUpdate.setNumberOfBookedPlaces(0);
+            flightToUpdate.setTransport(transportToUpdate);
+
+            transportService.update(transportToUpdate);
+            flightService.update(flightToUpdate);
+        }
+        if (bookedPlace.getFlight().isPostponed() && bookedPlace.getStatus().equals(BookedPlaceStatus.OK)) {
+            bookedPlace.setStatus(BookedPlaceStatus.Postponed_OK);
+        }
     }
 }
