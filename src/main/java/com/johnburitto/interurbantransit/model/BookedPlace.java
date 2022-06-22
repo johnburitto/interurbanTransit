@@ -31,6 +31,7 @@ public class BookedPlace {
     private Passenger passenger;
     private int bookedPlace;
     private LocalDate dayOfBooking;
+    private BookedPlaceStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -40,11 +41,13 @@ public class BookedPlace {
         this.passenger = passenger;
         this.bookedPlace = bookedPlace;
         this.dayOfBooking = dayOfBooking;
+        this.status = BookedPlaceStatus.OK;
     }
 
     public void fillFromForm(BookedPlaceForm form) {
         bookedPlace = form.getBookedPlace();
         dayOfBooking = LocalDate.now();
+        status = BookedPlaceStatus.OK;
     }
 
     @Override

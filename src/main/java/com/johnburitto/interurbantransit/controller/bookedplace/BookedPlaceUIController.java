@@ -12,11 +12,11 @@ package com.johnburitto.interurbantransit.controller.bookedplace;
  */
 
 import com.johnburitto.interurbantransit.form.BookedPlaceForm;
-import com.johnburitto.interurbantransit.model.BookedPlace;
-import com.johnburitto.interurbantransit.model.FlightStatus;
+import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
 import com.johnburitto.interurbantransit.service.impls.FlightService;
 import com.johnburitto.interurbantransit.service.impls.PassengerService;
+import com.johnburitto.interurbantransit.service.impls.TransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +34,8 @@ public class BookedPlaceUIController {
     FlightService flightService;
     @Autowired
     PassengerService passengerService;
+    @Autowired
+    TransportService transportService;
 
     @RequestMapping("/")
     public String showAll(Model model) {
@@ -42,9 +44,38 @@ public class BookedPlaceUIController {
         return "booked-places-all";
     }
 
-    @RequestMapping("/delete/{id}")
-    public String deleteBookedPlace(@PathVariable String id) {
-        bookedPlaceService.delete(id);
+    @RequestMapping("/cancel/{id}")
+    public String cancelBookedPlace(@PathVariable String id) {
+        Transport transportToUpdate = bookedPlaceService.get(id).getFlight().getTransport();
+        transportToUpdate.unbookPlace();
+
+        Flight flightToUpdate = bookedPlaceService.get(id).getFlight();
+        flightToUpdate.setTransport(transportToUpdate);
+
+        BookedPlace bookedPlaceToCancel = bookedPlaceService.get(id);
+        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Canceled);
+
+        transportService.update(transportToUpdate);
+        flightService.update(flightToUpdate);
+        bookedPlaceService.update(bookedPlaceToCancel);
+
+        return "redirect:/ui/v1/booked-places/";
+    }
+
+    @RequestMapping("/return/{id}")
+    public String returnBookedPlace(@PathVariable String id) {
+        Transport transportToUpdate = bookedPlaceService.get(id).getFlight().getTransport();
+        transportToUpdate.unbookPlace();
+
+        Flight flightToUpdate = bookedPlaceService.get(id).getFlight();
+        flightToUpdate.setTransport(transportToUpdate);
+
+        BookedPlace bookedPlaceToCancel = bookedPlaceService.get(id);
+        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Returned);
+
+        transportService.update(transportToUpdate);
+        flightService.update(flightToUpdate);
+        bookedPlaceService.update(bookedPlaceToCancel);
 
         return "redirect:/ui/v1/booked-places/";
     }
@@ -62,10 +93,18 @@ public class BookedPlaceUIController {
     public String addBookedPlace(@ModelAttribute("form") BookedPlaceForm form) {
         BookedPlace bookedPlaceToAdd = new BookedPlace();
 
+
         bookedPlaceToAdd.fillFromForm(form);
         bookedPlaceToAdd.setFlight(flightService.get(form.getFlight()));
         bookedPlaceToAdd.setPassenger(passengerService.get(form.getPassenger()));
+
+        Transport transportToUpdate = bookedPlaceToAdd.getFlight().getTransport();
+        transportToUpdate.bookPlace();
+        bookedPlaceToAdd.getFlight().setTransport(transportToUpdate);
+
         bookedPlaceService.create(bookedPlaceToAdd);
+        transportService.update(transportToUpdate);
+        flightService.update(bookedPlaceToAdd.getFlight());
 
         return "redirect:/ui/v1/booked-places/";
     }
@@ -77,8 +116,6 @@ public class BookedPlaceUIController {
 
         bookedPlaceForm.fillFromBookedPlace(bookedPlaceToEdit);
         model.addAttribute("form", bookedPlaceForm);
-        model.addAttribute("flights", flightService.findByStatus(FlightStatus.Waiting));
-        model.addAttribute("passengers", passengerService.getAll());
         model.addAttribute("currentFlight", flightService.get(bookedPlaceForm.getFlight()));
         model.addAttribute("currentPassenger", passengerService.get(bookedPlaceForm.getPassenger()));
 

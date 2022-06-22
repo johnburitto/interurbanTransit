@@ -55,6 +55,18 @@ public class Transport {
         return passport.getTransportNumber();
     }
 
+    public void bookPlace() {
+        if (numberOfBookedPlaces++ > passport.getNumberOfPlaces()) {
+            numberOfBookedPlaces--;
+        }
+    }
+
+    public void unbookPlace() {
+        if (numberOfBookedPlaces-- < 0) {
+            numberOfBookedPlaces++;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

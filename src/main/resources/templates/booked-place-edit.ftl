@@ -23,22 +23,12 @@
                         ${currentFlight.route.departureTime}-${currentFlight.route.arrivalTime};
                         ${currentFlight.getDatesInRoad()}
                     </option>
-                    <#list flights as flight>
-                        <option value="${flight.id}">
-                            ${flight.route.fromCity}-${flight.route.toCity};
-                            ${flight.route.departureTime}-${flight.route.arrivalTime};
-                            ${flight.getDatesInRoad()}
-                        </option>
-                    </#list>
                 </select>
             </div>
             <div class="input-container">
                 <span class="input-text">Passenger:</span>
                 <select class="oswald" id="passenger" name="passenger">
                     <option value="${currentPassenger.id}" selected>${currentPassenger.contactPerson.name}</option>
-                    <#list passengers as passenger>
-                        <option value="${passenger.id}">${passenger.contactPerson.name}</option>
-                    </#list>
                 </select>
             </div>
             <div class="input-container">
