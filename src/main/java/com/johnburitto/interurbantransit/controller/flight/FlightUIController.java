@@ -14,10 +14,8 @@ package com.johnburitto.interurbantransit.controller.flight;
 import com.johnburitto.interurbantransit.form.FlightForm;
 import com.johnburitto.interurbantransit.form.FlightPostponeForm;
 import com.johnburitto.interurbantransit.model.Flight;
-import com.johnburitto.interurbantransit.service.impls.DriverService;
-import com.johnburitto.interurbantransit.service.impls.FlightService;
-import com.johnburitto.interurbantransit.service.impls.RouteService;
-import com.johnburitto.interurbantransit.service.impls.TransportService;
+import com.johnburitto.interurbantransit.model.FlightStatus;
+import com.johnburitto.interurbantransit.service.impls.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/ui/v1/flights")
@@ -37,6 +37,8 @@ public class FlightUIController {
     DriverService driverService;
     @Autowired
     RouteService routeService;
+    @Autowired
+    BookedPlaceService bookedPlaceService;
 
     @RequestMapping("/")
     public String showAll(Model model) {
@@ -61,7 +63,11 @@ public class FlightUIController {
 
     @RequestMapping(value = "/postpone/{id}", method = RequestMethod.GET)
     public String postponeFlight(Model model, @PathVariable String id) {
-        model.addAttribute("form", new FlightPostponeForm());
+        Flight flightToPostpone = flightService.get(id);
+        FlightPostponeForm flightPostponeForm = new FlightPostponeForm();
+
+        flightPostponeForm.fillFromFlight(flightToPostpone);
+        model.addAttribute("form", flightPostponeForm);
 
         return "flight-postpone";
     }
@@ -124,5 +130,34 @@ public class FlightUIController {
         flightService.update(flightToEdit);
 
         return "redirect:/ui/v1/flights/";
+    }
+
+    @RequestMapping("/{flightStatus}")
+    public String showAllFlightByStatus(Model model, @PathVariable String flightStatus) {
+        List<Flight> flights = flightService.getAllFlightsByStatus(flightStatus);
+
+        model.addAttribute("flights", flights);
+        model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
+
+        return "flights-all-with-number-of-booked-places";
+    }
+
+    @RequestMapping("/{flightStatus}/route/{id}")
+    public String showAllFlightByRouteAndStatus(Model model, @PathVariable String id,
+                                                @PathVariable String flightStatus) {
+        List<Flight> flights = flightService.getAllFlightsByRouteAndStatus(id, flightStatus);
+
+        model.addAttribute("flights", flights);
+        model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
+
+        return "flights-all-with-number-of-booked-places";
+    }
+
+    @RequestMapping("/{id}/{flightStatus}/passengers")
+    public String showAllPassengersOfFlightByStatus(Model model, @PathVariable String id,
+                                                    @PathVariable String flightStatus) {
+        model.addAttribute("passengers", flightService.getAllPassengersOfFlight(id, flightStatus));
+
+        return "passengers-all";
     }
 }

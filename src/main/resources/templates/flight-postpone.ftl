@@ -17,19 +17,19 @@
             <form name="item" action="" method="POST" class="inputs-container" autocomplete="off">
                 <div class="input-container">
                     <span class="input-text">Start day:</span>
-                    <input type="date" id="startDay" name="startDay" value=""/>
+                    <input type="date" id="startDay" name="startDay" value="${form.startDay}"/>
                 </div>
                 <div class="input-container">
                     <span class="input-text">End day:</span>
-                    <input type="date" id="endDay" name="endDay" value=""/>
+                    <input type="date" id="endDay" name="endDay" value="${form.endDay}"/>
                 </div>
                 <div class="input-container">
                     <span class="input-text">Departure time:</span>
-                    <input type="time" id="departureTime" name="departureTime" value=""/>
+                    <input type="time" id="departureTime" name="departureTime" value="${form.departureTime}"/>
                 </div>
                 <div class="input-container">
                     <span class="input-text">Arrival time:</span>
-                    <input type="time" id="arrivalTime" name="arrivalTime" value=""/>
+                    <input type="time" id="arrivalTime" name="arrivalTime" value="${form.arrivalTime}"/>
                 </div>
                 <input  class="btn btn-outline-dark oswald-bold" type=submit value="Postpone">
             </form>

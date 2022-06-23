@@ -1,4 +1,4 @@
-package com.johnburitto.interurbantransit.controller.flightprofitability;
+package com.johnburitto.interurbantransit.controller.routeprofitability;
 
 /*
  * @author JohnBuritto
@@ -32,7 +32,7 @@ public class RouteProfitabilityUIController {
 
     @RequestMapping("/")
     public String showAll(Model model) {
-        model.addAttribute("rps", routeProfitabilityService.getAll());
+        model.addAttribute("rps", routeProfitabilityService.initAndGetAll());
 
         return "route-profitability-all";
     }

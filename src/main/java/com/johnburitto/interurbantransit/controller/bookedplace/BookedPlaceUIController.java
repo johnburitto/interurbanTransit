@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/ui/v1/booked-places")
 public class BookedPlaceUIController {
@@ -151,5 +153,33 @@ public class BookedPlaceUIController {
         bookedPlaceService.updateAndGetAll();
 
         return "redirect:/ui/v1/flights/";
+    }
+
+    @RequestMapping("/name/{name}")
+    public String allBookedPlacesByName(Model model, @PathVariable String name) {
+        Name searchName = Name.parse(name);
+
+        model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByName(searchName));
+
+        return "booked-places-all";
+    }
+
+    @RequestMapping("/last-name/{lastName}")
+    public String allBookedPlacesByLastName(Model model, @PathVariable String lastName) {
+        model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByLastName(lastName));
+
+        return "booked-places-all";
+    }
+
+    @RequestMapping("/interval/{startDay}/{endDay}")
+    public String showAllInterval(Model model, @PathVariable String startDay, @PathVariable String endDay) {
+        List<BookedPlace> bookedPlaces = bookedPlaceService.getAllByDayOfBooking(startDay, endDay);
+        int numberOfFlights = flightService.getNumberOfFlights(bookedPlaces);
+
+        model.addAttribute("bookedPlaces", bookedPlaces);
+        model.addAttribute("numberOfFlights", numberOfFlights);
+        model.addAttribute("averageNumber", (double) bookedPlaces.size() / (double) numberOfFlights);
+
+        return "booked-places-all-with-average";
     }
 }

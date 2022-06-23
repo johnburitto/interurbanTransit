@@ -11,11 +11,28 @@ package com.johnburitto.interurbantransit.repository;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.model.BookedPlace;
+import com.johnburitto.interurbantransit.model.*;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface BookedPlaceMongoRepository extends MongoRepository<BookedPlace, String> {
+    @Query(value = "{$and: [{flight: ?0}, {flight_flightStatus: ?1}]}")
+    public List<BookedPlace> queryFindByFlightAndItsStatus(Flight flight, FlightStatus flightStatus);
 
+    @Query(value = "{passenger_contactPerson_name: ?0}")
+    public List<BookedPlace> queryFindByName(Name name);
+
+    @Query(value = "{passenger_contactPerson_name_lastName: ?0}")
+    public List<BookedPlace> queryFindByLastName(String lastName);
+
+    @Query(value = "{$and: [{flight_route: ?0}, {flight_endDay: ?1}]}")
+    public List<BookedPlace> queryFindByRouteAndEndDay(Route route, LocalDate endDay);
+
+    @Query(value = "{dayOfBooking: ?0}")
+    public List<BookedPlace> queryFindByDayOfBooking(LocalDate dayOfBooking);
 }

@@ -1,4 +1,4 @@
-package com.johnburitto.interurbantransit.controller.flightprofitability;
+package com.johnburitto.interurbantransit.controller.routeprofitability;
 
 /*
  * @author JohnBuritto
@@ -11,7 +11,6 @@ package com.johnburitto.interurbantransit.controller.flightprofitability;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.model.Route;
 import com.johnburitto.interurbantransit.model.RouteProfitability;
 import com.johnburitto.interurbantransit.service.impls.RouteProfitabilityService;
 import org.springframework.beans.factory.annotation.Autowired;

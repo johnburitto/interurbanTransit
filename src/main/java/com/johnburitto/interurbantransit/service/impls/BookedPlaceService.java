@@ -11,16 +11,17 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.model.BookedPlace;
-import com.johnburitto.interurbantransit.model.BookedPlaceStatus;
-import com.johnburitto.interurbantransit.model.Flight;
-import com.johnburitto.interurbantransit.model.Transport;
+import ch.qos.logback.classic.spi.LoggerContextAware;
+import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.repository.BookedPlaceMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -116,5 +117,48 @@ public class BookedPlaceService implements IService<BookedPlace> {
         if (bookedPlace.getFlight().isPostponed() && bookedPlace.getStatus().equals(BookedPlaceStatus.OK)) {
             bookedPlace.setStatus(BookedPlaceStatus.Postponed_OK);
         }
+    }
+
+    public List<BookedPlace> getAllPlacesByFlightAndItsStatus(Flight flight, FlightStatus flightStatus) {
+        return bookedPlaceRepository.queryFindByFlightAndItsStatus(flight, flightStatus);
+    }
+
+    public List<BookedPlace> getAllPlacesByName(Name name) {
+        return bookedPlaceRepository.queryFindByName(name);
+    }
+
+    public List<BookedPlace> getAllPlacesByLastName(String lastName) {
+        return bookedPlaceRepository.queryFindByLastName(lastName);
+    }
+
+    public int getNumberOfAllBookedPlaces(List<Flight> flights) {
+        List<BookedPlace> allBookedPlaces = new ArrayList<>();
+
+        for (Flight flight : flights) {
+            allBookedPlaces.addAll(getAllByRouteAndEndDay(flight.getRoute(), flight.getEndDay()));
+        }
+
+        return allBookedPlaces.size();
+    }
+
+    public List<BookedPlace> getAllByRouteAndEndDay(Route route, LocalDate endDay) {
+        return bookedPlaceRepository.queryFindByRouteAndEndDay(route, endDay);
+    }
+
+    public List<BookedPlace> getAllByDayOfBooking(String startDay, String endDay) {
+        LocalDate sDay = LocalDate.parse(startDay);
+        LocalDate eDay = LocalDate.parse(endDay);
+        List<BookedPlace> allBookedPlaces = new ArrayList<>();
+        long dayScale = ChronoUnit.DAYS.between(sDay, eDay);
+
+        for (long i = 0; i <= dayScale; i++) {
+            allBookedPlaces.addAll(getByDayOfBooking(sDay.plusDays(i)));
+        }
+
+        return allBookedPlaces;
+    }
+
+    public List<BookedPlace> getByDayOfBooking(LocalDate dayOfBooking) {
+        return bookedPlaceRepository.queryFindByDayOfBooking(dayOfBooking);
     }
 }

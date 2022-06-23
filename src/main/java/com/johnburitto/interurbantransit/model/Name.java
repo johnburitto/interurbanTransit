@@ -15,6 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,9 +25,16 @@ public class Name {
     private String firstName;
     private String middleName;
     private String lastName;
+    private final static String NAME_SEPARATOR = "-";
 
     @Override
     public String toString() {
         return firstName + " " + middleName + " " + lastName;
+    }
+
+    public static Name parse(String name) {
+        List<String> components = Arrays.asList(name.split(NAME_SEPARATOR));
+
+        return new Name(components.get(0), components.get(1), components.get(2));
     }
 }

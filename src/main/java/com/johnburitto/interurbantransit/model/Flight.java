@@ -68,12 +68,13 @@ public class Flight {
     }
 
     public boolean conditionOfInRoad() {
-        if (LocalDate.now().isAfter(startDay) && flightStatus.equals(FlightStatus.Waiting)) {
+        if (LocalDate.now().isAfter(startDay) && (flightStatus.equals(FlightStatus.Waiting) ||
+                                                  flightStatus.equals(FlightStatus.Postponed))) {
             return true;
         }
         else return LocalDate.now().equals(startDay) &&
                     LocalTime.now().isAfter(route.getDepartureTime()) &&
-                    flightStatus.equals(FlightStatus.Waiting);
+                    (flightStatus.equals(FlightStatus.Waiting) || flightStatus.equals(FlightStatus.Postponed));
     }
 
     public boolean conditionOfCompleted() {

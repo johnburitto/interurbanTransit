@@ -19,6 +19,8 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -42,11 +44,32 @@ public class RouteProfitability {
         this.endDay = endDay;
     }
 
+    public void setNumberOfPassengersAndCalcProfitability(List<BookedPlace> allPlaces) {
+        numberOfPassengers = 0;
+        profitability = 0;
+
+        numberOfPassengers = (int) allPlaces.stream()
+                .filter(bookedPlace ->
+                                bookedPlace.getStatus().equals(BookedPlaceStatus.OK) ||
+                                bookedPlace.getStatus().equals(BookedPlaceStatus.Postponed_OK))
+                .count();
+
+        allPlaces.stream()
+                .filter(bookedPlace ->
+                                bookedPlace.getStatus().equals(BookedPlaceStatus.OK) ||
+                                bookedPlace.getStatus().equals(BookedPlaceStatus.Postponed_OK))
+                .forEach(bookedPlace -> profitability += bookedPlace.getFlight().getCostOfTicket());
+    }
+
     public void fillFromForm(RouteProfitabilityForm form) {
         startDay = LocalDate.parse(form.getStartDay());
         endDay = LocalDate.parse(form.getEndDay());
         numberOfPassengers = 0;
         profitability = 0;
+    }
+
+    public long daysOfAccrual() {
+        return ChronoUnit.DAYS.between(startDay, endDay);
     }
 
     @Override

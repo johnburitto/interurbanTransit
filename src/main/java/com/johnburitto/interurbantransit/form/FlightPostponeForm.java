@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.form;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.model.Flight;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,11 @@ public class FlightPostponeForm {
     private String endDay;
     private LocalTime departureTime;
     private LocalTime arrivalTime;
+
+    public void fillFromFlight(Flight flight) {
+        startDay = flight.getStartDay().toString();
+        endDay = flight.getEndDay().toString();
+        departureTime = flight.getRoute().getDepartureTime();
+        arrivalTime = flight.getRoute().getArrivalTime();
+    }
 }

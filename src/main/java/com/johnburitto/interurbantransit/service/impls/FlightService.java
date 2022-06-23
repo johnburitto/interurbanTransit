@@ -23,7 +23,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FlightService implements IService<Flight> {
@@ -35,6 +37,8 @@ public class FlightService implements IService<Flight> {
     DriverService driverService;
     @Autowired
     RouteService routeService;
+    @Autowired
+    BookedPlaceService bookedPlaceService;
 
     @Override
     public Flight create(Flight flight) {
@@ -156,10 +160,6 @@ public class FlightService implements IService<Flight> {
         return freeFlights;
     }
 
-    public List<Flight> findByStatus(FlightStatus flightStatus) {
-        return flightRepository.queryFindByStatus(flightStatus);
-    }
-
     public List<Transport> getAllBusyTransports() {
         List<Transport> busyTransports = new ArrayList<>();
 
@@ -185,5 +185,98 @@ public class FlightService implements IService<Flight> {
         findByStatus(FlightStatus.Waiting).forEach(flight -> uncompletedRoutes.add(flight.getRoute()));
 
         return uncompletedRoutes;
+    }
+
+    public List<Flight> getAllFlightsByStatus(String flightStatus) {
+        List<Flight> allFlights = new ArrayList<>();
+
+        switch (flightStatus) {
+            case "canceled": {
+                allFlights.addAll(findByStatus(FlightStatus.Canceled));
+                allFlights.addAll(findByStatus(FlightStatus.Canceled_HasNext));
+            } break;
+            case "postponed": {
+                allFlights.addAll(findByStatus(FlightStatus.Postponed));
+            } break;
+            case "waiting": {
+                allFlights.addAll(findByStatus(FlightStatus.Waiting));
+            } break;
+            case "completed": {
+                allFlights.addAll(findByStatus(FlightStatus.Completed));
+                allFlights.addAll(findByStatus(FlightStatus.Completed_HasNext));
+            } break;
+            default: break;
+        }
+
+        return allFlights;
+    }
+
+    public List<Flight> findByStatus(FlightStatus flightStatus) {
+        return flightRepository.queryFindByStatus(flightStatus);
+    }
+
+    public List<Flight> getAllFlightsByRouteAndStatus(String id, String flightStatus) {
+        List<Flight> allFlights = new ArrayList<>();
+
+        switch (flightStatus) {
+            case "canceled": {
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Canceled));
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Canceled_HasNext));
+            } break;
+            case "postponed": {
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Postponed));
+            } break;
+            case "waiting": {
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Waiting));
+            } break;
+            case "completed": {
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Completed));
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Completed_HasNext));
+            } break;
+            default: break;
+        }
+
+        return allFlights;
+    }
+
+    public List<Flight> findByRouteAndStatus(String id, FlightStatus flightStatus) {
+        return flightRepository.queryFindByRouteAndStatus(routeService.get(id), flightStatus);
+    }
+
+    public List<Passenger> getAllPassengersOfFlight(String id, String flightStatus) {
+        List<Passenger> allPassengers = new ArrayList<>();
+        List<BookedPlace> allBookedPlaces = new ArrayList<>();
+
+        switch (flightStatus) {
+            case "canceled": {
+              allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Canceled));
+              allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Canceled_HasNext));
+            } break;
+            case "postponed": {
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Postponed));
+            } break;
+            case "waiting": {
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Waiting));
+            } break;
+            case "completed": {
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Completed));
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Completed_HasNext));
+            }
+            default: break;
+        }
+
+        allBookedPlaces.forEach(bookedPlace -> allPassengers.add(bookedPlace.getPassenger()));
+
+        return allPassengers;
+    }
+
+    public int getNumberOfFlights(List<BookedPlace> bookedPlaces) {
+        Set<Flight> uniqueFlights = new HashSet<>();
+
+        for (BookedPlace bookedPlace : bookedPlaces) {
+            uniqueFlights.add(bookedPlace.getFlight());
+        }
+
+        return uniqueFlights.size();
     }
 }
