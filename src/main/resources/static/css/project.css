@@ -170,7 +170,21 @@ input[type="checkbox"].custom-checkbox:checked + label > button {
 .widget-holder:hover > .widget {
     color: black;
     position: relative;
-    left: 25000%;
+    left: 5000%;
     bottom: 2000%;
     display: block;
+}
+
+.start-page-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+}
+
+.start-page-button {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 60px;
+    font-size: 30px;
 }

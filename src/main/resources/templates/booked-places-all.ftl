@@ -90,6 +90,10 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>
             </div>
+            <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/'">Home</button>
+            </div>
         </div>
     </div>
 </body>

@@ -43,6 +43,7 @@ public class FlightUIController {
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("flights", flightService.updateAndGetAll());
+        bookedPlaceService.updateAndGetAll();
 
         return "flights-all";
     }

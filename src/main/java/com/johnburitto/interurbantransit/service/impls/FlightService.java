@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService implements IService<Flight> {
@@ -113,13 +114,13 @@ public class FlightService implements IService<Flight> {
 
     private void updateFlight(Flight flight) {
         if (!flight.isPostponed()) {
-            if (!(flight.getTransport() == null)) {
+            if (!(transportService.get(flight.getTransport().getId()) == null)) {
                 flight.setTransport(transportService.get(flight.getTransport().getId()));
             }
-            if (!(flight.getDriver() == null)) {
+            if (!(driverService.get(flight.getDriver().getId()) == null)) {
                 flight.setDriver(driverService.get(flight.getDriver().getId()));
             }
-            if (!(flight.getRoute() == null)) {
+            if (!(routeService.get(flight.getRoute().getId()) == null)) {
                 flight.setRoute(routeService.get(flight.getRoute().getId()));
             }
         }
@@ -157,7 +158,7 @@ public class FlightService implements IService<Flight> {
         List<Flight> freeFlights = findByStatus(FlightStatus.Waiting);
         freeFlights.addAll(findByStatus(FlightStatus.Postponed));
 
-        return freeFlights;
+        return freeFlights.stream().filter(flight -> flight.getTransport().isFree()).collect(Collectors.toList());
     }
 
     public List<Transport> getAllBusyTransports() {

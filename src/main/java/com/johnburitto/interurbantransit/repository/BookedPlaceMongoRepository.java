@@ -24,6 +24,12 @@ public interface BookedPlaceMongoRepository extends MongoRepository<BookedPlace,
     @Query(value = "{$and: [{flight: ?0}, {flight_flightStatus: ?1}]}")
     public List<BookedPlace> queryFindByFlightAndItsStatus(Flight flight, FlightStatus flightStatus);
 
+    @Query(value = "{flight: ?0}")
+    public List<BookedPlace> queryFindByFlight(Flight flight);
+
+    @Query(value = "{flight_flightStatus: ?0}")
+    public List<BookedPlace> queryFindByFlightStatus(FlightStatus flightStatus);
+
     @Query(value = "{passenger_contactPerson_name: ?0}")
     public List<BookedPlace> queryFindByName(Name name);
 

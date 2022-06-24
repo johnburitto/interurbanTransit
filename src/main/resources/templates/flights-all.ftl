@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/static/css/project.css?version=300" type="text/css" rel="stylesheet"/>
-    <link href="/static/css/display-filters.css?version=1710" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/project.css?version=2000" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body>
     <input type="checkbox" id="id-display-filter" checked/>
@@ -49,7 +49,17 @@
                     <tbody>
                         <#list flights as flight>
                             <tr>
-                                <td class="align-middle hover-td" id="id">${flight.id}</td>
+                                <td class="align-middle hover-td" id="id">
+                                    <div class="widget-holder">
+                                        ${flight.id}
+                                        <div class="widget">
+                                            <button class="btn btn-outline-dark oswald-bold"
+                                                    onclick="location.href='/ui/v1/flights/${flight.id}/${flight.flightStatusToString()}/passengers'">
+                                                Passengers
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="align-middle hover-td" id="transport"
                                     onclick="location.href='/ui/v1/transports/${flight.transport.id}'">
                                     <b>Transport:</b> ${flight.transport.brand} ${flight.transport.model}<br>
@@ -97,6 +107,20 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>
+            </div>
+            <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/ui/v1/flights/canceled'">Canceled</button>
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/ui/v1/flights/waiting'">Waiting</button>
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/ui/v1/flights/completed'">Completed</button>
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/ui/v1/flights/postponed'">Postponed</button>
+            </div>
+            <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/'">Home</button>
             </div>
         </div>
     </div>

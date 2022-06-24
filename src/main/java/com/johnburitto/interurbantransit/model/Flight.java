@@ -148,6 +148,26 @@ public class Flight {
         }
     }
 
+    public String flightStatusToString() {
+        switch (flightStatus) {
+            case Canceled:
+            case Canceled_HasNext: {
+                return "canceled";
+            }
+            case Completed:
+            case Completed_HasNext: {
+                return "completed";
+            }
+            case Waiting: {
+                return "waiting";
+            }
+            case Postponed: {
+                return "postponed";
+            }
+            default: return "";
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

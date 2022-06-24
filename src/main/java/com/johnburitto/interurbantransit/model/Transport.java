@@ -67,6 +67,10 @@ public class Transport {
         }
     }
 
+    public boolean isFree() {
+        return numberOfBookedPlaces < passport.getNumberOfPlaces();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

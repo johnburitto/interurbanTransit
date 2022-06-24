@@ -23,7 +23,7 @@
         <div class="table-container">
             <input class="custom-checkbox" type="checkbox" id="list" checked/>
             <label for="list" class="width-100 table-name oswald-bold">
-                <h1>Table of routes</h1>
+                <h1>Table of route profitabilities</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
                         onclick="location.href='/ui/v1/route-profitabilities/add'">Create</button>
             </label>
@@ -69,6 +69,10 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>
+            </div>
+            <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/'">Home</button>
             </div>
         </div>
     </div>
