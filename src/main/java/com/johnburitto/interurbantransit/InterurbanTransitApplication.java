@@ -4,6 +4,7 @@ import com.johnburitto.interurbantransit.model.FlightStatus;
 import com.johnburitto.interurbantransit.repository.BookedPlaceMongoRepository;
 import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
 import com.johnburitto.interurbantransit.service.impls.FlightService;
+import com.johnburitto.interurbantransit.service.impls.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,7 @@ public class InterurbanTransitApplication implements CommandLineRunner {
     @Autowired
     FlightService flightService;
     @Autowired
-    BookedPlaceMongoRepository repository;
+    RouteService routeService;
 
     public static void main(String[] args) {
         SpringApplication.run(InterurbanTransitApplication.class, args);

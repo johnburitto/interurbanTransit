@@ -25,6 +25,7 @@ li {
 .app-container {
     display: flex;
     justify-content: center;
+    height: auto;
 }
 
 .text-center {
@@ -35,6 +36,11 @@ li {
     display: flex;
     width: 75%;
     flex-wrap: wrap;
+}
+
+.interval-container {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .width-100 {
@@ -173,6 +179,25 @@ input[type="checkbox"].custom-checkbox:checked + label > button {
     left: 5000%;
     bottom: 2000%;
     display: block;
+}
+
+.widget button {
+    width: 200px;
+    border-radius: 0;
+    border-top: 0;
+}
+
+.widget button:first-child {
+    width: 200px;
+    border-top: solid 1px black;
+    border-top-left-radius: 0.375em;
+    border-top-right-radius: 0.375em;
+}
+
+.widget button:last-child {
+    width: 200px;
+    border-bottom-left-radius: 0.375em;
+    border-bottom-right-radius: 0.375em;
 }
 
 .start-page-container {

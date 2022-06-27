@@ -105,7 +105,7 @@
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/ui/v1/booked-places/'">Home</button>
+                        onclick="location.href='/ui/v1/flights/'">Back</button>
             </div>
         </div>
     </div>

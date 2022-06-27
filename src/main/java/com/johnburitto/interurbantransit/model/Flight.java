@@ -164,6 +164,9 @@ public class Flight {
             case Postponed: {
                 return "postponed";
             }
+            case InRoad: {
+                return "in-road";
+            }
             default: return "";
         }
     }

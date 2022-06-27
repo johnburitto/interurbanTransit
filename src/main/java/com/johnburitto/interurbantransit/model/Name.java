@@ -27,14 +27,18 @@ public class Name {
     private String lastName;
     private final static String NAME_SEPARATOR = "-";
 
-    @Override
-    public String toString() {
-        return firstName + " " + middleName + " " + lastName;
-    }
-
     public static Name parse(String name) {
         List<String> components = Arrays.asList(name.split(NAME_SEPARATOR));
 
         return new Name(components.get(0), components.get(1), components.get(2));
+    }
+
+    public String nameForURL() {
+        return firstName + "-" + middleName + "-" + lastName;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + middleName + " " + lastName;
     }
 }

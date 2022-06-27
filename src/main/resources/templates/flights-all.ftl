@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/static/css/project.css?version=2000" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/project.css?version=2300" type="text/css" rel="stylesheet"/>
     <link href="/static/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body>
@@ -72,8 +72,34 @@
                                     <b>Exp of work:</b> ${flight.driver.workingBook.getExpOfWork()}
                                 </td>
                                 <td class="align-middle hover-td" id="route">
-                                    <b>Route:</b> ${flight.route.fromCity}-${flight.route.toCity}<br>
-                                    <b>Time:</b> ${flight.route.departureTime}-${flight.route.arrivalTime}
+                                    <div class="widget-holder">
+                                        <p style="margin: 0; padding: 0">
+                                            <b>Route:</b> ${flight.route.fromCity}-${flight.route.toCity}<br>
+                                            <b>Time:</b> ${flight.route.departureTime}-${flight.route.arrivalTime}
+                                        </p>
+                                        <div class="widget">
+                                            <button class="btn btn-outline-dark oswald-bold"
+                                                    onclick="location.href='/ui/v1/flights/canceled/route/${flight.route.id}'">
+                                                Canceled
+                                            </button>
+                                            <button class="btn btn-outline-dark oswald-bold width-100"
+                                                    onclick="location.href='/ui/v1/flights/waiting/route/${flight.route.id}'">
+                                                Waiting
+                                            </button>
+                                            <button class="btn btn-outline-dark oswald-bold width-100"
+                                                    onclick="location.href='/ui/v1/flights/completed/route/${flight.route.id}'">
+                                                Completed
+                                            </button>
+                                            <button class="btn btn-outline-dark oswald-bold width-100"
+                                                    onclick="location.href='/ui/v1/flights/postponed/route/${flight.route.id}'">
+                                                Postponed
+                                            </button>
+                                            <button class="btn btn-outline-dark oswald-bold width-100"
+                                                    onclick="location.href='/ui/v1/flights/in-road/route/${flight.route.id}'">
+                                                In road
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="align-middle hover-td" id="day">${flight.getDatesInRoad()}</td>
                                 <td class="align-middle hover-td" id="ticket-cost">${flight.costOfTicket}</td>
@@ -117,6 +143,8 @@
                         onclick="location.href='/ui/v1/flights/completed'">Completed</button>
                 <button class="btn btn-outline-dark"
                         onclick="location.href='/ui/v1/flights/postponed'">Postponed</button>
+                <button class="btn btn-outline-dark"
+                        onclick="location.href='/ui/v1/flights/in-road'">In road</button>
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"

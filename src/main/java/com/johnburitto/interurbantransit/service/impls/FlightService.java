@@ -145,6 +145,8 @@ public class FlightService implements IService<Flight> {
 
     private void complete(Flight flight) {
         flight.setFlightStatus(FlightStatus.Completed);
+        flight.getTransport().setNumberOfBookedPlaces(0);
+        flight.getTransport().getPassport().addMileage(flight.getRoute().getDistance());
     }
 
     private void generateNextFlightItItNeed(Flight flight) {
@@ -206,6 +208,9 @@ public class FlightService implements IService<Flight> {
                 allFlights.addAll(findByStatus(FlightStatus.Completed));
                 allFlights.addAll(findByStatus(FlightStatus.Completed_HasNext));
             } break;
+            case "in-road": {
+                allFlights.addAll(findByStatus(FlightStatus.InRoad));
+            } break;
             default: break;
         }
 
@@ -233,6 +238,9 @@ public class FlightService implements IService<Flight> {
             case "completed": {
                 allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Completed));
                 allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Completed_HasNext));
+            } break;
+            case "in-road": {
+                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.InRoad));
             } break;
             default: break;
         }

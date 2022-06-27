@@ -53,6 +53,10 @@ public class TransportPassport {
         needInspection = false;
     }
 
+    public void addMileage(double mileageToAdd) {
+        mileage += mileageToAdd;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

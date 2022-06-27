@@ -7,8 +7,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/static/css/project.css?version=300" type="text/css" rel="stylesheet"/>
-    <link href="/static/css/display-filters.css?version=1910" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/inputs.css?version=1310" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/project.css?version=2300" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body>
     <input type="checkbox" id="id-display-filter" checked/>
@@ -54,9 +55,23 @@
                                     <b>Date:</b> ${bookedPlace.flight.getDatesInRoad()}
                                 </td>
                                 <td class="align-middle hover-td" id="passenger">
-                                    <b>Name:</b> ${bookedPlace.passenger.contactPerson.name}<br>
-                                    <b>Telephone:</b> ${bookedPlace.passenger.contactPerson.telephoneNumber}<br>
-                                    <b>E-mail:</b> ${bookedPlace.passenger.contactPerson.getEMail()}
+                                    <div class="widget-holder">
+                                        <p style="margin: 0; padding: 0">
+                                            <b>Name:</b> ${bookedPlace.passenger.contactPerson.name}<br>
+                                            <b>Telephone:</b> ${bookedPlace.passenger.contactPerson.telephoneNumber}<br>
+                                            <b>E-mail:</b> ${bookedPlace.passenger.contactPerson.getEMail()}
+                                        </p>
+                                        <div class="widget">
+                                            <button class="btn btn-outline-dark oswald-bold width-100"
+                                                    onclick="location.href='/ui/v1/booked-places/name/${bookedPlace.passenger.contactPerson.name.nameForURL()}'">
+                                                Find by name
+                                            </button>
+                                            <button class="btn btn-outline-dark oswald-bold width-100"
+                                                    onclick="location.href='/ui/v1/booked-places/last-name/${bookedPlace.passenger.contactPerson.name.lastName}'">
+                                                Find by last name
+                                            </button>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="align-middle hover-td" id="booked-place">${bookedPlace.bookedPlace}</td>
                                 <td class="align-middle hover-td" id="day-of-booking">${bookedPlace.dayOfBooking}</td>
@@ -90,11 +105,24 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>
             </div>
-            <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+            <div class="interval-container width-100 oswald-bold" style="margin-top: 2%">
+                <div class="input-container" style="width: 40%">
+                    <span class="input-text">Start day:</span>
+                    <input type="date" id="startDay" name="startDay" value=""/>
+                </div>
+                <div class="input-container" style="width: 40%">
+                    <span class="input-text">End day:</span>
+                    <input type="date" id="endDay" name="endDay" value=""/>
+                </div>
+                <button class="btn btn-outline-dark" id="interval" style="height: 40px; margin-top: 2.75%">Search</button>
+            </div>
+            <div class="filters-container width-100 oswald-bold">
                 <button class="btn btn-outline-dark"
                         onclick="location.href='/'">Home</button>
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/bookedPlacesInterval.js?version=200"></script>
 </body>
 </html>
