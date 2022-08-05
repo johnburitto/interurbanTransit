@@ -25,6 +25,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of route profitabilities</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/route-profitabilities/add'">Create</button>
             </label>
             <div class="width-100">

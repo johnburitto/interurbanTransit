@@ -24,6 +24,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of transports</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/transports/add'">Create</button>
             </label>
             <div class="width-100">
@@ -37,8 +38,8 @@
                             <th id="number-of-places">Number of booked places</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Delete</th>
-                            <th>Edit</th>
+                            <th style="display: ${perms.delete}">Delete</th>
+                            <th style="display: ${perms.edit}">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,11 +56,11 @@
                                 <td class="align-middle hover-td" id="number-of-places">${transport.numberOfBookedPlaces}/${transport.passport.numberOfPlaces}</td>
                                 <td class="align-middle hover-td" id="created-at">${transport.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${transport.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/transports/delete/${transport.id}'">Delete</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/transports/edit/${transport.id}'">Edit</button>
                                 </td>

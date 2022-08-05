@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.routeprofitability;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.RouteProfitabilityForm;
 import com.johnburitto.interurbantransit.model.RouteProfitability;
 import com.johnburitto.interurbantransit.service.impls.RouteProfitabilityService;
@@ -29,10 +30,13 @@ public class RouteProfitabilityUIController {
     RouteProfitabilityService routeProfitabilityService;
     @Autowired
     RouteService routeService;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("rps", routeProfitabilityService.initAndGetAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "route-profitability-all";
     }

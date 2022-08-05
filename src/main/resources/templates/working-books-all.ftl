@@ -29,8 +29,8 @@
                             <th id="places-of-work">Places of work</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Add place of work</th>
-                            <th>Delete place of work</th>
+                            <th style="display: ${perms.edit}">Add place of work</th>
+                            <th style="display: ${perms.edit}">Delete place of work</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,11 +53,11 @@
                                 </td>
                                 <td class="align-middle hover-td" id="created-at">${workingBook.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${workingBook.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/add/place-of-work'">Add</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/working-books/${workingBook.numberOfWorkingBook}/delete/place-of-work'">Delete place of work</button>
                                 </td>

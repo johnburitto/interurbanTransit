@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.driver;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.DriverForm;
 import com.johnburitto.interurbantransit.model.BloodType;
 import com.johnburitto.interurbantransit.model.Driver;
@@ -33,10 +34,13 @@ public class DriverUIController {
     DriverService driverService;
     @Autowired
     WorkingBookService workingBookService;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("drivers", driverService.getAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "drivers-all";
     }

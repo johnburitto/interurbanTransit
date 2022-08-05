@@ -27,7 +27,6 @@ public class TransportPassportUIController {
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("passports", service.getAll());
-
         return "transport-passport-all";
     }
 

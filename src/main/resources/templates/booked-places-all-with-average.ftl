@@ -25,6 +25,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of booked places</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/booked-places/add'">Create</button>
             </label>
             <div class="width-100">
@@ -39,9 +40,9 @@
                             <th id="status">Status</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Cancel</th>
-                            <th>Return</th>
-                            <th>Edit</th>
+                            <th style="display: ${perms.delete}">Cancel</th>
+                            <th style="display: ${perms.delete}">Return</th>
+                            <th style="display: ${perms.edit}">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,15 +64,15 @@
                                 <td class="align-middle hover-td" id="status">${bookedPlace.status}</td>
                                 <td class="align-middle hover-td" id="created-at">${bookedPlace.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${bookedPlace.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/booked-places/cancel/${bookedPlace.id}'">Cancel</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/booked-places/return/${bookedPlace.id}'">Return</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/booked-places/edit/${bookedPlace.id}'">Edit</button>
                                 </td>

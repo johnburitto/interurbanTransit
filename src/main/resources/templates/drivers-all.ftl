@@ -24,6 +24,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of drivers</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/drivers/add'">Create</button>
             </label>
             <div class="width-100">
@@ -37,8 +38,8 @@
                             <th id="exp-of-work">Exp of work</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Delete</th>
-                            <th>Edit</th>
+                            <th style="display: ${perms.delete}">Delete</th>
+                            <th style="display: ${perms.edit}">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,11 +59,11 @@
                                 <td class="align-middle hover-td" id="exp-of-work">${driver.workingBook.getExpOfWork()}</td>
                                 <td class="align-middle hover-td" id="created-at">${driver.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${driver.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/drivers/delete/${driver.id}'">Delete</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/drivers/edit/${driver.id}'">Edit</button>
                                 </td>

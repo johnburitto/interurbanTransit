@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.bookedplace;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.BookedPlaceForm;
 import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
@@ -38,10 +39,13 @@ public class BookedPlaceUIController {
     PassengerService passengerService;
     @Autowired
     TransportService transportService;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("bookedPlaces", bookedPlaceService.updateAndGetAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "booked-places-all";
     }
@@ -179,6 +183,7 @@ public class BookedPlaceUIController {
         model.addAttribute("bookedPlaces", bookedPlaces);
         model.addAttribute("numberOfFlights", numberOfFlights);
         model.addAttribute("averageNumber", (double) bookedPlaces.size() / (double) numberOfFlights);
+        model.addAttribute("perms", logInController.perms);
 
         return "booked-places-all-with-average";
     }

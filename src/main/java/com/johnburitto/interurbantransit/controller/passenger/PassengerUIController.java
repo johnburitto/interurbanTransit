@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.passenger;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.PassengerForm;
 import com.johnburitto.interurbantransit.model.Passenger;
 import com.johnburitto.interurbantransit.service.impls.PassengerService;
@@ -27,10 +28,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PassengerUIController {
     @Autowired
     PassengerService service;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("passengers", service.getAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "passengers-all";
     }

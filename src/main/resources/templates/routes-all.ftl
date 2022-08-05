@@ -25,6 +25,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of routes</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/routes/add'">Create</button>
             </label>
             <div class="width-100">
@@ -39,8 +40,8 @@
                             <th id="city-to">City to</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Delete</th>
-                            <th>Edit</th>
+                            <th style="display: ${perms.delete}">Delete</th>
+                            <th style="display: ${perms.edit}">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,11 +55,11 @@
                                 <td class="align-middle hover-td" id="city-to">${route.toCity}</td>
                                 <td class="align-middle hover-td" id="created-at">${route.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${route.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/routes/delete/${route.id}'">Delete</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/routes/edit/${route.id}'">Edit</button>
                                 </td>

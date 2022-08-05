@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.transport;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.TransportForm;
 import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.model.TransportCategory;
@@ -31,10 +32,13 @@ public class TransportUIController {
     TransportService transportService;
     @Autowired
     TransportPassportService transportPassportService;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("transports", transportService.getAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "transports-all";
     }

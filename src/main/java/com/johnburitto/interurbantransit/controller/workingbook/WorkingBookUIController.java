@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.workingbook;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.DeletePlaceOfWorkForm;
 import com.johnburitto.interurbantransit.form.PlaceOfWorkForm;
 import com.johnburitto.interurbantransit.model.Driver;
@@ -32,10 +33,13 @@ public class WorkingBookUIController {
     WorkingBookService workingBookService;
     @Autowired
     DriverService driverService;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("workingBooks", workingBookService.getAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "working-books-all";
     }

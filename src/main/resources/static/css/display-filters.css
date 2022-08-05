@@ -48,7 +48,8 @@
 #name-display-filter, #contact-inf-display-filter, #booked-place-display-filter, #transport-display-filter, #driver-display-filter,
 #route-display-filter, #day-display-filter, #ticket-cost-display-filter, #flight-status-display-filter, #flight-display-filter,
 #passenger-display-filter, #day-of-booking-display-filter, #start-day-display-filter, #end-day-display-filter,
-#number-of-passengers-display-filter, #profitability-display-filter, #status-display-filter {
+#number-of-passengers-display-filter, #profitability-display-filter, #status-display-filter, #login-display-filter,
+#password-display-filter, #type-display-filter {
     display: none;
 }
 
@@ -340,6 +341,30 @@
     display: table-cell;
 }
 
+#login-display-filter ~ * #login {
+    display: none;
+}
+
+#login-display-filter:checked ~ * #login {
+    display: table-cell;
+}
+
+#password-display-filter ~ * #password {
+    display: none;
+}
+
+#password-display-filter:checked ~ * #password {
+    display: table-cell;
+}
+
+#type-display-filter ~ * #type {
+    display: none;
+}
+
+#type-display-filter:checked ~ * #type {
+    display: table-cell;
+}
+
 #id-display-filter:checked ~ * #for-id {
     background-color: #212529;
     color: white;
@@ -516,6 +541,21 @@
 }
 
 #status-display-filter:checked ~ * #for-status {
+    background-color: #212529;
+    color: white;
+}
+
+#login-display-filter:checked ~ * #for-login {
+    background-color: #212529;
+    color: white;
+}
+
+#password-display-filter:checked ~ * #for-password {
+    background-color: #212529;
+    color: white;
+}
+
+#type-display-filter:checked ~ * #for-type {
     background-color: #212529;
     color: white;
 }

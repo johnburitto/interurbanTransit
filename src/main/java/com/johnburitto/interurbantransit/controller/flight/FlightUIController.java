@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.flight;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.FlightForm;
 import com.johnburitto.interurbantransit.form.FlightPostponeForm;
 import com.johnburitto.interurbantransit.model.Flight;
@@ -39,10 +40,13 @@ public class FlightUIController {
     RouteService routeService;
     @Autowired
     BookedPlaceService bookedPlaceService;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("flights", flightService.updateAndGetAll());
+        model.addAttribute("perms", logInController.perms);
         bookedPlaceService.updateAndGetAll();
 
         return "flights-all";
@@ -139,6 +143,7 @@ public class FlightUIController {
 
         model.addAttribute("flights", flights);
         model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
+        model.addAttribute("perms", logInController.perms);
 
         return "flights-all-with-number-of-booked-places";
     }

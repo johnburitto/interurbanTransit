@@ -22,6 +22,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of passengers</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/passengers/add'">Create</button>
             </label>
             <div class="width-100">
@@ -33,8 +34,8 @@
                             <th id="contact-inf">Contact Inf</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Delete</th>
-                            <th>Edit</th>
+                            <th style="display: ${perms.delete}">Delete</th>
+                            <th style="display: ${perms.edit}">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,11 +49,11 @@
                                 </td>
                                 <td class="align-middle hover-td" id="created-at">${passenger.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${passenger.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/passengers/delete/${passenger.id}'">Delete</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/passengers/edit/${passenger.id}'">Edit</button>
                                 </td>

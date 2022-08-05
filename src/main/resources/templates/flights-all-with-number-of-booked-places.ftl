@@ -26,6 +26,7 @@
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of flights</h1>
                 <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
+                        style="display: ${perms.create}"
                         onclick="location.href='/ui/v1/flights/add'">Create</button>
             </label>
             <div class="width-100">
@@ -41,9 +42,9 @@
                             <th id="flight-status">Flight Status</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
-                            <th>Cancel</th>
-                            <th>Postpone</th>
-                            <th>Edit</th>
+                            <th style="display: ${perms.delete}">Cancel</th>
+                            <th style="display: ${perms.edit}">Postpone</th>
+                            <th style="display: ${perms.edit}">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,15 +71,15 @@
                                 <td class="align-middle hover-td" id="flight-status">${flight.flightStatus}</td>
                                 <td class="align-middle hover-td" id="created-at">${flight.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${flight.updatedAt}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.delete}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/flights/cancel/${flight.id}'">Cancel</button>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="display: ${perms.edit}">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                         onclick="location.href='/ui/v1/flights/postpone/${flight.id}'">Postpone</button>
                                 </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle" style="display: ${perms.edit}">
                                         <button type="button" class="btn btn-outline-dark oswald-bold"
                                                 onclick="location.href='/ui/v1/flights/edit/${flight.id}'">Edit</button>
                                 </td>

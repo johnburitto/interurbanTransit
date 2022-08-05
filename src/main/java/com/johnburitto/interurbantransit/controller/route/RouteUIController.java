@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.route;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.RouteForm;
 import com.johnburitto.interurbantransit.model.Route;
 import com.johnburitto.interurbantransit.service.impls.RouteService;
@@ -24,10 +25,13 @@ import org.springframework.web.bind.annotation.*;
 public class RouteUIController {
     @Autowired
     RouteService service;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("routes", service.getAll());
+        model.addAttribute("perms", logInController.perms);
 
         return "routes-all";
     }
