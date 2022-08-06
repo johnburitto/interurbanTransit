@@ -22,7 +22,7 @@ public class ProjectUIController {
     @Autowired
     LogInController logInController;
 
-    @RequestMapping("/")
+    @RequestMapping("/tables")
     public String showAllTables(Model model) {
         model.addAttribute("perms", logInController.perms);
 

@@ -30,6 +30,15 @@ public class LogInController {
     @Autowired
     UserService service;
 
+    @RequestMapping("/")
+    public String appOpen() {
+        if (perms == null) {
+            return "redirect:/login";
+        }
+
+        return "redirect:/tables";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("form", new LoginForm());
@@ -51,6 +60,13 @@ public class LogInController {
         else{
             return "login-page";
         }
+
+        return "redirect:/tables";
+    }
+
+    @RequestMapping("/logout")
+    public String logout() {
+        perms = null;
 
         return "redirect:/";
     }

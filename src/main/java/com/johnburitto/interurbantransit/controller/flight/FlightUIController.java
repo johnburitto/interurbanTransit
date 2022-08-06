@@ -144,6 +144,7 @@ public class FlightUIController {
         model.addAttribute("flights", flights);
         model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("perms", logInController.perms);
 
         return "flights-all-with-number-of-booked-places";
     }
@@ -155,6 +156,7 @@ public class FlightUIController {
 
         model.addAttribute("flights", flights);
         model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
+        model.addAttribute("perms", logInController.perms);
 
         return "flights-all-with-number-of-booked-places";
     }
@@ -163,6 +165,7 @@ public class FlightUIController {
     public String showAllPassengersOfFlightByStatus(Model model, @PathVariable String id,
                                                     @PathVariable String flightStatus) {
         model.addAttribute("passengers", flightService.getAllPassengersOfFlight(id, flightStatus));
+        model.addAttribute("perms", logInController.perms);
 
         return "passengers-all";
     }

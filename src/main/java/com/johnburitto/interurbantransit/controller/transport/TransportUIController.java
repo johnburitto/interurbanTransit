@@ -46,6 +46,7 @@ public class TransportUIController {
     @RequestMapping("/{id}")
     public String showOne(Model model, @PathVariable String id) {
         model.addAttribute("transports", transportService.getOneAsList(id));
+        model.addAttribute("perms", logInController.perms);
 
         return "transports-all";
     }

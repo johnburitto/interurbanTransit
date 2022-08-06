@@ -164,6 +164,7 @@ public class BookedPlaceUIController {
         Name searchName = Name.parse(name);
 
         model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByName(searchName));
+        model.addAttribute("perms", logInController.perms);
 
         return "booked-places-all";
     }
@@ -171,6 +172,7 @@ public class BookedPlaceUIController {
     @RequestMapping("/last-name/{lastName}")
     public String allBookedPlacesByLastName(Model model, @PathVariable String lastName) {
         model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByLastName(lastName));
+        model.addAttribute("perms", logInController.perms);
 
         return "booked-places-all";
     }

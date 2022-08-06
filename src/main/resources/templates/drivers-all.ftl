@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link href="/static/css/project.css?version=500" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/project.css?version=3000" type="text/css" rel="stylesheet"/>
     <link href="/static/css/display-filters.css?version=1510" type="text/css" rel="stylesheet"/>
 </head>
 <body>
@@ -18,7 +18,7 @@
     <input type="checkbox" id="exp-of-work-display-filter" checked/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
-    <div class="app-container">
+    <div class="start-page-app-container">
         <div class="table-container">
             <input class="custom-checkbox" type="checkbox" id="list" checked/>
             <label for="list" class="width-100 table-name oswald-bold">
@@ -83,7 +83,7 @@
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/'">Home</button>
+                        onclick="location.href='/tables'">Home</button>
             </div>
         </div>
     </div>

@@ -11,6 +11,14 @@
 </head>
 <body class="start-page-app-container">
     <div class="start-page-container">
+        <div class="width-100" style="display: flex; justify-content: flex-end; align-items: baseline">
+            <p class="oswald-bold" style="margin-right: 10px; font-size: 20px">
+                ${perms.type}
+            </p>
+            <button class="btn btn-outline-dark oswald-bold start-page-button"
+                    style="font-size: 16px"
+                    onclick="location.href='/logout'">Log out</button>
+        </div>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 onclick="location.href='/ui/v1/transports/'">Transports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"

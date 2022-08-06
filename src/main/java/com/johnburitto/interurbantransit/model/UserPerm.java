@@ -19,27 +19,29 @@ public class UserPerm {
     private String create;
     private String delete;
     private String edit;
+    private UserType type;
 
-    private UserPerm(String keys, String create, String delete, String edit) {
+    private UserPerm(String keys, String create, String delete, String edit, UserType type) {
         this.keys = keys;
         this.create = create;
         this.delete = delete;
         this.edit = edit;
+        this.type = type;
     }
 
     public static UserPerm PermOf(UserType type) {
         switch (type) {
             case Owner: {
-                return new UserPerm("block", "block", "table-cell", "table-cell");
+                return new UserPerm("block", "block", "table-cell", "table-cell", type);
             }
             case Administrator: {
-                return new UserPerm("none", "block", "table-cell", "table-cell");
+                return new UserPerm("none", "block", "table-cell", "table-cell", type);
             }
             case Operator: {
-                return new UserPerm("none", "none", "none", "table-cell");
+                return new UserPerm("none", "none", "none", "table-cell", type);
             }
             default: {
-                return new UserPerm("none", "none", "none", "none");
+                return new UserPerm("none", "none", "none", "none", type);
             }
         }
     }
