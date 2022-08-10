@@ -12,9 +12,7 @@ package com.johnburitto.interurbantransit.controller.driver;
  */
 
 import com.johnburitto.interurbantransit.model.Driver;
-import com.johnburitto.interurbantransit.model.WorkingBook;
 import com.johnburitto.interurbantransit.service.impls.DriverService;
-import com.johnburitto.interurbantransit.service.impls.WorkingBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +23,6 @@ import java.util.List;
 public class DriverRestController {
     @Autowired
     DriverService driverService;
-    @Autowired
-    WorkingBookService workingBookService;
 
     @GetMapping("/")
     public List<Driver> showAll() {
@@ -40,14 +36,11 @@ public class DriverRestController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteOne(@PathVariable String id) {
-        workingBookService.delete(driverService.getWorkingBookNumber(id));
         driverService.delete(id);
     }
 
     @PostMapping("/create")
     public Driver createOne(@RequestBody Driver driver) {
-        workingBookService.create(driver.getWorkingBook());
-
         return driverService.create(driver);
     }
 

@@ -48,7 +48,6 @@ public class TransportPassport {
         transportNumber = form.getTransportNumber();
         neededTransportCategory = form.getNeededTransportCategory();
         numberOfPlaces = form.getNumberOfPlaces();
-        mileage = form.getMileage();
         companyName = form.getCompanyName();
         needInspection = false;
     }

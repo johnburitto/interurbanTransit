@@ -21,10 +21,5 @@ public class TransportPassportForm {
     private String transportNumber;
     private TransportCategory neededTransportCategory;
     private int numberOfPlaces;
-    private double mileage;
     private String companyName;
-
-    public String getStringMileage() {
-        return String.valueOf(mileage);
-    }
 }

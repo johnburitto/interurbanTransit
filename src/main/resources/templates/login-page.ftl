@@ -24,7 +24,11 @@
                 <span class="input-text">Password:</span>
                 <input type="password" id="password" name="password" value="" placeholder="Password"/>
             </div>
-            <input class="btn btn-outline-dark oswald-bold" type=submit value="Login">
+            <div class="input-container" style="align-items: baseline">
+                <input class="btn btn-outline-dark oswald-bold" type=submit value="Login">
+                <button class="btn btn-outline-dark oswald-bold"
+                        onclick="window.open('/register')">Register</button>
+            </div>
         </form>
     </fieldset>
 </div>

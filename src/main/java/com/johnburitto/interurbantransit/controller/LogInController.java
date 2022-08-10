@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.controller;
  */
 
 import com.johnburitto.interurbantransit.form.LoginForm;
+import com.johnburitto.interurbantransit.form.RegisterForm;
+import com.johnburitto.interurbantransit.model.ContactPerson;
 import com.johnburitto.interurbantransit.model.User;
 import com.johnburitto.interurbantransit.model.UserPerm;
 import com.johnburitto.interurbantransit.service.impls.UserService;
@@ -26,13 +28,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("")
 public class LogInController {
     public UserPerm perms;
+    public ContactPerson contactInf;
+    public String currentUserId;
 
     @Autowired
     UserService service;
 
     @RequestMapping("/")
     public String appOpen() {
-        if (perms == null) {
+        if (perms == null || contactInf == null) {
             return "redirect:/login";
         }
 
@@ -56,6 +60,8 @@ public class LogInController {
 
         if (currentUser != null) {
             perms = UserPerm.PermOf(currentUser.getUserType());
+            contactInf = currentUser.getContactPerson();
+            currentUserId = currentUser.getId();
         }
         else{
             return "login-page";
@@ -67,6 +73,29 @@ public class LogInController {
     @RequestMapping("/logout")
     public String logout() {
         perms = null;
+        contactInf = null;
+        currentUserId = null;
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model) {
+        model.addAttribute("form", new RegisterForm());
+
+        return "register-page";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@ModelAttribute RegisterForm form) {
+        if (form.IsHasBlankFields()) {
+            return "register-page";
+        }
+
+        User newUser = new User();
+
+        newUser.fillFromForm(form);
+        service.create(newUser);
 
         return "redirect:/";
     }

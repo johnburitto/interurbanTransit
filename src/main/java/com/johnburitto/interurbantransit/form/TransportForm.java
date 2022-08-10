@@ -28,7 +28,6 @@ public class TransportForm extends TransportPassportForm {
         setTransportNumber(transport.getTransportNumber());
         setNeededTransportCategory(transport.getPassport().getNeededTransportCategory());
         setNumberOfPlaces(transport.getPassport().getNumberOfPlaces());
-        setMileage(transport.getPassport().getMileage());
         setCompanyName(transport.getPassport().getCompanyName());
     }
 }

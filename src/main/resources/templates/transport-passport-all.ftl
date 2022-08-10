@@ -14,7 +14,6 @@
     <input type="checkbox" id="id-display-filter" checked/>
     <input type="checkbox" id="transport-category-display-filter" checked/>
     <input type="checkbox" id="number-of-places-display-filter" checked/>
-    <input type="checkbox" id="mileage-display-filter" checked/>
     <input type="checkbox" id="company-display-filter" checked/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
@@ -43,7 +42,6 @@
                                 <td class="align-middle hover-td" id="id">${passport.transportNumber}</td>
                                 <td class="align-middle hover-td" id="transport-category">${passport.neededTransportCategory}</td>
                                 <td class="align-middle hover-td" id="number-of-places">${passport.numberOfPlaces}</td>
-                                <td class="align-middle hover-td" id="mileage">${passport.mileage}</td>
                                 <td class="align-middle hover-td" id="company">${passport.companyName}</td>
                                 <td class="align-middle hover-td" id="created-at">${passport.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${passport.updatedAt}</td>
@@ -51,11 +49,10 @@
                         </#list>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-transport-category" for="transport-category-display-filter">Transport category</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-number-of-places" for="number-of-places-display-filter">Number of places</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-mileage" for="mileage-display-filter">Mileage</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-company" for="company-display-filter">Company</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>

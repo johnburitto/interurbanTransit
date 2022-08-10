@@ -36,23 +36,6 @@
                     <span class="input-text">E-mail:</span>
                     <input type="email" id="eMail" name="eMail" value="${form.EMail}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="example@example.com"/>
                 </div>
-                <div class="input-container">
-                    <span class="input-text">Login:</span>
-                    <input type="text" id="login" name="login" value="${form.login}" placeholder="Login"/>
-                </div>
-                <div class="input-container">
-                    <span class="input-text">Password:</span>
-                    <input type="text" id="password" name="password" value="${form.password}" placeholder="Password"/>
-                </div>
-                <div class="input-container">
-                    <span class="input-text">Type:</span>
-                    <select class="oswald" id="userType" name="userType">
-                        <option value="${form.userType}">${form.userType}</option>
-                        <#list types as type>
-                            <option value="${type}">${type}</option>
-                        </#list>
-                    </select>
-                </div>
                 <input  class="btn btn-outline-dark oswald-bold" type=submit value="Update">
             </form>
         </fieldset>

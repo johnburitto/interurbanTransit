@@ -86,7 +86,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-flight" for="flight-display-filter">Flight</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-passenger" for="passenger-display-filter">Passenger</label>

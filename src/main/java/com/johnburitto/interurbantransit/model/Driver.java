@@ -28,15 +28,13 @@ public class Driver {
     private String id;
     private PersonalInf personalInf;
     private TransportCategory transportCategory;
-    private WorkingBook workingBook;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Driver(String id, PersonalInf personalInf, TransportCategory transportCategory, WorkingBook workingBook) {
+    public Driver(String id, PersonalInf personalInf, TransportCategory transportCategory) {
         this.id = id;
         this.personalInf = personalInf;
         this.transportCategory = transportCategory;
-        this.workingBook = workingBook;
     }
 
     public void fillFromForm(DriverForm form) {

@@ -27,7 +27,6 @@ public class DriverForm {
     private String dateOfBirth;
     private BloodType bloodType;
     private TransportCategory transportCategory;
-    private String workingBookNumber;
 
     public void fillFromDriver(Driver driver) {
         firstName = driver.getPersonalInf().getName().getFirstName();

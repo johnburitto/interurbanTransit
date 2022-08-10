@@ -92,7 +92,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-transport" for="transport-display-filter">Transport</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-driver" for="driver-display-filter">Driver</label>

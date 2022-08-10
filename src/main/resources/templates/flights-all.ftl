@@ -67,10 +67,8 @@
                                     <b>Number:</b> ${flight.transport.passport.transportNumber}<br>
                                     <b>Mileage:</b> ${flight.transport.passport.mileage}
                                 </td>
-                                <td class="align-middle hover-td" id="driver"
-                                    onclick="location.href='/ui/v1/working-books/${flight.driver.workingBook.numberOfWorkingBook}'">
+                                <td class="align-middle hover-td" id="driver">
                                     <b>Name:</b> ${flight.driver.personalInf.name}<br>
-                                    <b>Exp of work:</b> ${flight.driver.workingBook.getExpOfWork()}
                                 </td>
                                 <td class="align-middle hover-td" id="route">
                                     <div class="widget-holder">
@@ -123,7 +121,7 @@
                         </#list>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-transport" for="transport-display-filter">Transport</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-driver" for="driver-display-filter">Driver</label>
@@ -153,5 +151,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/flightDisplay/changeFlightDisplayFilter.js?version=400"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@
 </head>
 <body>
     <input type="checkbox" id="id-display-filter" checked/>
+    <input type="checkbox" id="contact-inf-display-filter" checked/>
     <input type="checkbox" id="login-display-filter" checked/>
     <input type="checkbox" id="password-display-filter" checked/>
     <input type="checkbox" id="type-display-filter" checked/>
@@ -30,19 +31,25 @@
                     <thead class="table-dark">
                     <tr>
                         <th id="id">Id</th>
+                        <th id="contact-inf">Contact Inf</th>
                         <th id="personal-inf">Login</th>
                         <th id="transport-category">Password</th>
                         <th id="working-book">Type</th>
                         <th id="created-at">Created at</th>
                         <th id="updated-at">Updated at</th>
-                        <th>Delete</th>
                         <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                         <#list users as user>
                             <tr>
                                 <td class="align-middle hover-td" id="id">${user.id}</td>
+                                <td class="align-middle hover-td" id="contact-inf">
+                                    <b>Name:</b> ${user.contactPerson.name}<br>
+                                    <b>Telephone:</b> ${user.contactPerson.telephoneNumber}<br>
+                                    <b>E-mail:</b> ${user.contactPerson.getEMail()}
+                                </td>
                                 <td class="align-middle hover-td" id="login">${user.login}</td>
                                 <td class="align-middle hover-td" id="password">${user.password}</td>
                                 <td class="align-middle hover-td" id="type">${user.userType}</td>
@@ -50,11 +57,11 @@
                                 <td class="align-middle hover-td" id="updated-at">${user.updatedAt}</td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
-                                            onclick="location.href='/ui/v1/keys/delete/${user.id}'">Delete</button>
+                                            onclick="location.href='/ui/v1/keys/edit/${user.id}'">Edit</button>
                                 </td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
-                                            onclick="location.href='/ui/v1/keys/edit/${user.id}'">Edit</button>
+                                            onclick="location.href='/ui/v1/keys/delete/${user.id}'">Delete</button>
                                 </td>
                             </tr>
                         </#list>
@@ -62,6 +69,7 @@
                 </table>
                     <div class="width-100 filters-container oswald-bold">
                         <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
+                        <label class="btn btn-outline-dark filter-hover" id="for-contact-inf" for="contact-inf-display-filter">Contact inf</label>
                         <label class="btn btn-outline-dark filter-hover" id="for-login" for="login-display-filter">Login</label>
                         <label class="btn btn-outline-dark filter-hover" id="for-password" for="password-display-filter">Password</label>
                         <label class="btn btn-outline-dark filter-hover" id="for-type" for="type-display-filter">Type</label>

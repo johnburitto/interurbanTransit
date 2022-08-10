@@ -61,7 +61,7 @@
                         </#list>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-name" for="name-display-filter">Name</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-contact-inf" for="contact-inf-display-filter">Contact Inf</label>

@@ -16,9 +16,7 @@ import com.johnburitto.interurbantransit.form.DriverForm;
 import com.johnburitto.interurbantransit.model.BloodType;
 import com.johnburitto.interurbantransit.model.Driver;
 import com.johnburitto.interurbantransit.model.TransportCategory;
-import com.johnburitto.interurbantransit.model.WorkingBook;
 import com.johnburitto.interurbantransit.service.impls.DriverService;
-import com.johnburitto.interurbantransit.service.impls.WorkingBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +31,6 @@ public class DriverUIController {
     @Autowired
     DriverService driverService;
     @Autowired
-    WorkingBookService workingBookService;
-    @Autowired
     LogInController logInController;
 
     @RequestMapping("/")
@@ -47,7 +43,6 @@ public class DriverUIController {
 
     @RequestMapping("/delete/{id}")
     public String deleteDriver(@PathVariable String id) {
-        workingBookService.delete(driverService.getWorkingBookNumber(id));
         driverService.delete(id);
 
         return "redirect:/ui/v1/drivers/";
@@ -64,12 +59,9 @@ public class DriverUIController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addDriver(@ModelAttribute("form") DriverForm form) {
-        WorkingBook workingBookToAdd = new WorkingBook(form.getWorkingBookNumber());
         Driver driverToAdd = new Driver();
 
-        workingBookService.create(workingBookToAdd);
         driverToAdd.fillFromForm(form);
-        driverToAdd.setWorkingBook(workingBookService.get(form.getWorkingBookNumber()));
         driverService.create(driverToAdd);
 
         return "redirect:/ui/v1/drivers/";

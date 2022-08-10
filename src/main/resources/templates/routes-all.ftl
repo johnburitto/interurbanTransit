@@ -67,7 +67,7 @@
                         </#list>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-distance" for="distance-display-filter">Distance</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-departure-time" for="departure-time-display-filter">Departure time</label>
@@ -80,7 +80,7 @@
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/rables'">Home</button>
+                        onclick="location.href='/tables'">Home</button>
             </div>
         </div>
     </div>

@@ -34,8 +34,6 @@
                             <th id="id">Id</th>
                             <th id="personal-inf">Persona inf</th>
                             <th id="transport-category">Transport category</th>
-                            <th id="working-book">Working book</th>
-                            <th id="exp-of-work">Exp of work</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
                             <th style="display: ${perms.delete}">Delete</th>
@@ -52,11 +50,6 @@
                                     <b>Blood type:</b> ${driver.personalInf.bloodType}<br>
                                 </td>
                                 <td class="align-middle hover-td" id="transport-category">${driver.transportCategory}</td>
-                                <td class="align-middle hover-td" id="working-book"
-                                    onclick="location.href='/ui/v1/working-books/${driver.workingBook.numberOfWorkingBook}'">
-                                    ${driver.workingBook.numberOfWorkingBook}
-                                </td>
-                                <td class="align-middle hover-td" id="exp-of-work">${driver.workingBook.getExpOfWork()}</td>
                                 <td class="align-middle hover-td" id="created-at">${driver.createdAt}</td>
                                 <td class="align-middle hover-td" id="updated-at">${driver.updatedAt}</td>
                                 <td class="align-middle" style="display: ${perms.delete}">
@@ -71,12 +64,9 @@
                         </#list>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-personal-inf" for="personal-inf-display-filter">Personal Inf</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-transport-category" for="transport-category-display-filter">Transport category</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-working-book" for="working-book-display-filter">Working book</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-exp-of-work" for="exp-of-work-display-filter">Exp of work</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>

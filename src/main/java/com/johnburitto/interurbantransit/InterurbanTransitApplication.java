@@ -1,5 +1,9 @@
 package com.johnburitto.interurbantransit;
 
+import com.johnburitto.interurbantransit.model.ContactPerson;
+import com.johnburitto.interurbantransit.model.Name;
+import com.johnburitto.interurbantransit.model.User;
+import com.johnburitto.interurbantransit.model.UserType;
 import com.johnburitto.interurbantransit.service.impls.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

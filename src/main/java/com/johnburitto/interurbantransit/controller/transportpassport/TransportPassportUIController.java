@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.controller.transportpassport;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.service.impls.TransportPassportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,16 +24,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TransportPassportUIController {
     @Autowired
     TransportPassportService service;
+    @Autowired
+    LogInController logInController;
 
     @RequestMapping("/")
     public String showAll(Model model) {
         model.addAttribute("passports", service.getAll());
+        model.addAttribute("perms", logInController.perms);
+
         return "transport-passport-all";
     }
 
     @RequestMapping("/{transportNumber}")
     public String showOne(Model model, @PathVariable String transportNumber) {
         model.addAttribute("passports", service.getOneAsList(transportNumber));
+        model.addAttribute("perms", logInController.perms);
 
         return "transport-passport-all";
     }

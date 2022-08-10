@@ -16,8 +16,8 @@ import com.johnburitto.interurbantransit.form.BookedPlaceForm;
 import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
 import com.johnburitto.interurbantransit.service.impls.FlightService;
-import com.johnburitto.interurbantransit.service.impls.PassengerService;
 import com.johnburitto.interurbantransit.service.impls.TransportService;
+import com.johnburitto.interurbantransit.service.impls.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +36,9 @@ public class BookedPlaceUIController {
     @Autowired
     FlightService flightService;
     @Autowired
-    PassengerService passengerService;
-    @Autowired
     TransportService transportService;
+    @Autowired
+    UserService userService;
     @Autowired
     LogInController logInController;
 
@@ -98,7 +98,7 @@ public class BookedPlaceUIController {
     public String addBookedPlace(Model model) {
         model.addAttribute("form", new BookedPlaceForm());
         model.addAttribute("flights", flightService.getFreeFlights());
-        model.addAttribute("passengers", passengerService.getAll());
+        model.addAttribute("passengers", userService.getAll());
 
         return "booked-place-add";
     }
@@ -110,7 +110,7 @@ public class BookedPlaceUIController {
 
         bookedPlaceToAdd.fillFromForm(form);
         bookedPlaceToAdd.setFlight(flightService.get(form.getFlight()));
-        bookedPlaceToAdd.setPassenger(passengerService.get(form.getPassenger()));
+        bookedPlaceToAdd.setPassenger(userService.get(form.getPassenger()));
 
         Transport transportToUpdate = bookedPlaceToAdd.getFlight().getTransport();
         transportToUpdate.bookPlace();
@@ -131,7 +131,7 @@ public class BookedPlaceUIController {
         bookedPlaceForm.fillFromBookedPlace(bookedPlaceToEdit);
         model.addAttribute("form", bookedPlaceForm);
         model.addAttribute("currentFlight", flightService.get(bookedPlaceForm.getFlight()));
-        model.addAttribute("currentPassenger", passengerService.get(bookedPlaceForm.getPassenger()));
+        model.addAttribute("currentPassenger", userService.get(bookedPlaceForm.getPassenger()));
 
         if (!flightService.get(bookedPlaceForm.getFlight()).getFlightStatus().equals(FlightStatus.Waiting)) {
             return "redirect:/ui/v1/booked-places/";
@@ -146,7 +146,7 @@ public class BookedPlaceUIController {
 
         bookedPlaceToEdit.fillFromForm(form);
         bookedPlaceToEdit.setFlight(flightService.get(form.getFlight()));
-        bookedPlaceToEdit.setPassenger(passengerService.get(form.getPassenger()));
+        bookedPlaceToEdit.setPassenger(userService.get(form.getPassenger()));
         bookedPlaceService.update(bookedPlaceToEdit);
 
         return "redirect:/ui/v1/booked-places/";

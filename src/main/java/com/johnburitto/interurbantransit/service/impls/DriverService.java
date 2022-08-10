@@ -68,10 +68,6 @@ public class DriverService implements IService<Driver> {
         return repository.findAll();
     }
 
-    public String getWorkingBookNumber(String driverId) {
-        return get(driverId).getWorkingBook().getNumberOfWorkingBook();
-    }
-
     public Driver getByWorkingBookNumber(String workingBookNumber) {
         return repository.queryFindByWorkingBookNumber(workingBookNumber);
     }

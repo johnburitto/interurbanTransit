@@ -252,8 +252,8 @@ public class FlightService implements IService<Flight> {
         return flightRepository.queryFindByRouteAndStatus(routeService.get(id), flightStatus);
     }
 
-    public List<Passenger> getAllPassengersOfFlight(String id, String flightStatus) {
-        List<Passenger> allPassengers = new ArrayList<>();
+    public List<User> getAllPassengersOfFlight(String id, String flightStatus) {
+        List<User> allPassengers = new ArrayList<>();
         List<BookedPlace> allBookedPlaces = new ArrayList<>();
 
         switch (flightStatus) {

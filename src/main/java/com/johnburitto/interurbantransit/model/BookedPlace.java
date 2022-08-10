@@ -28,14 +28,14 @@ public class BookedPlace {
     @Id
     private String id;
     private Flight flight;
-    private Passenger passenger;
+    private User passenger;
     private int bookedPlace;
     private LocalDate dayOfBooking;
     private BookedPlaceStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public BookedPlace(String id, Flight flight, Passenger passenger, int bookedPlace, LocalDate dayOfBooking) {
+    public BookedPlace(String id, Flight flight, User passenger, int bookedPlace, LocalDate dayOfBooking) {
         this.id = id;
         this.flight = flight;
         this.passenger = passenger;

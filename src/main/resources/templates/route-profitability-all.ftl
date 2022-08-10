@@ -60,7 +60,7 @@
                         </#list>
                     </tbody>
                 </table>
-                <div class="width-100 filters-container oswald-bold">
+                <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-route" for="route-display-filter">Route</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-start-day" for="start-day-display-filter">Start day</label>
