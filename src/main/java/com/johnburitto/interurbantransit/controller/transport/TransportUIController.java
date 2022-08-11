@@ -13,6 +13,7 @@ package com.johnburitto.interurbantransit.controller.transport;
 
 import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.TransportForm;
+import com.johnburitto.interurbantransit.model.FiltersManager;
 import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.model.TransportCategory;
 import com.johnburitto.interurbantransit.service.impls.TransportPassportService;
@@ -25,6 +26,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/ui/v1/transports")
 public class TransportUIController {
@@ -36,9 +40,10 @@ public class TransportUIController {
     LogInController logInController;
 
     @RequestMapping("/")
-    public String showAll(Model model) {
+    public String showAll(Model model) throws IOException {
         model.addAttribute("transports", transportService.getAll());
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("transportFilters.txt"));
 
         return "transports-all";
     }
@@ -97,6 +102,13 @@ public class TransportUIController {
         transportToEdit.fillFromForm(form);
         transportService.update(transportToEdit);
         transportPassportService.update(transportToEdit.getPassport());
+
+        return "redirect:/ui/v1/transports/";
+    }
+
+    @RequestMapping("/filters/{data}")
+    public String saveFilters(@PathVariable String data) throws FileNotFoundException {
+        FiltersManager.parseAndSaveToFile(data, "transportFilters.txt");
 
         return "redirect:/ui/v1/transports/";
     }

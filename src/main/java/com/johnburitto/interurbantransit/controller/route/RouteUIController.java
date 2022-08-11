@@ -13,12 +13,16 @@ package com.johnburitto.interurbantransit.controller.route;
 
 import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.RouteForm;
+import com.johnburitto.interurbantransit.model.FiltersManager;
 import com.johnburitto.interurbantransit.model.Route;
 import com.johnburitto.interurbantransit.service.impls.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/ui/v1/routes")
@@ -29,9 +33,10 @@ public class RouteUIController {
     LogInController logInController;
 
     @RequestMapping("/")
-    public String showAll(Model model) {
+    public String showAll(Model model) throws IOException {
         model.addAttribute("routes", service.getAll());
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("routeFilters.txt"));
 
         return "routes-all";
     }
@@ -77,6 +82,13 @@ public class RouteUIController {
 
         routeToEdit.fillFromForm(routeForm);
         service.update(routeToEdit);
+
+        return "redirect:/ui/v1/routes/";
+    }
+
+    @RequestMapping("/filters/{data}")
+    public String saveFilters(@PathVariable String data) throws FileNotFoundException {
+        FiltersManager.parseAndSaveToFile(data, "routeFilters.txt");
 
         return "redirect:/ui/v1/routes/";
     }

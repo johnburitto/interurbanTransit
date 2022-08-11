@@ -15,7 +15,7 @@ import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.FlightForm;
 import com.johnburitto.interurbantransit.form.FlightPostponeForm;
 import com.johnburitto.interurbantransit.model.Flight;
-import com.johnburitto.interurbantransit.model.FlightStatus;
+import com.johnburitto.interurbantransit.model.FiltersManager;
 import com.johnburitto.interurbantransit.service.impls.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -43,15 +44,6 @@ public class FlightUIController {
     BookedPlaceService bookedPlaceService;
     @Autowired
     LogInController logInController;
-
-    @RequestMapping("/")
-    public String showAll(Model model) {
-        model.addAttribute("flights", flightService.updateAndGetAll());
-        model.addAttribute("perms", logInController.perms);
-        bookedPlaceService.updateAndGetAll();
-
-        return "flights-all";
-    }
 
     @RequestMapping("/delete/{id}")
     public String deleteFlight(@PathVariable String id) {
@@ -82,7 +74,7 @@ public class FlightUIController {
     public String postponeFlight(@ModelAttribute("form") FlightPostponeForm form, @PathVariable String id) {
         flightService.postpone(id, form);
 
-        return "redirect:/ui/v1/flights/";
+        return "redirect:/tables";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -105,7 +97,7 @@ public class FlightUIController {
         flightToAdd.setRoute(routeService.get(form.getRoute()));
         flightService.create(flightToAdd);
 
-        return "redirect:/ui/v1/flights/";
+        return "redirect:/tables";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -135,29 +127,31 @@ public class FlightUIController {
         flightToEdit.setRoute(routeService.get(form.getRoute()));
         flightService.update(flightToEdit);
 
-        return "redirect:/ui/v1/flights/";
+        return "redirect:/tables";
     }
 
     @RequestMapping("/{flightStatus}")
-    public String showAllFlightByStatus(Model model, @PathVariable String flightStatus) {
+    public String showAllFlightByStatus(Model model, @PathVariable String flightStatus) throws IOException {
         List<Flight> flights = flightService.getAllFlightsByStatus(flightStatus);
 
         model.addAttribute("flights", flights);
         model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
 
         return "flights-all-with-number-of-booked-places";
     }
 
     @RequestMapping("/{flightStatus}/route/{id}")
     public String showAllFlightByRouteAndStatus(Model model, @PathVariable String id,
-                                                @PathVariable String flightStatus) {
+                                                @PathVariable String flightStatus) throws IOException {
         List<Flight> flights = flightService.getAllFlightsByRouteAndStatus(id, flightStatus);
 
         model.addAttribute("flights", flights);
         model.addAttribute("numberOfBookedPlaces", bookedPlaceService.getNumberOfAllBookedPlaces(flights));
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
 
         return "flights-all-with-number-of-booked-places";
     }
@@ -169,5 +163,12 @@ public class FlightUIController {
         model.addAttribute("perms", logInController.perms);
 
         return "passengers-all";
+    }
+
+    @RequestMapping("/filters/{data}")
+    public String saveFilters(@PathVariable String data) throws FileNotFoundException {
+        FiltersManager.parseAndSaveToFile(data, "flightFilters.txt");
+
+        return "redirect:/tables";
     }
 }

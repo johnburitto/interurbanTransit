@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -43,11 +46,29 @@ public class BookedPlaceUIController {
     LogInController logInController;
 
     @RequestMapping("/")
-    public String showAll(Model model) {
+    public String showAll(Model model) throws IOException {
+        if (logInController.perms.getType() == UserType.Guest) {
+            model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByName(logInController.contactInf.getName()));
+            model.addAttribute("perms", logInController.perms);
+            model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
+
+            return "booked-places-all";
+        }
+
         model.addAttribute("bookedPlaces", bookedPlaceService.updateAndGetAll());
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
         return "booked-places-all";
+    }
+
+    @RequestMapping("/book/{id}")
+    public String bookPlace(@PathVariable String id) {
+        BookedPlace newBookedPlace = new BookedPlace("0", flightService.get(id), userService.get(logInController.currentUserId), LocalDate.now());
+
+        bookedPlaceService.create(newBookedPlace);
+
+        return "redirect:/";
     }
 
     @RequestMapping("/cancel/{id}")
@@ -94,64 +115,6 @@ public class BookedPlaceUIController {
         return "redirect:/ui/v1/booked-places/";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addBookedPlace(Model model) {
-        model.addAttribute("form", new BookedPlaceForm());
-        model.addAttribute("flights", flightService.getFreeFlights());
-        model.addAttribute("passengers", userService.getAll());
-
-        return "booked-place-add";
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addBookedPlace(@ModelAttribute("form") BookedPlaceForm form) {
-        BookedPlace bookedPlaceToAdd = new BookedPlace();
-
-
-        bookedPlaceToAdd.fillFromForm(form);
-        bookedPlaceToAdd.setFlight(flightService.get(form.getFlight()));
-        bookedPlaceToAdd.setPassenger(userService.get(form.getPassenger()));
-
-        Transport transportToUpdate = bookedPlaceToAdd.getFlight().getTransport();
-        transportToUpdate.bookPlace();
-        bookedPlaceToAdd.getFlight().setTransport(transportToUpdate);
-
-        bookedPlaceService.create(bookedPlaceToAdd);
-        transportService.update(transportToUpdate);
-        flightService.update(bookedPlaceToAdd.getFlight());
-
-        return "redirect:/ui/v1/booked-places/";
-    }
-
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editBookedPlace(Model model, @PathVariable String id) {
-        BookedPlace bookedPlaceToEdit = bookedPlaceService.get(id);
-        BookedPlaceForm bookedPlaceForm = new BookedPlaceForm();
-
-        bookedPlaceForm.fillFromBookedPlace(bookedPlaceToEdit);
-        model.addAttribute("form", bookedPlaceForm);
-        model.addAttribute("currentFlight", flightService.get(bookedPlaceForm.getFlight()));
-        model.addAttribute("currentPassenger", userService.get(bookedPlaceForm.getPassenger()));
-
-        if (!flightService.get(bookedPlaceForm.getFlight()).getFlightStatus().equals(FlightStatus.Waiting)) {
-            return "redirect:/ui/v1/booked-places/";
-        }
-
-        return "booked-place-edit";
-    }
-
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String editBookedPlace(@ModelAttribute("form") BookedPlaceForm form, @PathVariable("id") String id) {
-        BookedPlace bookedPlaceToEdit = bookedPlaceService.get(id);
-
-        bookedPlaceToEdit.fillFromForm(form);
-        bookedPlaceToEdit.setFlight(flightService.get(form.getFlight()));
-        bookedPlaceToEdit.setPassenger(userService.get(form.getPassenger()));
-        bookedPlaceService.update(bookedPlaceToEdit);
-
-        return "redirect:/ui/v1/booked-places/";
-    }
-
     @RequestMapping("/redirect/flights")
     public String redirectFlights() {
         bookedPlaceService.updateAndGetAll();
@@ -160,25 +123,27 @@ public class BookedPlaceUIController {
     }
 
     @RequestMapping("/name/{name}")
-    public String allBookedPlacesByName(Model model, @PathVariable String name) {
+    public String allBookedPlacesByName(Model model, @PathVariable String name) throws IOException {
         Name searchName = Name.parse(name);
 
         model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByName(searchName));
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
         return "booked-places-all";
     }
 
     @RequestMapping("/last-name/{lastName}")
-    public String allBookedPlacesByLastName(Model model, @PathVariable String lastName) {
+    public String allBookedPlacesByLastName(Model model, @PathVariable String lastName) throws IOException {
         model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByLastName(lastName));
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
         return "booked-places-all";
     }
 
     @RequestMapping("/interval/{startDay}/{endDay}")
-    public String showAllInterval(Model model, @PathVariable String startDay, @PathVariable String endDay) {
+    public String showAllInterval(Model model, @PathVariable String startDay, @PathVariable String endDay) throws IOException {
         List<BookedPlace> bookedPlaces = bookedPlaceService.getAllByDayOfBooking(startDay, endDay);
         int numberOfFlights = flightService.getNumberOfFlights(bookedPlaces);
 
@@ -186,7 +151,15 @@ public class BookedPlaceUIController {
         model.addAttribute("numberOfFlights", numberOfFlights);
         model.addAttribute("averageNumber", (double) bookedPlaces.size() / (double) numberOfFlights);
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
         return "booked-places-all-with-average";
+    }
+
+    @RequestMapping("/filters/{data}")
+    public String saveFilters(@PathVariable String data) throws FileNotFoundException {
+        FiltersManager.parseAndSaveToFile(data, "bookedPlaceFilters.txt");
+
+        return "redirect:/ui/v1/booked-places/";
     }
 }

@@ -11,11 +11,9 @@
     <link href="/static/css/display-filters.css?version=1510" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-    <input type="checkbox" id="id-display-filter" checked/>
-    <input type="checkbox" id="personal-inf-display-filter" checked/>
-    <input type="checkbox" id="transport-category-display-filter" checked/>
-    <input type="checkbox" id="working-book-display-filter" checked/>
-    <input type="checkbox" id="exp-of-work-display-filter" checked/>
+    <input type="checkbox" id="id-display-filter" ${filters[0]}/>
+    <input type="checkbox" id="personal-inf-display-filter" ${filters[1]}/>
+    <input type="checkbox" id="transport-category-display-filter" ${filters[2]}/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
     <div class="start-page-app-container">
@@ -67,6 +65,7 @@
                 <div class="width-100 filters-container oswald-bold" style="display: ${perms.columnFilters}">
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-personal-inf" for="personal-inf-display-filter">Personal Inf</label>
+                    <label class="btn btn-outline-dark filter-hover" id="for-transport-category" for="transport-category-display-filter">Transport category</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-updated-at" for="updated-at-display-filter">Updated at</label>
                 </div>
@@ -77,5 +76,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/changeDriverFilters.js?version=400"></script>
 </body>
 </html>

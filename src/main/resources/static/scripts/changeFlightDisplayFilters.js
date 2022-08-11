@@ -17,7 +17,7 @@ function changeDisplay() {
     flightDisplayFilters.ticketCost = document.getElementById("ticket-cost-display-filter").checked;
     flightDisplayFilters.flightStatus = document.getElementById("flight-status-display-filter").checked;
 
-    console.log(flightDisplayFilters);
+    window.location.href = `/ui/v1/flights/filters/${JSON.stringify(flightDisplayFilters)}`;
 }
 
 document.getElementById("id-display-filter").onchange = function () { changeDisplay(); }

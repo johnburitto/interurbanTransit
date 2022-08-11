@@ -27,6 +27,5 @@ public class BookedPlaceForm {
     public void fillFromBookedPlace(BookedPlace bookedPlaceObj) {
         flight = bookedPlaceObj.getFlight().getId();
         passenger = bookedPlaceObj.getPassenger().getId();
-        bookedPlace = bookedPlaceObj.getBookedPlace();
     }
 }

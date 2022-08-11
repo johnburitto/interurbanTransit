@@ -152,6 +152,6 @@
         </div>
     </div>
 
-    <script src="/static/scripts/flightDisplay/changeFlightDisplayFilter.js?version=400"></script>
+    <script src="/static/scripts/changeFlightDisplayFilters.js?version=400"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
     <link href="/static/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body class="start-page-app-container">
-    <div class="start-page-container" style="margin-left: 10px">
+    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%">
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 onclick="location.href='/ui/v1/transports/'">Transports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
@@ -39,13 +39,13 @@
                     onclick="location.href='/logout'">Log out</button>
         </div>
 
-        <input type="checkbox" id="id-display-filter" checked/>
-        <input type="checkbox" id="transport-display-filter" checked/>
-        <input type="checkbox" id="driver-display-filter" checked/>
-        <input type="checkbox" id="route-display-filter" checked/>
-        <input type="checkbox" id="day-display-filter" checked/>
-        <input type="checkbox" id="ticket-cost-display-filter" checked/>
-        <input type="checkbox" id="flight-status-display-filter" checked/>
+        <input type="checkbox" id="id-display-filter" ${filters[0]}/>
+        <input type="checkbox" id="transport-display-filter" ${filters[1]}/>
+        <input type="checkbox" id="driver-display-filter" ${filters[2]}/>
+        <input type="checkbox" id="route-display-filter" ${filters[3]}/>
+        <input type="checkbox" id="day-display-filter" ${filters[4]}/>
+        <input type="checkbox" id="ticket-cost-display-filter" ${filters[5]}/>
+        <input type="checkbox" id="flight-status-display-filter" ${filters[6]}/>
         <input type="checkbox" id="created-at-display-filter"/>
         <input type="checkbox" id="updated-at-display-filter"/>
         <div class="start-page-app-container">
@@ -73,6 +73,7 @@
                             <th style="display: ${perms.delete}">Cancel</th>
                             <th style="display: ${perms.edit}">Postpone</th>
                             <th style="display: ${perms.edit}">Edit</th>
+                            <th>Book</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -145,6 +146,10 @@
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/flights/edit/${flight.id}'">Edit</button>
                                 </td>
+                                <td class="align-middle" style="display: ${perms.delete}">
+                                    <button type="button" class="btn btn-outline-dark oswald-bold"
+                                            onclick="location.href='/ui/v1/booked-places/book/${flight.id}'">Book</button>
+                                </td>
                             </tr>
                         </#list>
                         </tbody>
@@ -177,7 +182,9 @@
         </div>
     </div>
     <div class="start-page-container">
-        Right
+
     </div>
+
+    <script src="/static/scripts/changeFlightDisplayFilters.js?version=500"></script>
 </body>
 </html>

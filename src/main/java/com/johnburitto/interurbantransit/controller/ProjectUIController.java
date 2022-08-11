@@ -12,6 +12,7 @@ package com.johnburitto.interurbantransit.controller;
  */
 
 import com.johnburitto.interurbantransit.form.UserForm;
+import com.johnburitto.interurbantransit.model.FiltersManager;
 import com.johnburitto.interurbantransit.model.User;
 import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
 import com.johnburitto.interurbantransit.service.impls.FlightService;
@@ -22,6 +23,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("")
@@ -36,10 +39,11 @@ public class ProjectUIController {
     UserService userService;
 
     @RequestMapping("/tables")
-    public String showAllTables(Model model) {
+    public String showAllTables(Model model) throws IOException {
         model.addAttribute("flights", flightService.updateAndGetAll());
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("name", logInController.contactInf.getName());
+        model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
         bookedPlaceService.updateAndGetAll();
 
         return "start-page";

@@ -11,10 +11,10 @@
     <link href="/static/css/display-filters.css?version=1410" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-    <input type="checkbox" id="id-display-filter" checked/>
-    <input type="checkbox" id="transport-category-display-filter" checked/>
-    <input type="checkbox" id="number-of-places-display-filter" checked/>
-    <input type="checkbox" id="company-display-filter" checked/>
+    <input type="checkbox" id="id-display-filter" ${filters[0]}/>
+    <input type="checkbox" id="transport-category-display-filter" ${filters[1]}/>
+    <input type="checkbox" id="number-of-places-display-filter" ${filters[2]}/>
+    <input type="checkbox" id="company-display-filter" ${filters[3]}/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
     <div class="start-page-app-container">
@@ -64,5 +64,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/changeTransportPassportDisplayFilters.js?version=500"></script>
 </body>
 </html>

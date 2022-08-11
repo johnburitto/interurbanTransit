@@ -29,23 +29,20 @@ public class BookedPlace {
     private String id;
     private Flight flight;
     private User passenger;
-    private int bookedPlace;
     private LocalDate dayOfBooking;
     private BookedPlaceStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public BookedPlace(String id, Flight flight, User passenger, int bookedPlace, LocalDate dayOfBooking) {
+    public BookedPlace(String id, Flight flight, User passenger, LocalDate dayOfBooking) {
         this.id = id;
         this.flight = flight;
         this.passenger = passenger;
-        this.bookedPlace = bookedPlace;
         this.dayOfBooking = dayOfBooking;
         this.status = BookedPlaceStatus.OK;
     }
 
     public void fillFromForm(BookedPlaceForm form) {
-        bookedPlace = form.getBookedPlace();
         dayOfBooking = LocalDate.now();
         status = BookedPlaceStatus.OK;
     }

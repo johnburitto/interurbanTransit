@@ -11,12 +11,12 @@
     <link href="/static/css/display-filters.css?version=1310" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-    <input type="checkbox" id="id-display-filter" checked/>
-    <input type="checkbox" id="distance-display-filter" checked/>
-    <input type="checkbox" id="departure-time-display-filter" checked/>
-    <input type="checkbox" id="arrival-time-display-filter" checked/>
-    <input type="checkbox" id="city-from-display-filter" checked/>
-    <input type="checkbox" id="city-to-display-filter" checked/>
+    <input type="checkbox" id="id-display-filter" ${filters[0]}/>
+    <input type="checkbox" id="distance-display-filter" ${filters[1]}/>
+    <input type="checkbox" id="departure-time-display-filter" ${filters[2]}/>
+    <input type="checkbox" id="arrival-time-display-filter" ${filters[3]}/>
+    <input type="checkbox" id="city-from-display-filter" ${filters[4]}/>
+    <input type="checkbox" id="city-to-display-filter" ${filters[5]}/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
     <div class="start-page-app-container">
@@ -84,5 +84,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/changeRouteDisplayFilters.js?version=400"></script>
 </body>
 </html>

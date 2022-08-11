@@ -13,6 +13,7 @@ package com.johnburitto.interurbantransit.controller.routeprofitability;
 
 import com.johnburitto.interurbantransit.controller.LogInController;
 import com.johnburitto.interurbantransit.form.RouteProfitabilityForm;
+import com.johnburitto.interurbantransit.model.FiltersManager;
 import com.johnburitto.interurbantransit.model.RouteProfitability;
 import com.johnburitto.interurbantransit.service.impls.RouteProfitabilityService;
 import com.johnburitto.interurbantransit.service.impls.RouteService;
@@ -20,8 +21,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/ui/v1/route-profitabilities")
@@ -34,9 +39,10 @@ public class RouteProfitabilityUIController {
     LogInController logInController;
 
     @RequestMapping("/")
-    public String showAll(Model model) {
+    public String showAll(Model model) throws IOException {
         model.addAttribute("rps", routeProfitabilityService.initAndGetAll());
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("routeProfitabilityPlaceFilters.txt"));
 
         return "route-profitability-all";
     }
@@ -56,6 +62,13 @@ public class RouteProfitabilityUIController {
         routeProfitabilityToAdd.fillFromForm(form);
         routeProfitabilityToAdd.setRoute(routeService.get(form.getRoute()));
         routeProfitabilityService.create(routeProfitabilityToAdd);
+
+        return "redirect:/ui/v1/route-profitabilities/";
+    }
+
+    @RequestMapping("/filters/{data}")
+    public String saveFilters(@PathVariable String data) throws FileNotFoundException {
+        FiltersManager.parseAndSaveToFile(data, "routeProfitabilityPlaceFilters.txt");
 
         return "redirect:/ui/v1/route-profitabilities/";
     }

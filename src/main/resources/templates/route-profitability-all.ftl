@@ -11,12 +11,12 @@
     <link href="/static/css/display-filters.css?version=1810" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-    <input type="checkbox" id="id-display-filter" checked/>
-    <input type="checkbox" id="route-display-filter" checked/>
-    <input type="checkbox" id="start-day-display-filter" checked/>
-    <input type="checkbox" id="end-day-display-filter" checked/>
-    <input type="checkbox" id="number-of-passengers-display-filter" checked/>
-    <input type="checkbox" id="profitability-display-filter" checked/>
+    <input type="checkbox" id="id-display-filter" ${filters[0]}/>
+    <input type="checkbox" id="route-display-filter" ${filters[1]}/>
+    <input type="checkbox" id="start-day-display-filter" ${filters[2]}/>
+    <input type="checkbox" id="end-day-display-filter" ${filters[3]}/>
+    <input type="checkbox" id="number-of-passengers-display-filter" ${filters[4]}/>
+    <input type="checkbox" id="profitability-display-filter" ${filters[5]}/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
     <div class="start-page-app-container">
@@ -77,5 +77,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/changeRouteProfitabilityDisplayFilters.js?version=400"></script>
 </body>
 </html>

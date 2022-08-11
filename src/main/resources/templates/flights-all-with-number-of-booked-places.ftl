@@ -8,16 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/static/css/project.css?version=3000" type="text/css" rel="stylesheet"/>
-    <link href="/static/css/display-filters.css?version=1710" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-    <input type="checkbox" id="id-display-filter" checked/>
-    <input type="checkbox" id="transport-display-filter" checked/>
-    <input type="checkbox" id="driver-display-filter" checked/>
-    <input type="checkbox" id="route-display-filter" checked/>
-    <input type="checkbox" id="day-display-filter" checked/>
-    <input type="checkbox" id="ticket-cost-display-filter" checked/>
-    <input type="checkbox" id="flight-status-display-filter" checked/>
+    <input type="checkbox" id="id-display-filter" ${filters[0]}/>
+    <input type="checkbox" id="transport-display-filter" ${filters[1]}/>
+    <input type="checkbox" id="driver-display-filter" ${filters[2]}/>
+    <input type="checkbox" id="route-display-filter" ${filters[3]}/>
+    <input type="checkbox" id="day-display-filter" ${filters[4]}/>
+    <input type="checkbox" id="ticket-cost-display-filter" ${filters[5]}/>
+    <input type="checkbox" id="flight-status-display-filter" ${filters[6]}/>
     <input type="checkbox" id="created-at-display-filter"/>
     <input type="checkbox" id="updated-at-display-filter"/>
     <div class="start-page-app-container">
@@ -110,5 +110,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/static/scripts/changeFlightDisplayFilters.js?version=400"></script>
 </body>
 </html>
