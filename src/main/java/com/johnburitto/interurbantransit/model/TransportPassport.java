@@ -28,18 +28,16 @@ public class TransportPassport {
     private String transportNumber;
     private TransportCategory neededTransportCategory;
     private int numberOfPlaces;
-    private double mileage;
     private String companyName;
     private boolean needInspection;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public TransportPassport(String transportNumber, TransportCategory neededTransportCategory,
-                             int numberOfPlaces, double mileage, String companyName, boolean needInspection) {
+                             int numberOfPlaces, String companyName, boolean needInspection) {
         this.transportNumber = transportNumber;
         this.neededTransportCategory = neededTransportCategory;
         this.numberOfPlaces = numberOfPlaces;
-        this.mileage = mileage;
         this.companyName = companyName;
         this.needInspection = needInspection;
     }
@@ -50,10 +48,6 @@ public class TransportPassport {
         numberOfPlaces = form.getNumberOfPlaces();
         companyName = form.getCompanyName();
         needInspection = false;
-    }
-
-    public void addMileage(double mileageToAdd) {
-        mileage += mileageToAdd;
     }
 
     @Override

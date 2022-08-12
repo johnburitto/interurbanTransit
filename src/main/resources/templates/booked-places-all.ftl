@@ -24,9 +24,6 @@
             <input class="custom-checkbox" type="checkbox" id="list" checked/>
             <label for="list" class="width-100 table-name oswald-bold">
                 <h1>Table of booked places</h1>
-                <button type="button" class="btn btn-outline-dark reverse-btn-outline-dark oswald-bold"
-                        style="display: ${perms.create}"
-                        onclick="location.href='/ui/v1/booked-places/add'">Create</button>
             </label>
             <div class="width-100">
                 <table class="table table-hover text-center oswald">

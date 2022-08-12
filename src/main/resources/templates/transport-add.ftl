@@ -45,10 +45,6 @@
                         <input type="text" id="numberOfPlaces" name="numberOfPlaces" value="" placeholder="Number of places"/>
                     </div>
                     <div class="input-container width-100">
-                        <span class="input-text">Mileage:</span>
-                        <input type="text" id="mileage" name="mileage" value="" placeholder="Mileage"/>
-                    </div>
-                    <div class="input-container width-100">
                         <span class="input-text">Company name:</span>
                         <input type="text" id="companyName" name="companyName" value="" placeholder="Company name"/>
                     </div>

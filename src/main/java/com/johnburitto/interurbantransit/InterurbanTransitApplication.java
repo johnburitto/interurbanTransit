@@ -21,6 +21,9 @@ public class InterurbanTransitApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        service.create(new User("0", "owner", "owner", UserType.Owner, new ContactPerson(
+                new Name("Андрій", "Юрійович", "Борсук"), "+380967283875",
+                "johnburitto@gmail.com"
+        )));
     }
 }

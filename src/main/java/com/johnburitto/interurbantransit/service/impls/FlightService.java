@@ -146,7 +146,6 @@ public class FlightService implements IService<Flight> {
     private void complete(Flight flight) {
         flight.setFlightStatus(FlightStatus.Completed);
         flight.getTransport().setNumberOfBookedPlaces(0);
-        flight.getTransport().getPassport().addMileage(flight.getRoute().getDistance());
     }
 
     private void generateNextFlightItItNeed(Flight flight) {
@@ -287,5 +286,15 @@ public class FlightService implements IService<Flight> {
         }
 
         return uniqueFlights.size();
+    }
+
+    public List<Flight> updateAndGetByStartDay(LocalDate startDay) {
+        getByStartDay(startDay).forEach(this::updateFlight);
+
+        return getByStartDay(startDay);
+    }
+
+    public List<Flight> getByStartDay(LocalDate startDay) {
+        return flightRepository.queryFindByStartDay(startDay);
     }
 }

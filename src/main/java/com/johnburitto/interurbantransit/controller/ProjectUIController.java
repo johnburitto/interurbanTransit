@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("")
@@ -40,7 +41,7 @@ public class ProjectUIController {
 
     @RequestMapping("/tables")
     public String showAllTables(Model model) throws IOException {
-        model.addAttribute("flights", flightService.updateAndGetAll());
+        model.addAttribute("flights", flightService.updateAndGetByStartDay(LocalDate.now()));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("name", logInController.contactInf.getName());
         model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));

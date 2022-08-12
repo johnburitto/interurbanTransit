@@ -53,10 +53,6 @@
                     </#list>
                 </select>
             </div>
-            <div class="input-container">
-                <span class="input-text">Working book number:</span>
-                <input type="text" id="workingBookNumber" name="workingBookNumber" value="" placeholder="Working book number"/>
-            </div>
             <input  class="btn btn-outline-dark oswald-bold" type=submit value="Create">
         </form>
     </fieldset>
