@@ -13,9 +13,13 @@ package com.johnburitto.interurbantransit.repository;
 
 import com.johnburitto.interurbantransit.model.BookedPlace;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface BookedPlacePostgreSQLRepository extends JpaRepository<BookedPlace, Integer> {
-
+    @Query("select b from BookedPlace b where b.passenger = ?1")
+    List<BookedPlace> queryFindByPassenger(Integer passenger);
 }

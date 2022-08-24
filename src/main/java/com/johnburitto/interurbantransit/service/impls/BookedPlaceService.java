@@ -12,6 +12,7 @@ package com.johnburitto.interurbantransit.service.impls;
  */
 
 import com.johnburitto.interurbantransit.model.BookedPlace;
+import com.johnburitto.interurbantransit.model.BookedPlaceStatus;
 import com.johnburitto.interurbantransit.repository.BookedPlacePostgreSQLRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,16 @@ public class BookedPlaceService implements IService<BookedPlace> {
         return repository.findById(id).orElse(null);
     }
 
+    public void cancel(BookedPlace bookedPlaceToCancel) {
+        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Canceled);
+        update(bookedPlaceToCancel);
+    }
+
+    public void returnPlace(BookedPlace bookedPlaceToCancel) {
+        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Returned);
+        update(bookedPlaceToCancel);
+    }
+
     @Override
     public BookedPlace update(BookedPlace bookedPlace) {
         bookedPlace.setCreatedAt(get(bookedPlace.getId()).getCreatedAt());
@@ -54,5 +65,9 @@ public class BookedPlaceService implements IService<BookedPlace> {
     @Override
     public List<BookedPlace> getAll() {
         return repository.findAll();
+    }
+
+    public List<BookedPlace> getByPassenger(Integer passenger) {
+        return repository.queryFindByPassenger(passenger);
     }
 }

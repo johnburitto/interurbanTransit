@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.RouteForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,13 +47,13 @@ public class Route {
         this.toCity = toCity;
     }
 
-    /*public void fillFromForm(RouteForm form) {
+    public void fillFromForm(RouteForm form) {
         distance = form.getDistance();
         departureTime = form.getDepartureTime();
         arrivalTime = form.getArrivalTime();
         fromCity = form.getFromCity();
         toCity = form.getToCity();
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {

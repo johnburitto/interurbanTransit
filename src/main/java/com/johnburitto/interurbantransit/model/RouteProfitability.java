@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.RouteProfitabilityForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -65,14 +66,14 @@ public class RouteProfitability {
                         bookedPlace.getStatus().equals(BookedPlaceStatus.OK) ||
                                 bookedPlace.getStatus().equals(BookedPlaceStatus.Postponed_OK))
                 .forEach(bookedPlace -> profitability += bookedPlace.getFlight().getCostOfTicket());
-    }
+    }*/
 
     public void fillFromForm(RouteProfitabilityForm form) {
         startDay = LocalDate.parse(form.getStartDay());
         endDay = LocalDate.parse(form.getEndDay());
         numberOfPassengers = 0;
         profitability = 0;
-    }*/
+    }
 
     public long daysOfAccrual() {
         return ChronoUnit.DAYS.between(startDay, endDay);

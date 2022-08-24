@@ -13,9 +13,11 @@ package com.johnburitto.interurbantransit.repository;
 
 import com.johnburitto.interurbantransit.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserPostgreSQLRepository extends JpaRepository<User, Integer> {
-
+    @Query("select u from User u where u.login = ?1 and u.password = ?2")
+    User queryFindByLoginAndPassword(String login, String password);
 }

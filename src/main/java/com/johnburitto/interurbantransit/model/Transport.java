@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.TransportForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,18 +50,17 @@ public class Transport {
         this.companyName = companyName;
     }
 
-    /*public void fillFromForm(TransportForm form) {
-        TransportPassport passportToAdd = new TransportPassport();
-
+    public void fillFromForm(TransportForm form) {
         brand = form.getBrand();
         model = form.getModel();
-        passportToAdd.fillFromForm(form);
-        passport = passportToAdd;
+        transportNumber = form.getTransportNumber();
+        neededTransportCategory = form.getNeededTransportCategory();
         numberOfBookedPlaces = 0;
+        companyName = form.getCompanyName();
     }
 
     public void bookPlace() {
-        if (numberOfBookedPlaces++ > passport.getNumberOfPlaces()) {
+        if (numberOfBookedPlaces++ > numberOfPlaces) {
             numberOfBookedPlaces--;
         }
     }
@@ -72,8 +72,8 @@ public class Transport {
     }
 
     public boolean isFree() {
-        return numberOfBookedPlaces < passport.getNumberOfPlaces();
-    }*/
+        return numberOfBookedPlaces < numberOfPlaces;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.DriverForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,13 +50,14 @@ public class Driver {
         this.transportCategory = transportCategory;
     }
 
-    /*public void fillFromForm(DriverForm form) {
-        PersonalInf personalInfToAdd = new PersonalInf();
-
-        personalInfToAdd.fillFromForm(form);
-        personalInf = personalInfToAdd;
+    public void fillFromForm(DriverForm form) {
+        firstName = form.getFirstName();
+        middleName = form.getMiddleName();
+        lastName = form.getLastName();
+        dateOfBirth = LocalDate.parse(form.getDateOfBirth());
+        bloodType = form.getBloodType();
         transportCategory = form.getTransportCategory();
-    }*/
+    }
 
     @Override
     public boolean equals(Object o) {

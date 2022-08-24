@@ -11,6 +11,8 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.RegisterForm;
+import com.johnburitto.interurbantransit.form.UserForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,27 +53,29 @@ public class User {
         this.eMail = eMail;
     }
 
-    /*public void fillFromForm(UserForm form) {
-        contactPerson = new ContactPerson();
-        contactPerson.setName(new Name(form.getFirstName(), form.getMiddleName(), form.getLastName()));
-        contactPerson.setTelephoneNumber(form.getTelephoneNumber());
-        contactPerson.setEMail(form.getEMail());
+    public void fillFromForm(UserForm form) {
+        firstName = form.getFirstName();
+        middleName = form.getMiddleName();
+        lastName = form.getLastName();
+        telephoneNumber = form.getTelephoneNumber();
+        eMail = form.getEMail();
         login = form.getLogin();
         password = form.getPassword();
         userType = form.getUserType();
     }
 
     public void fillFromForm(RegisterForm form) {
-        contactPerson = new ContactPerson();
-        contactPerson.setName(new Name(form.getFirstName(), form.getMiddleName(), form.getLastName()));
-        contactPerson.setTelephoneNumber(form.getTelephoneNumber());
-        contactPerson.setEMail(form.getEMail());
+        firstName = form.getFirstName();
+        middleName = form.getMiddleName();
+        lastName = form.getLastName();
+        telephoneNumber = form.getTelephoneNumber();
+        eMail = form.getEMail();
         login = form.getLogin();
         password = form.getPassword();
         userType = UserType.Guest;
     }
 
-    public void updatePersonalInf(UserForm form) {
+    /*public void updatePersonalInf(UserForm form) {
         contactPerson = new ContactPerson();
         contactPerson.setName(new Name(form.getFirstName(), form.getMiddleName(), form.getLastName()));
         contactPerson.setTelephoneNumber(form.getTelephoneNumber());

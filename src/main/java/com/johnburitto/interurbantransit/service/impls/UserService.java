@@ -55,4 +55,8 @@ public class UserService implements IService<User> {
     public List<User> getAll() {
         return repository.findAll();
     }
+
+    public User getByLoginAndPassword(String login, String password) {
+        return repository.queryFindByLoginAndPassword(login, password);
+    }
 }

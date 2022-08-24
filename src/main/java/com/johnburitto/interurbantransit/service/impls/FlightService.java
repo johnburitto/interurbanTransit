@@ -17,6 +17,7 @@ import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -54,5 +55,9 @@ public class FlightService implements IService<Flight> {
     @Override
     public List<Flight> getAll() {
         return repository.findAll();
+    }
+
+    public List<Flight> getByStartDay(LocalDate startDay) {
+        return repository.queryFindByStartDay(startDay);
     }
 }
