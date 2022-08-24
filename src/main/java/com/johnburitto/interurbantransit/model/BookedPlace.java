@@ -30,20 +30,16 @@ public class BookedPlace {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booked_place_id")
     private Integer id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "flight", referencedColumnName = "flight_id")
-    private Flight flight;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user", referencedColumnName = "user_id")
-    private User passenger;
+    private Integer flight;
+    private Integer passenger;
     private LocalDate dayOfBooking;
     private BookedPlaceStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public BookedPlace(Flight flight, User passenger, LocalDate dayOfBooking) {
-        this.flight = flight;
-        this.passenger = passenger;
+        this.flight = flight.getId();
+        this.passenger = passenger.getId();
         this.dayOfBooking = dayOfBooking;
         this.status = BookedPlaceStatus.OK;
     }

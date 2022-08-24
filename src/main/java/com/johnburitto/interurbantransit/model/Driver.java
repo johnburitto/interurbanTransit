@@ -36,8 +36,6 @@ public class Driver {
     private LocalDate dateOfBirth;
     private BloodType bloodType;
     private TransportCategory transportCategory;
-    @OneToOne(mappedBy = "driver")
-    private Flight flight;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

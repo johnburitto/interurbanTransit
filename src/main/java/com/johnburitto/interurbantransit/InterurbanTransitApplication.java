@@ -1,10 +1,7 @@
 package com.johnburitto.interurbantransit;
 
 import com.johnburitto.interurbantransit.model.*;
-import com.johnburitto.interurbantransit.service.impls.DriverService;
-import com.johnburitto.interurbantransit.service.impls.FlightService;
-import com.johnburitto.interurbantransit.service.impls.RouteService;
-import com.johnburitto.interurbantransit.service.impls.TransportService;
+import com.johnburitto.interurbantransit.service.impls.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +20,10 @@ public class InterurbanTransitApplication implements CommandLineRunner {
     TransportService transportService;
     @Autowired
     FlightService flightService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    BookedPlaceService bookedPlaceService;
 
     public static void main(String[] args) {
         SpringApplication.run(InterurbanTransitApplication.class, args);
@@ -30,8 +31,6 @@ public class InterurbanTransitApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        flightService.create(
-                new Flight(transportService.get(1), driverService.get(1), routeService.get(1), 110, LocalDate.now(), LocalDate.now())
-        );
+
     }
 }

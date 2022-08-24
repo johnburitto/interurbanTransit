@@ -35,8 +35,6 @@ public class Route {
     private LocalTime arrivalTime;
     private String fromCity;
     private String toCity;
-    @OneToOne(mappedBy = "route")
-    private Flight flight;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

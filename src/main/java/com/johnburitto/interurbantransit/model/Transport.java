@@ -36,8 +36,6 @@ public class Transport {
     private int numberOfPlaces;
     private String companyName;
     private int numberOfBookedPlaces;
-    @OneToOne(mappedBy = "transport")
-    private Flight flight;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

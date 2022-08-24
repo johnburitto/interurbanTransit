@@ -50,7 +50,7 @@ public class RouteProfitability {
         this.profitability = profitability;
     }
 
-    public void setNumberOfPassengersAndCalcProfitability(List<BookedPlace> allPlaces) {
+    /*public void setNumberOfPassengersAndCalcProfitability(List<BookedPlace> allPlaces) {
         numberOfPassengers = 0;
         profitability = 0;
 
@@ -67,7 +67,7 @@ public class RouteProfitability {
                 .forEach(bookedPlace -> profitability += bookedPlace.getFlight().getCostOfTicket());
     }
 
-    /*public void fillFromForm(RouteProfitabilityForm form) {
+    public void fillFromForm(RouteProfitabilityForm form) {
         startDay = LocalDate.parse(form.getStartDay());
         endDay = LocalDate.parse(form.getEndDay());
         numberOfPassengers = 0;

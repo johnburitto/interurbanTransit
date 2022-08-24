@@ -30,17 +30,11 @@ import java.util.Objects;
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flight_id")
+    @Column(name = "id")
     private Integer id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "transport_id", referencedColumnName = "transport_id")
-    private Transport transport;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "driver_id", referencedColumnName = "driver_id")
-    private Driver driver;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "route_id", referencedColumnName = "route_id")
-    private Route route;
+    private Integer transport;
+    private Integer driver;
+    private Integer route;
     private double costOfTicket;
     private LocalDate startDay;
     private LocalDate endDay;
@@ -50,9 +44,9 @@ public class Flight {
 
     public Flight(Transport transport, Driver driver, Route route, double costOfTicket, LocalDate startDay,
                   LocalDate endDay) {
-        this.transport = transport;
-        this.driver = driver;
-        this.route = route;
+        this.transport = transport.getId();
+        this.driver = driver.getId();
+        this.route = route.getId();
         this.costOfTicket = costOfTicket;
         this.startDay = startDay;
         this.endDay = endDay;
