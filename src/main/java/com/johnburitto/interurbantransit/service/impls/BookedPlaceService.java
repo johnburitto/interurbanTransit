@@ -11,20 +11,30 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.model.BookedPlace;
-import com.johnburitto.interurbantransit.model.BookedPlaceStatus;
+import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.repository.BookedPlacePostgreSQLRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
+import com.sun.jmx.remote.internal.ArrayQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 public class BookedPlaceService implements IService<BookedPlace> {
     @Autowired
     BookedPlacePostgreSQLRepository repository;
+    @Autowired
+    FlightService flightService;
+    @Autowired
+    TransportService transportService;
+    @Autowired
+    UserService userService;
 
     @Override
     public BookedPlace create(BookedPlace bookedPlace) {
@@ -69,5 +79,109 @@ public class BookedPlaceService implements IService<BookedPlace> {
 
     public List<BookedPlace> getByPassenger(Integer passenger) {
         return repository.queryFindByPassenger(passenger);
+    }
+
+    public List<BookedPlace> updateAndGetAll() {
+        getAll().forEach(this::updateBookedPlace);
+
+        return getAll();
+    }
+
+    private void updateBookedPlace(BookedPlace bookedPlace) {
+        Flight flight = flightService.get(bookedPlace.getFlight());
+
+        if (!(flight == null)) {
+            updateStatus(bookedPlace, flight);
+            update(bookedPlace);
+        }
+    }
+
+    private void updateStatus(BookedPlace bookedPlace, Flight flight) {
+        if (flight.isCanceled()) {
+            Transport transportToUpdate = transportService.get(flight.getTransport());
+            Flight flightToUpdate = flightService.get(bookedPlace.getFlight());
+
+            bookedPlace.setStatus(BookedPlaceStatus.Canceled);
+            transportToUpdate.setNumberOfBookedPlaces(0);
+
+            transportService.update(transportToUpdate);
+            flightService.update(flightToUpdate);
+        }
+        if (flight.isPostponed() && bookedPlace.getStatus().equals(BookedPlaceStatus.OK)) {
+            bookedPlace.setStatus(BookedPlaceStatus.Postponed_OK);
+        }
+    }
+
+    public List<BookedPlace> getAllPlacesByFullName(String firstName, String middleName, String lastName) {
+        List<BookedPlace> bookedPlaces = new ArrayList<>();
+        List<User> users = userService.getByFullName(firstName, middleName, lastName);
+
+        for (User user : users) {
+            bookedPlaces.addAll(getByPassenger(user.getId()));
+        }
+
+        return bookedPlaces;
+    }
+
+    public List<BookedPlace> getAllPlacesByLastName(String lastName) {
+        List<BookedPlace> bookedPlaces = new ArrayList<>();
+        List<User> users = userService.getByLastName(lastName);
+
+        for (User user : users) {
+            bookedPlaces.addAll(getByPassenger(user.getId()));
+        }
+
+        return bookedPlaces;
+    }
+
+    public List<BookedPlace> getAllByDayOfBooking(String startDay, String endDay) {
+        LocalDate sDay = LocalDate.parse(startDay);
+        LocalDate eDay = LocalDate.parse(endDay);
+        List<BookedPlace> allBookedPlaces = new ArrayList<>();
+        long dayScale = ChronoUnit.DAYS.between(sDay, eDay);
+
+        for (long i = 0; i <= dayScale; i++) {
+            allBookedPlaces.addAll(getByDayOfBooking(sDay.plusDays(i)));
+        }
+
+        return allBookedPlaces;
+    }
+
+    public List<BookedPlace> getByDayOfBooking(LocalDate dayOfBooking) {
+        return repository.queryFindByDayOfBooking(dayOfBooking);
+    }
+
+    public int getNumberOfAllBookedPlaces(List<Flight> flights) {
+        List<BookedPlace> allBookedPlaces = new ArrayList<>();
+
+        for (Flight flight : flights) {
+            allBookedPlaces.addAll(getAllByRouteAndEndDay(flight.getRoute(), flight.getEndDay()));
+        }
+
+        return allBookedPlaces.size();
+    }
+
+    public List<BookedPlace> getAllByRouteAndEndDay(Integer route, LocalDate endDay) {
+        List<BookedPlace> bookedPlaces = new ArrayList<>();
+        List<Flight> flights = flightService.getByRouteAndEndDay(route, endDay);
+
+        for (Flight flight : flights) {
+            bookedPlaces.addAll(repository.queryFindByFlight(flight.getId()));
+        }
+
+        return bookedPlaces;
+    }
+
+    public List<BookedPlace> getAllPlacesByFlightAndItsStatus(Integer flight, FlightStatus flightStatus) {
+        List<BookedPlace> allBookedPlaces = repository.queryFindByFlight(flight);
+        List<BookedPlace> neededPlaces = new ArrayList<>();
+
+        for (BookedPlace bookedPlace : allBookedPlaces) {
+            if (flightService.get(bookedPlace.getFlight()).getFlightStatus() == flightStatus) {
+                neededPlaces.add(bookedPlace);
+            }
+        }
+
+        return neededPlaces;
     }
 }

@@ -75,10 +75,11 @@ public class User {
         userType = UserType.Guest;
     }
 
-    /*public void updatePersonalInf(UserForm form) {
-        contactPerson = new ContactPerson();
-        contactPerson.setName(new Name(form.getFirstName(), form.getMiddleName(), form.getLastName()));
-        contactPerson.setTelephoneNumber(form.getTelephoneNumber());
-        contactPerson.setEMail(form.getEMail());
-    }*/
+    public void updatePersonalInf(UserForm form) {
+        firstName = form.getFirstName();
+        middleName = form.getMiddleName();
+        lastName = form.getLastName();
+        telephoneNumber = form.getTelephoneNumber();
+        eMail = form.getEMail();
+    }
 }

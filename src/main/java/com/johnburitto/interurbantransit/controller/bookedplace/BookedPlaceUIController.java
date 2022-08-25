@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/sql/ui/v1/booked-places")
@@ -51,7 +52,7 @@ public class BookedPlaceUIController {
             return "booked-places-all";
         }
 
-        model.addAttribute("bookedPlaces", bookedPlaceService.getAll());
+        model.addAttribute("bookedPlaces", bookedPlaceService.updateAndGetAll());
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
@@ -103,20 +104,23 @@ public class BookedPlaceUIController {
         return "redirect:/sql/ui/v1/booked-places/";
     }
 
-    /*@RequestMapping("/name/{name}")
-    public String allBookedPlacesByName(Model model, @PathVariable String name) throws IOException {
-        Name searchName = Name.parse(name);
+    @RequestMapping("/name/{id}")
+    public String allBookedPlacesByName(Model model, @PathVariable Integer id) throws IOException {
+        User user = userService.get(id);
 
-        model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByName(searchName));
+        model.addAttribute("bookedPlaces",
+                bookedPlaceService.getAllPlacesByFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
         return "booked-places-all";
     }
 
-    @RequestMapping("/last-name/{lastName}")
-    public String allBookedPlacesByLastName(Model model, @PathVariable String lastName) throws IOException {
-        model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByLastName(lastName));
+    @RequestMapping("/last-name/{id}")
+    public String allBookedPlacesByLastName(Model model, @PathVariable Integer id) throws IOException {
+        User user = userService.get(id);
+
+        model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByLastName(user.getLastName()));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
@@ -135,12 +139,12 @@ public class BookedPlaceUIController {
         model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 
         return "booked-places-all-with-average";
-    }*/
+    }
 
     @RequestMapping("/filters/{data}")
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
         FiltersManager.parseAndSaveToFile(data, "bookedPlaceFilters.txt");
 
-        return "redirect:/ui/v1/booked-places/";
+        return "redirect:/sql/ui/v1/booked-places/";
     }
 }

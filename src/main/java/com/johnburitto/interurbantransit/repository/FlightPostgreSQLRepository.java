@@ -12,6 +12,7 @@ package com.johnburitto.interurbantransit.repository;
  */
 
 import com.johnburitto.interurbantransit.model.Flight;
+import com.johnburitto.interurbantransit.model.FlightStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,4 +24,13 @@ import java.util.List;
 public interface FlightPostgreSQLRepository extends JpaRepository<Flight, Integer> {
     @Query("select f from Flight f where f.startDay = ?1")
     List<Flight> queryFindByStartDay(LocalDate startDay);
+
+    @Query("select f from Flight f where f.flightStatus = ?1")
+    List<Flight> queryFindByFlightStatus(FlightStatus flightStatus);
+
+    @Query("select f from Flight f where f.route = ?1 and f.endDay = ?2")
+    List<Flight> queryFindByRouteAndEndDay(Integer route, LocalDate endDay);
+
+    @Query("select f from Flight f where f.route = ?1 and f.flightStatus = ?2")
+    List<Flight> queryFindByRouteAndFlightStatus(Integer route, FlightStatus flightStatus);
 }

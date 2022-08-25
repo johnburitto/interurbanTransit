@@ -46,9 +46,10 @@ public class TransportUIController {
     }
 
     @RequestMapping("/{id}")
-    public String showOne(Model model, @PathVariable Integer id) {
+    public String showOne(Model model, @PathVariable Integer id) throws IOException {
         model.addAttribute("transports", transportService.getOneAsList(id));
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("transportFilters.txt"));
 
         return "transports-all";
     }

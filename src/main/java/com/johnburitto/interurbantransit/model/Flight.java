@@ -11,6 +11,7 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.FlightForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Entity
@@ -59,30 +62,11 @@ public class Flight {
         return startDay + "---" + endDay;
     }
 
-    /*public void fillFromForm(FlightForm form) {
+    public void fillFromForm(FlightForm form) {
         startDay = LocalDate.parse(form.getStartDay());
         endDay = LocalDate.parse(form.getEndDay());
         costOfTicket = form.getCostOfTicket();
         flightStatus = FlightStatus.Waiting;
-    }*/
-
-    /*public boolean conditionOfInRoad() {
-        if (LocalDate.now().isAfter(startDay) && (flightStatus.equals(FlightStatus.Waiting) ||
-                flightStatus.equals(FlightStatus.Postponed))) {
-            return true;
-        }
-        else return LocalDate.now().equals(startDay) &&
-                LocalTime.now().isAfter(route.getDepartureTime()) &&
-                (flightStatus.equals(FlightStatus.Waiting) || flightStatus.equals(FlightStatus.Postponed));
-    }
-
-    public boolean conditionOfCompleted() {
-        if (LocalDate.now().isAfter(endDay) && flightStatus.equals(FlightStatus.InRoad)) {
-            return true;
-        }
-        else return LocalDate.now().equals(endDay) &&
-                LocalTime.now().isAfter(route.getArrivalTime()) &&
-                flightStatus.equals(FlightStatus.InRoad);
     }
 
     public boolean conditionOfCanceling() {
@@ -145,7 +129,7 @@ public class Flight {
         else if (isCanceled()) {
             flightStatus = FlightStatus.Canceled_HasNext;
         }
-    }*/
+    }
 
     public String flightStatusToString() {
         switch (flightStatus) {

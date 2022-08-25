@@ -16,8 +16,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserPostgreSQLRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.login = ?1 and u.password = ?2")
     User queryFindByLoginAndPassword(String login, String password);
+
+    @Query("select u from User u where u.firstName = ?1 and u.middleName = ?2 and u.lastName = ?3")
+    List<User> queryFindByFullName(String firstName, String middleName, String lastName);
+
+    @Query("select u from User u where u.lastName = ?1")
+    List<User> queryFindByLastName(String lastName);
 }

@@ -11,14 +11,19 @@ package com.johnburitto.interurbantransit.controller;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.form.UserForm;
 import com.johnburitto.interurbantransit.model.FiltersManager;
+import com.johnburitto.interurbantransit.model.User;
 import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
 import com.johnburitto.interurbantransit.service.impls.FlightService;
 import com.johnburitto.interurbantransit.service.impls.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -36,7 +41,7 @@ public class ProjectUIController {
 
    @RequestMapping("/sql/tables")
     public String showAllTables(Model model) throws IOException {
-        model.addAttribute("flights", flightService.getByStartDay(LocalDate.now()));
+        model.addAttribute("flights", flightService.getByStartDay(LocalDate.of(2022, 8, 24)));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("user", logInController.user);
         model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
@@ -44,9 +49,9 @@ public class ProjectUIController {
         return "start-page";
     }
 
-    /*@RequestMapping("/personal-office")
+    @RequestMapping("/personal-office")
     public String personalOffice(Model model) {
-        model.addAttribute("personalInf", logInController.contactInf);
+        model.addAttribute("personalInf", logInController.user);
         model.addAttribute("role", logInController.perms.getType());
 
         return "personal-office";
@@ -56,7 +61,7 @@ public class ProjectUIController {
     public String personalOfficeEdit(Model model) {
         UserForm form = new UserForm();
 
-        form.fillFromContactPerson(logInController.contactInf);
+        form.fillOnlyContactData(logInController.user);
         model.addAttribute("form", form);
 
         return "personal-office-edit";
@@ -64,11 +69,11 @@ public class ProjectUIController {
 
     @RequestMapping(value = "/personal-office/edit", method = RequestMethod.POST)
     public String personalOfficeEdit(@ModelAttribute UserForm form) {
-        User userToUpdate = userService.get(logInController.currentUserId);
+        User userToUpdate = logInController.user;
 
         userToUpdate.updatePersonalInf(form);
         userService.update(userToUpdate);
 
         return "redirect:/personal-office";
-    }*/
+    }
 }

@@ -14,7 +14,6 @@
     <input type="checkbox" id="id-display-filter" checked/>
     <input type="checkbox" id="flight-display-filter" checked/>
     <input type="checkbox" id="passenger-display-filter" checked/>
-    <input type="checkbox" id="booked-place-display-filter" checked/>
     <input type="checkbox" id="day-of-booking-display-filter" checked/>
     <input type="checkbox" id="status-display-filter" checked/>
     <input type="checkbox" id="created-at-display-filter"/>
@@ -55,7 +54,6 @@
                             <td class="align-middle hover-td" id="passenger">
                                 ${bookedPlace.passenger}
                             </td>
-                            <td class="align-middle hover-td" id="booked-place">${bookedPlace.bookedPlace}</td>
                             <td class="align-middle hover-td" id="day-of-booking">${bookedPlace.dayOfBooking}</td>
                             <td class="align-middle hover-td" id="status">${bookedPlace.status}</td>
                             <td class="align-middle hover-td" id="created-at">${bookedPlace.createdAt}</td>
@@ -86,7 +84,6 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-flight" for="flight-display-filter">Flight</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-passenger" for="passenger-display-filter">Passenger</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-booked-place" for="booked-place-display-filter">Booked place</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-day-of-booking" for="day-of-booking-display-filter">Day of booking</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-status" for="status-display-filter">Status</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>

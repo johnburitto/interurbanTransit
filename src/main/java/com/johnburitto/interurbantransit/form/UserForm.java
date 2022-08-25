@@ -38,4 +38,13 @@ public class UserForm {
         password = user.getPassword();
         userType = user.getUserType();
     }
+
+    public void fillOnlyContactData(User user) {
+        firstName = user.getFirstName();
+        middleName = user.getMiddleName();
+        lastName = user.getLastName();
+        telephoneNumber = user.getTelephoneNumber();
+        eMail = user.getEMail();
+        userType = user.getUserType();
+    }
 }
