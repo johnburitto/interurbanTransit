@@ -11,10 +11,14 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
 import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.repository.TransportMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,7 +28,7 @@ import java.util.List;
 @Service
 public class TransportService implements IService<Transport> {
     @Autowired
-    TransportMongoRepository transportRepository;
+    TransportMongoRepository repository;
 
     @Override
     public Transport create(Transport transport) {
@@ -32,11 +36,11 @@ public class TransportService implements IService<Transport> {
         transport.setCreatedAt(LocalDateTime.now());
         transport.setUpdatedAt(LocalDateTime.now());
 
-        return transportRepository.save(transport);
+        return repository.save(transport);
     }
 
     private String generateNextIndex() {
-        List<Transport> data = transportRepository.findAll();
+        List<Transport> data = repository.findAll();
 
         try {
             return String.valueOf(Integer.parseInt(data.get(data.size() - 1).getId()) + 1);
@@ -48,7 +52,7 @@ public class TransportService implements IService<Transport> {
 
     @Override
     public Transport get(String id) {
-        return transportRepository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     public List<Transport> getOneAsList(String id) {
@@ -60,24 +64,28 @@ public class TransportService implements IService<Transport> {
         transport.setCreatedAt(get(transport.getId()).getCreatedAt());
         transport.setUpdatedAt(LocalDateTime.now());
 
-        return transportRepository.save(transport);
+        return repository.save(transport);
     }
 
     @Override
     public void delete(String id) {
-        transportRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     @Override
     public List<Transport> getAll() {
-        return transportRepository.findAll();
+        return repository.findAll();
     }
 
     public List<Transport> getAllFreeTransports(List<Transport> busyTransports) {
-        List<Transport> freeTransports = transportRepository.findAll();
+        List<Transport> freeTransports = repository.findAll();
 
         freeTransports.removeAll(busyTransports);
 
         return  freeTransports;
+    }
+
+    public List<Transport> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

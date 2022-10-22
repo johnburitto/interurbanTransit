@@ -12,7 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.FlightForm;
-import javafx.geometry.Pos;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,17 +28,63 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Flight")
 public class Flight {
     @Id
     private String id;
+    @ApiModelProperty(
+            value = "Represent transport of flight",
+            name = "transport",
+            dataType = "Transport",
+            example = "")
     private Transport transport;
+    @ApiModelProperty(
+            value = "Represent driver of flight",
+            name = "driver",
+            dataType = "Driver",
+            example = "")
     private Driver driver;
+    @ApiModelProperty(
+            value = "Represent route of flight",
+            name = "route",
+            dataType = "Route",
+            example = "")
     private Route route;
+    @ApiModelProperty(
+            value = "Flight cost",
+            name = "costOfTicket",
+            dataType = "Double",
+            example = "100")
     private double costOfTicket;
+    @ApiModelProperty(
+            value = "Start day of flight",
+            name = "startDay",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalDate startDay;
+    @ApiModelProperty(
+            value = "End day of flight",
+            name = "endDay",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalDate endDay;
+    @ApiModelProperty(
+            value = "Status of flight",
+            name = "flightStatus",
+            dataType = "FlightStatus",
+            example = "0")
     private FlightStatus flightStatus;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public Flight(String id, Transport transport, Driver driver, Route route, double costOfTicket, LocalDate startDay,
@@ -139,23 +186,12 @@ public class Flight {
         return flightStatus.equals(FlightStatus.Completed);
     }
 
-    public void setNewStatus() {
-        if (isCompleted()) {
-            flightStatus = FlightStatus.Completed_HasNext;
-        }
-        else if (isCanceled()) {
-            flightStatus = FlightStatus.Canceled_HasNext;
-        }
-    }
-
     public String flightStatusToString() {
         switch (flightStatus) {
-            case Canceled:
-            case Canceled_HasNext: {
+            case Canceled: {
                 return "canceled";
             }
-            case Completed:
-            case Completed_HasNext: {
+            case Completed: {
                 return "completed";
             }
             case Waiting: {

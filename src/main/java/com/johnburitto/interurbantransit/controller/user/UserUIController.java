@@ -40,7 +40,7 @@ public class UserUIController {
     public String deleteUser(@PathVariable String id) {
         service.delete(id);
 
-        return "redirect:/ui/v1/keys/";
+        return "redirect:/ui/v1/keys/paging/7&0";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -58,7 +58,7 @@ public class UserUIController {
         userToAdd.fillFromForm(form);
         service.create(userToAdd);
 
-        return "redirect:/ui/v1/keys/";
+        return "redirect:/ui/v1/keys/paging/7&0";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -80,6 +80,13 @@ public class UserUIController {
         userToEdit.fillFromForm(form);
         service.update(userToEdit);
 
-        return "redirect:/ui/v1/keys/";
+        return "redirect:/ui/v1/keys/paging/7&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) {
+        model.addAttribute("users", service.getAllInPage(size, pageNumber));
+
+        return "users-paging";
     }
 }

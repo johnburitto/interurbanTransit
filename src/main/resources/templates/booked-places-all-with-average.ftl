@@ -35,7 +35,6 @@
                             <th id="id">Id</th>
                             <th id="flight">Flight</th>
                             <th id="passenger">Passenger</th>
-                            <th id="booked-place">Booked place</th>
                             <th id="day-of-booking">Day of booking</th>
                             <th id="status">Status</th>
                             <th id="created-at">Created at</th>
@@ -59,7 +58,6 @@
                                     <b>Telephone:</b> ${bookedPlace.passenger.contactPerson.telephoneNumber}<br>
                                     <b>E-mail:</b> ${bookedPlace.passenger.contactPerson.getEMail()}
                                 </td>
-                                <td class="align-middle hover-td" id="booked-place">${bookedPlace.bookedPlace}</td>
                                 <td class="align-middle hover-td" id="day-of-booking">${bookedPlace.dayOfBooking}</td>
                                 <td class="align-middle hover-td" id="status">${bookedPlace.status}</td>
                                 <td class="align-middle hover-td" id="created-at">${bookedPlace.createdAt}</td>
@@ -90,7 +88,6 @@
                     <label class="btn btn-outline-dark filter-hover" id="for-id" for="id-display-filter">Id</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-flight" for="flight-display-filter">Flight</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-passenger" for="passenger-display-filter">Passenger</label>
-                    <label class="btn btn-outline-dark filter-hover" id="for-booked-place" for="booked-place-display-filter">Booked place</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-day-of-booking" for="day-of-booking-display-filter">Day of booking</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-status" for="status-display-filter">Status</label>
                     <label class="btn btn-outline-dark filter-hover" id="for-created-at" for="created-at-display-filter">Created at</label>
@@ -99,7 +96,7 @@
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/ui/v1/booked-places/'">Back</button>
+                        onclick="location.href='/ui/v1/booked-places/paging/5&0'">Back</button>
             </div>
         </div>
     </div>

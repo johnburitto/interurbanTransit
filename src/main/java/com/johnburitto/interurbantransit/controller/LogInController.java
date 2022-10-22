@@ -40,7 +40,7 @@ public class LogInController {
             return "redirect:/login";
         }
 
-        return "redirect:/tables";
+        return "redirect:/tables/paging/5&0";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class LogInController {
             return "login-page";
         }
 
-        return "redirect:/tables";
+        return "redirect:/tables/paging/5&0";
     }
 
     @RequestMapping("/logout")

@@ -11,10 +11,15 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
+import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.model.TransportPassport;
 import com.johnburitto.interurbantransit.repository.TransportPassportMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,7 +41,7 @@ public class TransportPassportService implements IService<TransportPassport> {
 
     @Override
     public TransportPassport get(String id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -59,5 +64,9 @@ public class TransportPassportService implements IService<TransportPassport> {
 
     public List<TransportPassport> getOneAsList(String transportId) {
         return Collections.singletonList(get(transportId));
+    }
+
+    public List<TransportPassport> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

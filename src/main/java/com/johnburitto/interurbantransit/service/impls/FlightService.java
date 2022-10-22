@@ -11,17 +11,19 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.form.FlightForm;
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
 import com.johnburitto.interurbantransit.form.FlightPostponeForm;
 import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.repository.FlightMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -63,7 +65,7 @@ public class FlightService implements IService<Flight> {
 
     @Override
     public Flight get(String id) {
-        return flightRepository.findById(id).orElse(null);
+        return flightRepository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     public void cancel(String id) {
@@ -125,7 +127,6 @@ public class FlightService implements IService<Flight> {
             }
         }
         updateStatus(flight);
-        generateNextFlightItItNeed(flight);
 
         update(flight);
     }
@@ -146,13 +147,8 @@ public class FlightService implements IService<Flight> {
     private void complete(Flight flight) {
         flight.setFlightStatus(FlightStatus.Completed);
         flight.getTransport().setNumberOfBookedPlaces(0);
-    }
 
-    private void generateNextFlightItItNeed(Flight flight) {
-        if (flight.conditionOfNeedingNextFlight()) {
-            create(flight.generateNextFlight());
-            flight.setNewStatus();
-        }
+        transportService.update(flight.getTransport());
     }
 
     public List<Flight> getFreeFlights() {
@@ -195,7 +191,6 @@ public class FlightService implements IService<Flight> {
         switch (flightStatus) {
             case "canceled": {
                 allFlights.addAll(findByStatus(FlightStatus.Canceled));
-                allFlights.addAll(findByStatus(FlightStatus.Canceled_HasNext));
             } break;
             case "postponed": {
                 allFlights.addAll(findByStatus(FlightStatus.Postponed));
@@ -205,7 +200,6 @@ public class FlightService implements IService<Flight> {
             } break;
             case "completed": {
                 allFlights.addAll(findByStatus(FlightStatus.Completed));
-                allFlights.addAll(findByStatus(FlightStatus.Completed_HasNext));
             } break;
             case "in-road": {
                 allFlights.addAll(findByStatus(FlightStatus.InRoad));
@@ -226,7 +220,6 @@ public class FlightService implements IService<Flight> {
         switch (flightStatus) {
             case "canceled": {
                 allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Canceled));
-                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Canceled_HasNext));
             } break;
             case "postponed": {
                 allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Postponed));
@@ -236,7 +229,6 @@ public class FlightService implements IService<Flight> {
             } break;
             case "completed": {
                 allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Completed));
-                allFlights.addAll(findByRouteAndStatus(id, FlightStatus.Completed_HasNext));
             } break;
             case "in-road": {
                 allFlights.addAll(findByRouteAndStatus(id, FlightStatus.InRoad));
@@ -258,7 +250,6 @@ public class FlightService implements IService<Flight> {
         switch (flightStatus) {
             case "canceled": {
               allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Canceled));
-              allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Canceled_HasNext));
             } break;
             case "postponed": {
                 allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Postponed));
@@ -268,7 +259,6 @@ public class FlightService implements IService<Flight> {
             } break;
             case "completed": {
                 allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Completed));
-                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Completed_HasNext));
             }
             default: break;
         }
@@ -288,13 +278,11 @@ public class FlightService implements IService<Flight> {
         return uniqueFlights.size();
     }
 
-    public List<Flight> updateAndGetByStartDay(LocalDate startDay) {
-        getByStartDay(startDay).forEach(this::updateFlight);
-
-        return getByStartDay(startDay);
-    }
-
     public List<Flight> getByStartDay(LocalDate startDay) {
         return flightRepository.queryFindByStartDay(startDay);
+    }
+
+    public List<Flight> getAllInPage(int size, int pageNumber) {
+        return flightRepository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

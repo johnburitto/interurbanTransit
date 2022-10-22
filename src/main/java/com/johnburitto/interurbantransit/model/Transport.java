@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.TransportForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +25,45 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Transport of flight")
 public class Transport {
     @Id
     private String id;
+    @ApiModelProperty(
+            value = "Brand of transport",
+            name = "brand",
+            dataType = "String",
+            example = "Mercedes")
     private String brand;
+    @ApiModelProperty(
+            value = "Model of transport",
+            name = "model",
+            dataType = "String",
+            example = "Vito")
     private String model;
+    @ApiModelProperty(
+            value = "Transport passport information",
+            name = "passport",
+            dataType = "TransportPassport",
+            example = "")
     private TransportPassport passport;
+    @ApiModelProperty(
+            value = "Number of booked places",
+            name = "numberOfBookedPlaces",
+            dataType = "Integer",
+            example = "19")
     private int numberOfBookedPlaces;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public Transport(String id, String brand, String model, TransportPassport passport, int numberOfBookedPlaces) {

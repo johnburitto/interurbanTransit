@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.TransportForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +25,40 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Represent \"personal\" information about transport")
 public class TransportPassport {
     @Id
     private String transportNumber;
+    @ApiModelProperty(
+            value = "Transport category",
+            name = "neededTransportCategory",
+            dataType = "TransportCategory",
+            example = "0")
     private TransportCategory neededTransportCategory;
+    @ApiModelProperty(
+            value = "General number of places",
+            name = "numberOfPlaces",
+            dataType = "Integer",
+            example = "19")
     private int numberOfPlaces;
+    @ApiModelProperty(
+            value = "Name of company which transport belongs",
+            name = "companyName",
+            dataType = "String",
+            example = "\"Capitan soap\"")
     private String companyName;
     private boolean needInspection;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public TransportPassport(String transportNumber, TransportCategory neededTransportCategory,

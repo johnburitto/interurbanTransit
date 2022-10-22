@@ -11,10 +11,15 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
 import com.johnburitto.interurbantransit.model.Driver;
+import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.repository.DriverMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -47,7 +52,7 @@ public class DriverService implements IService<Driver> {
 
     @Override
     public Driver get(String id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -78,5 +83,9 @@ public class DriverService implements IService<Driver> {
         freeDrivers.removeAll(busyDrivers);
 
         return freeDrivers;
+    }
+
+    public List<Driver> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

@@ -11,25 +11,25 @@
     <link href="/static/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body class="start-page-app-container">
-    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%">
+    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%; display: ${perms.allTables}">
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/transports/'">Transports</button>
+                onclick="location.href='/ui/v1/transports/paging/7&0'">Transports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/drivers/'">Drivers</button>
+                onclick="location.href='/ui/v1/drivers/paging/7&0'">Drivers</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/routes/'">Routes</button>
+                onclick="location.href='/ui/v1/routes/paging/7&0'">Routes</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/booked-places/'">Booked places</button>
+                onclick="location.href='/ui/v1/booked-places/paging/5&0'">Booked places</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/route-profitabilities/'">Profitabilities</button>
+                onclick="location.href='/ui/v1/route-profitabilities/paging/7&0'">Profitabilities</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/transport-passports/'">Transport passports</button>
+                onclick="location.href='/ui/v1/transport-passports/paging/7&0'">Transport passports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 style="display: ${perms.keys}"
-                onclick="location.href='/ui/v1/keys/'">Keys</button>
+                onclick="location.href='/ui/v1/keys/paging/7&0'">Keys</button>
     </div>
     <div class="start-page-container width-100" style="width: 150%; justify-content: flex-start">
-        <div class="width-100" style="display: flex; justify-content: flex-end; align-items: baseline">
+        <div class="width-100" style="display: flex; justify-content: flex-end; align-items: baseline; padding-right: 5%">
             <p class="oswald-bold" style="margin-right: 10px; font-size: 20px"
                onclick="location.href='/personal-office'">
                 ${name} (${perms.type})
@@ -38,7 +38,6 @@
                     style="font-size: 16px"
                     onclick="location.href='/logout'">Log out</button>
         </div>
-
         <input type="checkbox" id="id-display-filter" ${filters[0]}/>
         <input type="checkbox" id="transport-display-filter" ${filters[1]}/>
         <input type="checkbox" id="driver-display-filter" ${filters[2]}/>
@@ -94,7 +93,6 @@
                                     onclick="location.href='/ui/v1/transports/${flight.transport.id}'">
                                     <b>Transport:</b> ${flight.transport.brand} ${flight.transport.model}<br>
                                     <b>Number:</b> ${flight.transport.passport.transportNumber}<br>
-                                    <b>Mileage:</b> ${flight.transport.passport.mileage}
                                 </td>
                                 <td class="align-middle hover-td" id="driver">
                                     <b>Name:</b> ${flight.driver.personalInf.name}<br>
@@ -146,7 +144,7 @@
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/flights/edit/${flight.id}'">Edit</button>
                                 </td>
-                                <td class="align-middle" style="display: ${perms.delete}">
+                                <td class="align-middle">
                                     <button type="button" class="btn btn-outline-dark oswald-bold"
                                             onclick="location.href='/ui/v1/booked-places/book/${flight.id}'">Book</button>
                                 </td>
@@ -178,13 +176,15 @@
                     <button class="btn btn-outline-dark"
                             onclick="location.href='/ui/v1/flights/in-road'">In road</button>
                 </div>
+                <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+                    <button class="btn btn-outline-dark" id="previous">Previous</button>
+                    <button class="btn btn-outline-dark" id="next">Next</button>
+                </div>
             </div>
         </div>
     </div>
-    <div class="start-page-container">
-
-    </div>
 
     <script src="/static/scripts/changeFlightDisplayFilters.js?version=500"></script>
+    <script src="/static/scripts/flightPaging.js?version=500"></script>
 </body>
 </html>

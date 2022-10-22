@@ -11,6 +11,8 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +23,25 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Represent name of person")
 public class Name {
+    @ApiModelProperty(
+            value = "First name of person",
+            name = "firstName",
+            dataType = "String",
+            example = "Петро")
     private String firstName;
+    @ApiModelProperty(
+            value = "Middle name of person",
+            name = "middleName",
+            dataType = "String",
+            example = "Петрович")
     private String middleName;
+    @ApiModelProperty(
+            value = "Last name of person",
+            name = "lastName",
+            dataType = "String",
+            example = "Петренко")
     private String lastName;
     private final static String NAME_SEPARATOR = "-";
 

@@ -13,6 +13,8 @@ package com.johnburitto.interurbantransit.model;
 
 import com.johnburitto.interurbantransit.form.RegisterForm;
 import com.johnburitto.interurbantransit.form.UserForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +25,45 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(description = "Represent user of system")
 public class User {
     @Id
     private String id;
+    @ApiModelProperty(
+            value = "User's login",
+            name = "login",
+            dataType = "String",
+            example = "owner")
     private String login;
+    @ApiModelProperty(
+            value = "User's password",
+            name = "password",
+            dataType = "String",
+            example = "owner")
     private String password;
+    @ApiModelProperty(
+            value = "User's role",
+            name = "userType",
+            dataType = "UserType",
+            example = "0")
     private UserType userType;
+    @ApiModelProperty(
+            value = "Contact information of person",
+            name = "contactPerson",
+            dataType = "ContactPerson",
+            example = "")
     private ContactPerson contactPerson;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public User(String id, String login, String password, UserType userType, ContactPerson contactPerson) {

@@ -11,11 +11,16 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
 import com.johnburitto.interurbantransit.model.Driver;
 import com.johnburitto.interurbantransit.model.Route;
+import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.repository.RouteMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -50,7 +55,7 @@ public class RouteService implements IService<Route> {
 
     @Override
     public Route get(String id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -77,5 +82,9 @@ public class RouteService implements IService<Route> {
         freeRoutes.removeAll(uncompletedRoutes);
 
         return freeRoutes;
+    }
+
+    public List<Route> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

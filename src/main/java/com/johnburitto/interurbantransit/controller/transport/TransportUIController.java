@@ -49,9 +49,10 @@ public class TransportUIController {
     }
 
     @RequestMapping("/{id}")
-    public String showOne(Model model, @PathVariable String id) {
+    public String showOne(Model model, @PathVariable String id) throws IOException {
         model.addAttribute("transports", transportService.getOneAsList(id));
         model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("transportFilters.txt"));
 
         return "transports-all";
     }
@@ -61,7 +62,7 @@ public class TransportUIController {
         transportPassportService.delete(transportService.get(id).getTransportNumber());
         transportService.delete(id);
 
-        return "redirect:/ui/v1/transports/";
+        return "redirect:/ui/v1/transports/paging/7&0";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -80,7 +81,7 @@ public class TransportUIController {
         transportService.create(transportToAdd);
         transportPassportService.create(transportToAdd.getPassport());
 
-        return "redirect:/ui/v1/transports/";
+        return "redirect:/ui/v1/transports/paging/7&0";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -103,13 +104,22 @@ public class TransportUIController {
         transportService.update(transportToEdit);
         transportPassportService.update(transportToEdit.getPassport());
 
-        return "redirect:/ui/v1/transports/";
+        return "redirect:/ui/v1/transports/paging/7&0";
     }
 
     @RequestMapping("/filters/{data}")
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
         FiltersManager.parseAndSaveToFile(data, "transportFilters.txt");
 
-        return "redirect:/ui/v1/transports/";
+        return "redirect:/ui/v1/transports/paging/7&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("transports", transportService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("transportFilters.txt"));
+
+        return "transport-paging";
     }
 }

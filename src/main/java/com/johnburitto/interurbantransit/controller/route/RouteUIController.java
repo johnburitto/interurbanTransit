@@ -45,7 +45,7 @@ public class RouteUIController {
     public String deleteRoute(@PathVariable String id) {
         service.delete(id);
 
-        return "redirect:/ui/v1/routes/";
+        return "redirect:/ui/v1/routes/paging/7&0";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -62,7 +62,7 @@ public class RouteUIController {
         routeToAdd.fillFromForm(routeForm);
         service.create(routeToAdd);
 
-        return "redirect:/ui/v1/routes/";
+        return "redirect:/ui/v1/routes/paging/7&0";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -83,13 +83,22 @@ public class RouteUIController {
         routeToEdit.fillFromForm(routeForm);
         service.update(routeToEdit);
 
-        return "redirect:/ui/v1/routes/";
+        return "redirect:/ui/v1/routes/paging/7&0";
     }
 
     @RequestMapping("/filters/{data}")
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
         FiltersManager.parseAndSaveToFile(data, "routeFilters.txt");
 
-        return "redirect:/ui/v1/routes/";
+        return "redirect:/ui/v1/routes/paging/7&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("routes", service.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("routeFilters.txt"));
+
+        return "routes-paging";
     }
 }

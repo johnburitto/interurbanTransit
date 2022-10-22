@@ -55,12 +55,9 @@
                                     onclick="location.href='/ui/v1/transports/${flight.transport.id}'">
                                     <b>Transport:</b> ${flight.transport.brand} ${flight.transport.model}<br>
                                     <b>Number:</b> ${flight.transport.passport.transportNumber}<br>
-                                    <b>Mileage:</b> ${flight.transport.passport.mileage}
                                 </td>
-                                <td class="align-middle hover-td" id="driver"
-                                    onclick="location.href='/ui/v1/working-books/${flight.driver.workingBook.numberOfWorkingBook}'">
+                                <td class="align-middle hover-td" id="driver">
                                     <b>Name:</b> ${flight.driver.personalInf.name}<br>
-                                    <b>Exp of work:</b> ${flight.driver.workingBook.getExpOfWork()}
                                 </td>
                                 <td class="align-middle hover-td" id="route">
                                     <b>Route:</b> ${flight.route.fromCity}-${flight.route.toCity}<br>
@@ -106,7 +103,7 @@
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/ui/v1/flights/'">Back</button>
+                        onclick="location.href='/'">Back</button>
             </div>
         </div>
     </div>

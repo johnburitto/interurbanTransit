@@ -50,7 +50,7 @@ public class DriverUIController {
     public String deleteDriver(@PathVariable String id) {
         driverService.delete(id);
 
-        return "redirect:/ui/v1/drivers/";
+        return "redirect:/ui/v1/drivers/paging/7&0";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -69,7 +69,7 @@ public class DriverUIController {
         driverToAdd.fillFromForm(form);
         driverService.create(driverToAdd);
 
-        return "redirect:/ui/v1/drivers/";
+        return "redirect:/ui/v1/drivers/paging/7&0";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
@@ -92,13 +92,22 @@ public class DriverUIController {
         driverToEdit.fillFromForm(form);
         driverService.update(driverToEdit);
 
-        return "redirect:/ui/v1/drivers/";
+        return "redirect:/ui/v1/drivers/paging/7&0";
     }
 
     @RequestMapping("/filters/{data}")
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
         FiltersManager.parseAndSaveToFile(data, "driverFilters.txt");
 
-        return "redirect:/ui/v1/drivers/";
+        return "redirect:/ui/v1/drivers/paging/7&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("drivers", driverService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("driverFilters.txt"));
+
+        return "drivers-paging";
     }
 }

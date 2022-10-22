@@ -35,7 +35,7 @@ public class TransportPassportUIController {
     public String showAll(Model model) throws IOException {
         model.addAttribute("passports", service.getAll());
         model.addAttribute("perms", logInController.perms);
-        model.addAttribute("filters", FiltersManager.readFromFile("transportPassportPlaceFilters.txt"));
+        model.addAttribute("filters", FiltersManager.readFromFile("transportPassportFilters.txt"));
 
         return "transport-passport-all";
     }
@@ -43,7 +43,7 @@ public class TransportPassportUIController {
     @RequestMapping("/{transportNumber}")
     public String showOne(Model model, @PathVariable String transportNumber) throws IOException {
         model.addAttribute("passports", service.getOneAsList(transportNumber));
-        model.addAttribute("filters", FiltersManager.readFromFile("transportPassportPlaceFilters.txt"));
+        model.addAttribute("filters", FiltersManager.readFromFile("transportPassportFilters.txt"));
         model.addAttribute("perms", logInController.perms);
 
         return "transport-passport-all";
@@ -51,8 +51,17 @@ public class TransportPassportUIController {
 
     @RequestMapping("/filters/{data}")
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
-        FiltersManager.parseAndSaveToFile(data, "transportPassportPlaceFilters.txt");
+        FiltersManager.parseAndSaveToFile(data, "transportPassportFilters.txt");
 
-        return "redirect:/ui/v1/transport-passports/";
+        return "redirect:/ui/v1/transport-passports/paging/7&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("passports", service.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("transportPassportFilters.txt"));
+
+        return "transport-passport-paging";
     }
 }

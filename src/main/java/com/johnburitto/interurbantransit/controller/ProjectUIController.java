@@ -21,11 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("")
@@ -39,9 +39,9 @@ public class ProjectUIController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/tables")
-    public String showAllTables(Model model) throws IOException {
-        model.addAttribute("flights", flightService.updateAndGetByStartDay(LocalDate.now()));
+    @RequestMapping("/tables/paging/{size}&{pageNumber}")
+    public String showAllTables(Model model, @PathVariable int size, @PathVariable int pageNumber) throws IOException {
+        model.addAttribute("flights", flightService.getAllInPage(size, pageNumber));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("name", logInController.contactInf.getName());
         model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));

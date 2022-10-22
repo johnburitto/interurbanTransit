@@ -42,7 +42,7 @@ public class RouteProfitabilityUIController {
     public String showAll(Model model) throws IOException {
         model.addAttribute("rps", routeProfitabilityService.initAndGetAll());
         model.addAttribute("perms", logInController.perms);
-        model.addAttribute("filters", FiltersManager.readFromFile("routeProfitabilityPlaceFilters.txt"));
+        model.addAttribute("filters", FiltersManager.readFromFile("routeProfitabilityFilters.txt"));
 
         return "route-profitability-all";
     }
@@ -63,13 +63,22 @@ public class RouteProfitabilityUIController {
         routeProfitabilityToAdd.setRoute(routeService.get(form.getRoute()));
         routeProfitabilityService.create(routeProfitabilityToAdd);
 
-        return "redirect:/ui/v1/route-profitabilities/";
+        return "redirect:/ui/v1/route-profitabilities/paging/7&0";
     }
 
     @RequestMapping("/filters/{data}")
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
-        FiltersManager.parseAndSaveToFile(data, "routeProfitabilityPlaceFilters.txt");
+        FiltersManager.parseAndSaveToFile(data, "routeProfitabilityFilters.txt");
 
-        return "redirect:/ui/v1/route-profitabilities/";
+        return "redirect:/ui/v1/route-profitabilities/paging/7&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("rps", routeProfitabilityService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("routeProfitabilityFilters.txt"));
+
+        return "route-profitability-paging";
     }
 }

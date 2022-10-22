@@ -11,6 +11,9 @@ package com.johnburitto.interurbantransit.model;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "Booked place status")
 public enum BookedPlaceStatus {
     OK,
     Canceled,

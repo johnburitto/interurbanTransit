@@ -12,10 +12,15 @@ package com.johnburitto.interurbantransit.service.impls;
  */
 
 import ch.qos.logback.classic.spi.LoggerContextAware;
+import com.johnburitto.interurbantransit.exceptions.ApiException;
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
 import com.johnburitto.interurbantransit.model.*;
 import com.johnburitto.interurbantransit.repository.BookedPlaceMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -39,6 +44,13 @@ public class BookedPlaceService implements IService<BookedPlace> {
         bookedPlace.setCreatedAt(LocalDateTime.now());
         bookedPlace.setUpdatedAt(LocalDateTime.now());
 
+        Flight flight = bookedPlace.getFlight();
+
+        flight.getTransport().bookPlace();
+        bookedPlace.setFlight(flight);
+        flightService.update(flight);
+        transportService.update(flight.getTransport());
+
         return bookedPlaceRepository.save(bookedPlace);
     }
 
@@ -55,7 +67,7 @@ public class BookedPlaceService implements IService<BookedPlace> {
 
     @Override
     public BookedPlace get(String id) {
-        return bookedPlaceRepository.findById(id).orElse(null);
+        return bookedPlaceRepository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     public void cancel(BookedPlace bookedPlaceToCancel) {
@@ -160,5 +172,9 @@ public class BookedPlaceService implements IService<BookedPlace> {
 
     public List<BookedPlace> getByDayOfBooking(LocalDate dayOfBooking) {
         return bookedPlaceRepository.queryFindByDayOfBooking(dayOfBooking);
+    }
+
+    public List<BookedPlace> getAllInPage(int size, int pageNumber) {
+        return bookedPlaceRepository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

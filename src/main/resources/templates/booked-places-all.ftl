@@ -112,7 +112,7 @@
             </div>
             <div class="filters-container width-100 oswald-bold">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/tables'">Home</button>
+                        onclick="location.href='/tables/paging/5&0'">Home</button>
             </div>
         </div>
     </div>

@@ -30,7 +30,6 @@
                             <th id="id">Transport number</th>
                             <th id="transport-category">Transport category</th>
                             <th id="number-of-places">Number of places</th>
-                            <th id="mileage">Mileage</th>
                             <th id="company">Company</th>
                             <th id="created-at">Created at</th>
                             <th id="updated-at">Updated at</th>
@@ -60,7 +59,7 @@
             </div>
             <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
                 <button class="btn btn-outline-dark"
-                        onclick="location.href='/tables'">Home</button>
+                        onclick="location.href='/tables/paging/5&0'">Home</button>
             </div>
         </div>
     </div>

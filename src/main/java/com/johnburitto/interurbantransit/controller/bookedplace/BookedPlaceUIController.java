@@ -64,7 +64,7 @@ public class BookedPlaceUIController {
 
     @RequestMapping("/book/{id}")
     public String bookPlace(@PathVariable String id) {
-        BookedPlace newBookedPlace = new BookedPlace("0", flightService.get(id), userService.get(logInController.currentUserId), LocalDate.now());
+        BookedPlace newBookedPlace = new BookedPlace("", flightService.get(id), userService.get(logInController.currentUserId), LocalDate.now());
 
         bookedPlaceService.create(newBookedPlace);
 
@@ -90,7 +90,7 @@ public class BookedPlaceUIController {
             bookedPlaceService.cancel(bookedPlaceToCancel);
         }
 
-        return "redirect:/ui/v1/booked-places/";
+        return "redirect:/ui/v1/booked-places/paging/5&0";
     }
 
     @RequestMapping("/return/{id}")
@@ -112,7 +112,7 @@ public class BookedPlaceUIController {
             bookedPlaceService.returnPlace(bookedPlaceToReturn);
         }
 
-        return "redirect:/ui/v1/booked-places/";
+        return "redirect:/ui/v1/booked-places/paging/5&0";
     }
 
     @RequestMapping("/redirect/flights")
@@ -160,6 +160,15 @@ public class BookedPlaceUIController {
     public String saveFilters(@PathVariable String data) throws FileNotFoundException {
         FiltersManager.parseAndSaveToFile(data, "bookedPlaceFilters.txt");
 
-        return "redirect:/ui/v1/booked-places/";
+        return "redirect:/ui/v1/booked-places/paging/5&0";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("bookedPlaces", bookedPlaceService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
+
+        return "booked-places-paging";
     }
 }

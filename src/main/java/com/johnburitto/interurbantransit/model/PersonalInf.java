@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.DriverForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +22,25 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@ApiModel(description = "Represent personal information about driver")
 public class PersonalInf {
+    @ApiModelProperty(
+            value = "Name of person",
+            name = "name",
+            dataType = "Name",
+            example = "")
     private Name name;
+    @ApiModelProperty(
+            value = "Person date of birth",
+            name = "dateOfBirth",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalDate dateOfBirth;
+    @ApiModelProperty(
+            value = "Person blood type",
+            name = "bloodType",
+            dataType = "BloodType",
+            example = "0")
     private BloodType bloodType;
 
     public PersonalInf() {

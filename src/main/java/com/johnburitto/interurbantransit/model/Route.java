@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.RouteForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,15 +26,51 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Route of flight")
 public class Route {
     @Id
     private String id;
+    @ApiModelProperty(
+            value = "Length of route",
+            name = "distance",
+            dataType = "Double",
+            example = "100.10")
     private double distance;
+    @ApiModelProperty(
+            value = "Departure time",
+            name = "departureTime",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalTime departureTime;
+    @ApiModelProperty(
+            value = "Arrival time",
+            name = "arrivalTime",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalTime arrivalTime;
+    @ApiModelProperty(
+            value = "Departure city",
+            name = "fromCity",
+            dataType = "String",
+            example = "Вижниця")
     private String fromCity;
+    @ApiModelProperty(
+            value = "Arrival time",
+            name = "toCity",
+            dataType = "String",
+            example = "Чернівці")
     private String toCity;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public Route(String id, double distance, LocalTime departureTime, LocalTime arrivalTime,

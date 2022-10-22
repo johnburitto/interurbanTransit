@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.DriverForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,12 +25,33 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Driver of flight")
 public class Driver {
     @Id
     private String id;
+    @ApiModelProperty(
+            value = "Personal information about driver",
+            name = "personalInf",
+            dataType = "PersonalInf",
+            example = "")
     private PersonalInf personalInf;
+    @ApiModelProperty(
+            value = "Driver's transport category",
+            name = "transportCategory",
+            dataType = "TransportCategory",
+            example = "0")
     private TransportCategory transportCategory;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public Driver(String id, PersonalInf personalInf, TransportCategory transportCategory) {

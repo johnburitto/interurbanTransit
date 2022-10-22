@@ -11,12 +11,17 @@ package com.johnburitto.interurbantransit.service.impls;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.exceptions.ApiRequestException;
 import com.johnburitto.interurbantransit.model.BookedPlace;
 import com.johnburitto.interurbantransit.model.Route;
 import com.johnburitto.interurbantransit.model.RouteProfitability;
+import com.johnburitto.interurbantransit.model.Transport;
 import com.johnburitto.interurbantransit.repository.RouteProfitabilityMongoRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.processing.RoundEnvironment;
@@ -78,7 +83,7 @@ public class RouteProfitabilityService implements IService<RouteProfitability> {
 
     @Override
     public RouteProfitability get(String id) {
-        return routeProfitabilityRepository.findById(id).orElse(null);
+        return routeProfitabilityRepository.findById(id).orElseThrow( () -> new ApiRequestException("NotFound!", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -97,5 +102,9 @@ public class RouteProfitabilityService implements IService<RouteProfitability> {
     @Override
     public List<RouteProfitability> getAll() {
         return routeProfitabilityRepository.findAll();
+    }
+
+    public List<RouteProfitability> getAllInPage(int size, int pageNumber) {
+        return routeProfitabilityRepository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

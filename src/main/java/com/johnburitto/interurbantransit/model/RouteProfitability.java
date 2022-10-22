@@ -12,6 +12,8 @@ package com.johnburitto.interurbantransit.model;
  */
 
 import com.johnburitto.interurbantransit.form.RouteProfitabilityForm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,15 +28,51 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(description = "Represent profitability of routes")
 public class RouteProfitability {
     @Id
     private String id;
+    @ApiModelProperty(
+            value = "Route",
+            name = "route",
+            dataType = "Route",
+            example = "")
     private Route route;
+    @ApiModelProperty(
+            value = "Start day of calculating",
+            name = "startDay",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalDate startDay;
+    @ApiModelProperty(
+            value = "End day of calculating",
+            name = "endDay",
+            dataType = "LocalDate",
+            example = "2022-10-09")
     private LocalDate endDay;
+    @ApiModelProperty(
+            value = "Number of passengers",
+            name = "numberOfPassengers",
+            dataType = "Integer",
+            example = "56")
     private int numberOfPassengers;
+    @ApiModelProperty(
+            value = "Profitability of route",
+            name = "profitability",
+            dataType = "Integer",
+            example = "56")
     private int profitability;
+    @ApiModelProperty(
+            value = "Date and time of creating object",
+            name = "createdAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime createdAt;
+    @ApiModelProperty(
+            value = "Date and time of last updating of object",
+            name = "updatedAt",
+            dataType = "LocalDateTime",
+            example = "2017-01-13T17:09:42.411")
     private LocalDateTime updatedAt;
 
     public RouteProfitability(String id, Route route, LocalDate startDay, LocalDate endDay) {

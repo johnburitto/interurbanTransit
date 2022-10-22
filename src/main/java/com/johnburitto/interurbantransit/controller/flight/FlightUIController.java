@@ -56,7 +56,7 @@ public class FlightUIController {
     public String cancelFlight(@PathVariable String id) {
         flightService.cancel(id);
 
-        return "redirect:/ui/v1/booked-places/redirect/flights";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/postpone/{id}", method = RequestMethod.GET)
