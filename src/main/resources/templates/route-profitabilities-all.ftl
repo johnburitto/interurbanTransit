@@ -78,6 +78,6 @@
         </div>
     </div>
 
-    <script src="/static/scripts/changeRouteProfitabilityDisplayFilters.js?version=400"></script>
+    <script src="/static/scripts/changeRouteProfitabilityDisplayFilters.js?version=500"></script>
 </body>
 </html>

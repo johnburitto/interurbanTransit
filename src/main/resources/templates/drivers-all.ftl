@@ -77,6 +77,6 @@
         </div>
     </div>
 
-    <script src="/static/scripts/changeDriverFilters.js?version=400"></script>
+    <script src="/static/scripts/changeDriverFilters.js?version=500"></script>
 </body>
 </html>

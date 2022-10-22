@@ -29,7 +29,7 @@
                     <select class="oswald" id="driver" name="driver">
                         <option value="" selected hidden>Select...</option>
                         <#list drivers as driver>
-                            <option value="${driver.id}">${driver.personalInf.name}</option>
+                            <option value="${driver.id}">${driver.firstName} ${driver.middleName} ${driver.lastName}</option>
                         </#list>
                     </select>
                 </div>

@@ -114,6 +114,6 @@
     </div>
 
     <script src="/static/scripts/bookedPlacesInterval.js?version=200"></script>
-    <script src="/static/scripts/changeBookedPlacesFilters.js?version=400"></script>
+    <script src="/static/scripts/changeBookedPlacesFilters.js?version=500"></script>
 </body>
 </html>

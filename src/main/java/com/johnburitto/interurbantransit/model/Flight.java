@@ -81,11 +81,6 @@ public class Flight {
                 flightStatus.equals(FlightStatus.Postponed);
     }
 
-    public boolean conditionOfNeedingNextFlight() {
-        return flightStatus.equals(FlightStatus.Completed) ||
-                flightStatus.equals(FlightStatus.Canceled);
-    }
-
     private long daysBetweenNextFlight() {
         long daysBetween = ChronoUnit.DAYS.between(startDay, endDay);
 
@@ -94,6 +89,25 @@ public class Flight {
         }
 
         return daysBetween + 1;
+    }
+
+    public boolean conditionOfInRoad(Route route) {
+        if (LocalDate.now().isAfter(startDay) && (flightStatus.equals(FlightStatus.Waiting) ||
+                flightStatus.equals(FlightStatus.Postponed))) {
+            return true;
+        }
+        else return LocalDate.now().equals(startDay) &&
+                LocalTime.now().isAfter(route.getDepartureTime()) &&
+                (flightStatus.equals(FlightStatus.Waiting) || flightStatus.equals(FlightStatus.Postponed));
+    }
+
+    public boolean conditionOfCompleted(Route route) {
+        if (LocalDate.now().isAfter(endDay) && flightStatus.equals(FlightStatus.InRoad)) {
+            return true;
+        }
+        else return LocalDate.now().equals(endDay) &&
+                LocalTime.now().isAfter(route.getArrivalTime()) &&
+                flightStatus.equals(FlightStatus.InRoad);
     }
 
     public Flight generateNextFlight() {

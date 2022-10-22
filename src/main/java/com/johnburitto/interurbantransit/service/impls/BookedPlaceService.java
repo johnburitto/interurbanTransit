@@ -41,6 +41,12 @@ public class BookedPlaceService implements IService<BookedPlace> {
         bookedPlace.setCreatedAt(LocalDateTime.now());
         bookedPlace.setUpdatedAt(LocalDateTime.now());
 
+        Flight flight = flightService.get(bookedPlace.getFlight());
+        Transport transport = transportService.get(flight.getTransport());
+
+        transport.bookPlace();
+        transportService.update(transport);
+
         return repository.save(bookedPlace);
     }
 
@@ -52,11 +58,23 @@ public class BookedPlaceService implements IService<BookedPlace> {
     public void cancel(BookedPlace bookedPlaceToCancel) {
         bookedPlaceToCancel.setStatus(BookedPlaceStatus.Canceled);
         update(bookedPlaceToCancel);
+
+        Flight flight = flightService.get(bookedPlaceToCancel.getFlight());
+        Transport transport = transportService.get(flight.getTransport());
+
+        transport.unbookPlace();
+        transportService.update(transport);
     }
 
-    public void returnPlace(BookedPlace bookedPlaceToCancel) {
-        bookedPlaceToCancel.setStatus(BookedPlaceStatus.Returned);
-        update(bookedPlaceToCancel);
+    public void returnPlace(BookedPlace bookedPlaceToReturn) {
+        bookedPlaceToReturn.setStatus(BookedPlaceStatus.Returned);
+        update(bookedPlaceToReturn);
+
+        Flight flight = flightService.get(bookedPlaceToReturn.getFlight());
+        Transport transport = transportService.get(flight.getTransport());
+
+        transport.unbookPlace();
+        transportService.update(transport);
     }
 
     @Override

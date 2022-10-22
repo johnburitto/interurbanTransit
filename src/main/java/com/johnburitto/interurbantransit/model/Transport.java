@@ -55,6 +55,7 @@ public class Transport {
         model = form.getModel();
         transportNumber = form.getTransportNumber();
         neededTransportCategory = form.getNeededTransportCategory();
+        numberOfPlaces = form.getNumberOfPlaces();
         numberOfBookedPlaces = 0;
         companyName = form.getCompanyName();
     }

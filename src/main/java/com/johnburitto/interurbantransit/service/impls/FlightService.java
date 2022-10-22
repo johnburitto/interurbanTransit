@@ -31,6 +31,8 @@ public class FlightService implements IService<Flight> {
     @Autowired
     FlightPostgreSQLRepository repository;
     @Autowired
+    TransportService transportService;
+    @Autowired
     RouteService routeService;
     @Autowired
     BookedPlaceService bookedPlaceService;
@@ -215,5 +217,41 @@ public class FlightService implements IService<Flight> {
         uniquePassengersIds.forEach(passengerId -> allPassengers.add(userService.get(passengerId)));
 
         return allPassengers;
+    }
+
+    public List<Flight> updateAndGetAll() {
+        repository.findAll().forEach(this::updateFlight);
+
+        return repository.findAll();
+    }
+
+    private void updateFlight(Flight flight) {
+        updateStatus(flight);
+
+        update(flight);
+    }
+
+    private void updateStatus(Flight flight) {
+        Route route = routeService.get(flight.getRoute());
+
+        if (flight.conditionOfInRoad(route)) {
+            inRoad(flight);
+        }
+        if (flight.conditionOfCompleted(route)) {
+            complete(flight);
+        }
+    }
+
+    private void inRoad(Flight flight) {
+        flight.setFlightStatus(FlightStatus.InRoad);
+    }
+
+    private void complete(Flight flight) {
+        Transport transportToUpdate = transportService.get(flight.getTransport());
+
+        flight.setFlightStatus(FlightStatus.Completed);
+        transportToUpdate.setNumberOfBookedPlaces(0);
+
+        transportService.update(transportToUpdate);
     }
 }

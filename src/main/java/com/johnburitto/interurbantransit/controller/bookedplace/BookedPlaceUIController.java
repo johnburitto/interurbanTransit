@@ -147,4 +147,11 @@ public class BookedPlaceUIController {
 
         return "redirect:/sql/ui/v1/booked-places/";
     }
+
+    @RequestMapping("/redirect/flights")
+    public String redirectFlights() {
+        bookedPlaceService.updateAndGetAll();
+
+        return "redirect:/sql/tables";
+    }
 }

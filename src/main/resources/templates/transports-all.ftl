@@ -84,6 +84,6 @@
         </div>
     </div>
 
-    <script src="/static/scripts/changeTransportDisplayFilters.js?version=400"></script>
+    <script src="/static/scripts/changeTransportDisplayFilters.js?version=500"></script>
 </body>
 </html>

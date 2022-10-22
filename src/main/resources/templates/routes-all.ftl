@@ -85,6 +85,6 @@
         </div>
     </div>
 
-    <script src="/static/scripts/changeRouteDisplayFilters.js?version=400"></script>
+    <script src="/static/scripts/changeRouteDisplayFilters.js?version=500"></script>
 </body>
 </html>

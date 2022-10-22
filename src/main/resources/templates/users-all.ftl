@@ -32,9 +32,9 @@
                     <tr>
                         <th id="id">Id</th>
                         <th id="contact-inf">Contact Inf</th>
-                        <th id="personal-inf">Login</th>
-                        <th id="transport-category">Password</th>
-                        <th id="working-book">Type</th>
+                        <th id="login">Login</th>
+                        <th id="password">Password</th>
+                        <th id="type">Type</th>
                         <th id="created-at">Created at</th>
                         <th id="updated-at">Updated at</th>
                         <th>Edit</th>

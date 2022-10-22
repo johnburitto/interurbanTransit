@@ -41,10 +41,11 @@ public class ProjectUIController {
 
    @RequestMapping("/sql/tables")
     public String showAllTables(Model model) throws IOException {
-        model.addAttribute("flights", flightService.getByStartDay(LocalDate.of(2022, 8, 24)));
+        model.addAttribute("flights", flightService.updateAndGetAll());
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("user", logInController.user);
         model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
+        bookedPlaceService.updateAndGetAll();
 
         return "start-page";
     }
