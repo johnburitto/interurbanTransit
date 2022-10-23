@@ -1,0 +1,561 @@
+.filters-container {
+    display: flex;
+    justify-content: center;
+}
+
+.filters-container label {
+    border-radius: 0;
+    border-right: 0;
+}
+
+.filters-container label:first-child {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+
+.filters-container label:last-child {
+    border-right: solid 1px #212529;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+.filters-container button {
+    border-radius: 0;
+    border-right: 0;
+}
+
+.filters-container button:first-child {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+}
+
+.filters-container button:last-child {
+    border-right: solid 1px #212529;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+}
+
+.filter-hover:hover {
+    background-color: white;
+    color: #212529;
+    box-shadow: 0 0 10px #212529;
+}
+
+#id-display-filter, #personal-inf-display-filter, #distance-display-filter,#departure-time-display-filter, #arrival-time-display-filter,
+#city-from-display-filter, #city-to-display-filter, #created-at-display-filter, #updated-at-display-filter, #places-of-work-display-filter,
+#transport-category-display-filter, #working-book-display-filter, #exp-of-work-display-filter, #number-of-places-display-filter,
+#mileage-display-filter, #company-display-filter, #brand-display-filter, #model-display-filter, #passport-display-filter,
+#name-display-filter, #contact-inf-display-filter, #booked-place-display-filter, #transport-display-filter, #driver-display-filter,
+#route-display-filter, #day-display-filter, #ticket-cost-display-filter, #flight-status-display-filter, #flight-display-filter,
+#passenger-display-filter, #day-of-booking-display-filter, #start-day-display-filter, #end-day-display-filter,
+#number-of-passengers-display-filter, #profitability-display-filter, #status-display-filter, #login-display-filter,
+#password-display-filter, #type-display-filter {
+    display: none;
+}
+
+#id-display-filter ~ * #id {
+    display: none;
+}
+
+#id-display-filter:checked ~ * #id {
+    display: table-cell;
+}
+
+#personal-inf-display-filter ~ * #personal-inf {
+    display: none;
+}
+
+#personal-inf-display-filter:checked ~ * #personal-inf {
+    display: table-cell;
+}
+
+#distance-display-filter ~ * #distance {
+    display: none;
+}
+
+#distance-display-filter:checked ~ * #distance {
+    display: table-cell;
+}
+
+#departure-time-display-filter ~ * #departure-time {
+    display: none;
+}
+
+#departure-time-display-filter:checked ~ * #departure-time {
+    display: table-cell;
+}
+
+#arrival-time-display-filter ~ * #arrival-time {
+    display: none;
+}
+
+#arrival-time-display-filter:checked ~ * #arrival-time {
+    display: table-cell;
+}
+
+#city-from-display-filter ~ * #city-from {
+    display: none;
+}
+
+#city-from-display-filter:checked ~ * #city-from {
+    display: table-cell;
+}
+
+#city-to-display-filter ~ * #city-to {
+    display: none;
+}
+
+#city-to-display-filter:checked ~ * #city-to {
+    display: table-cell;
+}
+
+#created-at-display-filter ~ * #created-at {
+    display: none;
+}
+
+#created-at-display-filter:checked ~ * #created-at {
+    display: table-cell;
+}
+
+#updated-at-display-filter ~ * #updated-at {
+    display: none;
+}
+
+#updated-at-display-filter:checked ~ * #updated-at {
+    display: table-cell;
+}
+
+#places-of-work-display-filter ~ * #places-of-work {
+    display: none;
+}
+
+#places-of-work-display-filter:checked ~ * #places-of-work {
+    display: table-cell;
+}
+
+#transport-category-display-filter ~ * #transport-category {
+    display: none;
+}
+
+#transport-category-display-filter:checked ~ * #transport-category {
+    display: table-cell;
+}
+
+#working-book-display-filter ~ * #working-book {
+    display: none;
+}
+
+#working-book-display-filter:checked ~ * #working-book {
+    display: table-cell;
+}
+
+#exp-of-work-display-filter ~ * #exp-of-work {
+    display: none;
+}
+
+#exp-of-work-display-filter:checked ~ * #exp-of-work {
+    display: table-cell;
+}
+
+#number-of-places-display-filter ~ * #number-of-places {
+    display: none;
+}
+
+#number-of-places-display-filter:checked ~ * #number-of-places {
+    display: table-cell;
+}
+
+#mileage-display-filter ~ * #mileage {
+    display: none;
+}
+
+#mileage-display-filter:checked ~ * #mileage {
+    display: table-cell;
+}
+
+#company-display-filter ~ * #company {
+    display: none;
+}
+
+#company-display-filter:checked ~ * #company {
+    display: table-cell;
+}
+
+#brand-display-filter ~ * #brand {
+    display: none;
+}
+
+#brand-display-filter:checked ~ * #brand {
+    display: table-cell;
+}
+
+#model-display-filter ~ * #model {
+    display: none;
+}
+
+#model-display-filter:checked ~ * #model {
+    display: table-cell;
+}
+
+#passport-display-filter ~ * #passport {
+    display: none;
+}
+
+#passport-display-filter:checked ~ * #passport {
+    display: table-cell;
+}
+
+#name-display-filter ~ * #name {
+    display: none;
+}
+
+#name-display-filter:checked ~ * #name {
+    display: table-cell;
+}
+
+#contact-inf-display-filter ~ * #contact-inf {
+    display: none;
+}
+
+#contact-inf-display-filter:checked ~ * #contact-inf {
+    display: table-cell;
+}
+
+#booked-place-display-filter ~ * #booked-place {
+    display: none;
+}
+
+#booked-place-display-filter:checked ~ * #booked-place {
+    display: table-cell;
+}
+
+#transport-display-filter ~ * #transport {
+    display: none;
+}
+
+#transport-display-filter:checked ~ * #transport {
+    display: table-cell;
+}
+
+#driver-display-filter ~ * #driver {
+    display: none;
+}
+
+#driver-display-filter:checked ~ * #driver {
+    display: table-cell;
+}
+
+#route-display-filter ~ * #route {
+    display: none;
+}
+
+#route-display-filter:checked ~ * #route {
+    display: table-cell;
+}
+
+#day-display-filter ~ * #day {
+    display: none;
+}
+
+#day-display-filter:checked ~ * #day {
+    display: table-cell;
+}
+
+#ticket-cost-display-filter ~ * #ticket-cost {
+    display: none;
+}
+
+#ticket-cost-display-filter:checked ~ * #ticket-cost {
+    display: table-cell;
+}
+
+#flight-status-display-filter ~ * #flight-status {
+    display: none;
+}
+
+#flight-status-display-filter:checked ~ * #flight-status {
+    display: table-cell;
+}
+
+#flight-display-filter ~ * #flight {
+    display: none;
+}
+
+#flight-display-filter:checked ~ * #flight {
+    display: table-cell;
+}
+
+#passenger-display-filter ~ * #passenger {
+    display: none;
+}
+
+#passenger-display-filter:checked ~ * #passenger {
+    display: table-cell;
+}
+
+#day-of-booking-display-filter ~ * #day-of-booking {
+    display: none;
+}
+
+#day-of-booking-display-filter:checked ~ * #day-of-booking {
+    display: table-cell;
+}
+
+#start-day-display-filter ~ * #start-day {
+    display: none;
+}
+
+#start-day-display-filter:checked ~ * #start-day {
+    display: table-cell;
+}
+
+#end-day-display-filter ~ * #end-day {
+    display: none;
+}
+
+#end-day-display-filter:checked ~ * #end-day {
+    display: table-cell;
+}
+
+#number-of-passengers-display-filter ~ * #number-of-passengers {
+    display: none;
+}
+
+#number-of-passengers-display-filter:checked ~ * #number-of-passengers {
+    display: table-cell;
+}
+
+#profitability-display-filter ~ * #profitability {
+    display: none;
+}
+
+#profitability-display-filter:checked ~ * #profitability {
+    display: table-cell;
+}
+
+#status-display-filter ~ * #status {
+    display: none;
+}
+
+#status-display-filter:checked ~ * #status {
+    display: table-cell;
+}
+
+#login-display-filter ~ * #login {
+    display: none;
+}
+
+#login-display-filter:checked ~ * #login {
+    display: table-cell;
+}
+
+#password-display-filter ~ * #password {
+    display: none;
+}
+
+#password-display-filter:checked ~ * #password {
+    display: table-cell;
+}
+
+#type-display-filter ~ * #type {
+    display: none;
+}
+
+#type-display-filter:checked ~ * #type {
+    display: table-cell;
+}
+
+#id-display-filter:checked ~ * #for-id {
+    background-color: #212529;
+    color: white;
+}
+
+#personal-inf-display-filter:checked ~ * #for-personal-inf {
+    background-color: #212529;
+    color: white;
+}
+
+#distance-display-filter:checked ~ * #for-distance {
+    background-color: #212529;
+    color: white;
+}
+
+#departure-time-display-filter:checked ~ * #for-departure-time {
+    background-color: #212529;
+    color: white;
+}
+
+#arrival-time-display-filter:checked ~ * #for-arrival-time {
+    background-color: #212529;
+    color: white;
+}
+
+#city-from-display-filter:checked ~ * #for-city-from {
+    background-color: #212529;
+    color: white;
+}
+
+#city-to-display-filter:checked ~ * #for-city-to {
+    background-color: #212529;
+    color: white;
+}
+
+#created-at-display-filter:checked ~ * #for-created-at {
+    background-color: #212529;
+    color: white;
+}
+
+#updated-at-display-filter:checked ~ * #for-updated-at {
+    background-color: #212529;
+    color: white;
+}
+
+#places-of-work-display-filter:checked ~ * #for-places-of-work {
+    background-color: #212529;
+    color: white;
+}
+
+#transport-category-display-filter:checked ~ * #for-transport-category {
+    background-color: #212529;
+    color: white;
+}
+
+#working-book-display-filter:checked ~ * #for-working-book {
+    background-color: #212529;
+    color: white;
+}
+
+#exp-of-work-display-filter:checked ~ * #for-exp-of-work {
+    background-color: #212529;
+    color: white;
+}
+
+#number-of-places-display-filter:checked ~ * #for-number-of-places {
+    background-color: #212529;
+    color: white;
+}
+
+#mileage-display-filter:checked ~ * #for-mileage {
+    background-color: #212529;
+    color: white;
+}
+
+#company-display-filter:checked ~ * #for-company {
+    background-color: #212529;
+    color: white;
+}
+
+#brand-display-filter:checked ~ * #for-brand {
+    background-color: #212529;
+    color: white;
+}
+
+#model-display-filter:checked ~ * #for-model {
+    background-color: #212529;
+    color: white;
+}
+
+#passport-display-filter:checked ~ * #for-passport {
+    background-color: #212529;
+    color: white;
+}
+
+#name-display-filter:checked ~ * #for-name {
+    background-color: #212529;
+    color: white;
+}
+
+#contact-inf-display-filter:checked ~ * #for-contact-inf {
+    background-color: #212529;
+    color: white;
+}
+
+#booked-place-display-filter:checked ~ * #for-booked-place {
+    background-color: #212529;
+    color: white;
+}
+
+#transport-display-filter:checked ~ * #for-transport {
+    background-color: #212529;
+    color: white;
+}
+
+#driver-display-filter:checked ~ * #for-driver {
+    background-color: #212529;
+    color: white;
+}
+
+#route-display-filter:checked ~ * #for-route {
+    background-color: #212529;
+    color: white;
+}
+
+#day-display-filter:checked ~ * #for-day {
+    background-color: #212529;
+    color: white;
+}
+
+#ticket-cost-display-filter:checked ~ * #for-ticket-cost {
+    background-color: #212529;
+    color: white;
+}
+
+#flight-status-display-filter:checked ~ * #for-flight-status {
+    background-color: #212529;
+    color: white;
+}
+
+#flight-display-filter:checked ~ * #for-flight {
+    background-color: #212529;
+    color: white;
+}
+
+#passenger-display-filter:checked ~ * #for-passenger {
+    background-color: #212529;
+    color: white;
+}
+
+#day-of-booking-display-filter:checked ~ * #for-day-of-booking {
+    background-color: #212529;
+    color: white;
+}
+
+#start-day-display-filter:checked ~ * #for-start-day {
+    background-color: #212529;
+    color: white;
+}
+
+#end-day-display-filter:checked ~ * #for-end-day {
+    background-color: #212529;
+    color: white;
+}
+
+#number-of-passengers-display-filter:checked ~ * #for-number-of-passengers {
+    background-color: #212529;
+    color: white;
+}
+
+#profitability-display-filter:checked ~ * #for-profitability {
+    background-color: #212529;
+    color: white;
+}
+
+#status-display-filter:checked ~ * #for-status {
+    background-color: #212529;
+    color: white;
+}
+
+#login-display-filter:checked ~ * #for-login {
+    background-color: #212529;
+    color: white;
+}
+
+#password-display-filter:checked ~ * #for-password {
+    background-color: #212529;
+    color: white;
+}
+
+#type-display-filter:checked ~ * #for-type {
+    background-color: #212529;
+    color: white;
+}
