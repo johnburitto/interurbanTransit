@@ -11,7 +11,7 @@ package com.johnburitto.interurbantransit.repository;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.model.User;
+import com.johnburitto.interurbantransit.model.nosql.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

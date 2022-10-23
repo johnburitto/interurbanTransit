@@ -11,12 +11,12 @@ package com.johnburitto.interurbantransit.controller;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.form.UserForm;
-import com.johnburitto.interurbantransit.model.FiltersManager;
-import com.johnburitto.interurbantransit.model.User;
-import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
-import com.johnburitto.interurbantransit.service.impls.FlightService;
-import com.johnburitto.interurbantransit.service.impls.UserService;
+import com.johnburitto.interurbantransit.form.nosql.UserForm;
+import com.johnburitto.interurbantransit.model.nosql.FiltersManager;
+import com.johnburitto.interurbantransit.model.nosql.User;
+import com.johnburitto.interurbantransit.service.impls.nosql.BookedPlaceService;
+import com.johnburitto.interurbantransit.service.impls.nosql.FlightService;
+import com.johnburitto.interurbantransit.service.impls.nosql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +47,7 @@ public class ProjectUIController {
         model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
         bookedPlaceService.updateAndGetAll();
 
-        return "start-page";
+        return "/nosql/start-page";
     }
 
     @RequestMapping("/personal-office")
@@ -55,7 +55,7 @@ public class ProjectUIController {
         model.addAttribute("personalInf", logInController.contactInf);
         model.addAttribute("role", logInController.perms.getType());
 
-        return "personal-office";
+        return "/nosql/personal-office";
     }
 
     @RequestMapping(value = "/personal-office/edit", method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public class ProjectUIController {
         form.fillFromContactPerson(logInController.contactInf);
         model.addAttribute("form", form);
 
-        return "personal-office-edit";
+        return "/nosql/personal-office-edit";
     }
 
     @RequestMapping(value = "/personal-office/edit", method = RequestMethod.POST)

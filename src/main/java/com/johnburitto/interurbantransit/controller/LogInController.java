@@ -11,12 +11,12 @@ package com.johnburitto.interurbantransit.controller;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.form.LoginForm;
-import com.johnburitto.interurbantransit.form.RegisterForm;
-import com.johnburitto.interurbantransit.model.ContactPerson;
-import com.johnburitto.interurbantransit.model.User;
-import com.johnburitto.interurbantransit.model.UserPerm;
-import com.johnburitto.interurbantransit.service.impls.UserService;
+import com.johnburitto.interurbantransit.form.nosql.LoginForm;
+import com.johnburitto.interurbantransit.form.nosql.RegisterForm;
+import com.johnburitto.interurbantransit.model.nosql.ContactPerson;
+import com.johnburitto.interurbantransit.model.nosql.User;
+import com.johnburitto.interurbantransit.model.nosql.UserPerm;
+import com.johnburitto.interurbantransit.service.impls.nosql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,13 +47,13 @@ public class LogInController {
     public String login(Model model) {
         model.addAttribute("form", new LoginForm());
 
-        return "login-page";
+        return "/nosql/login-page";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute LoginForm form) {
         if (form.getLogin().equals("") || form.getPassword().equals("")) {
-            return "login-page";
+            return "/nosql/login-page";
         }
 
         User currentUser = service.getByLoginAndPassword(form.getLogin(), form.getPassword());
@@ -64,7 +64,7 @@ public class LogInController {
             currentUserId = currentUser.getId();
         }
         else{
-            return "login-page";
+            return "/nosql/login-page";
         }
 
         return "redirect:/tables/paging/5&0";
@@ -83,13 +83,13 @@ public class LogInController {
     public String register(Model model) {
         model.addAttribute("form", new RegisterForm());
 
-        return "register-page";
+        return "/nosql/register-page";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute RegisterForm form) {
         if (form.IsHasBlankFields()) {
-            return "register-page";
+            return "/nosql/register-page";
         }
 
         User newUser = new User();

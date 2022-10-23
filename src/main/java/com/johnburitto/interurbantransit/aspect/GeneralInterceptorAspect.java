@@ -11,7 +11,7 @@ package com.johnburitto.interurbantransit.aspect;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.service.impls.UserService;
+import com.johnburitto.interurbantransit.service.impls.nosql.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
