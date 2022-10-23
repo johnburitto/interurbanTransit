@@ -11,7 +11,7 @@ package com.johnburitto.interurbantransit.repository;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.model.Route;
+import com.johnburitto.interurbantransit.model.sql.Route;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

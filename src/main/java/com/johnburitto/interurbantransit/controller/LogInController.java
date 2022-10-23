@@ -11,11 +11,11 @@ package com.johnburitto.interurbantransit.controller;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.form.LoginForm;
-import com.johnburitto.interurbantransit.form.RegisterForm;
-import com.johnburitto.interurbantransit.model.User;
-import com.johnburitto.interurbantransit.model.UserPerm;
-import com.johnburitto.interurbantransit.service.impls.UserService;
+import com.johnburitto.interurbantransit.form.sql.LoginForm;
+import com.johnburitto.interurbantransit.form.sql.RegisterForm;
+import com.johnburitto.interurbantransit.model.sql.User;
+import com.johnburitto.interurbantransit.model.sql.UserPerm;
+import com.johnburitto.interurbantransit.service.impls.sql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,13 +45,13 @@ public class LogInController {
     public String login(Model model) {
         model.addAttribute("form", new LoginForm());
 
-        return "login-page";
+        return "/sql/login-page";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute LoginForm form) {
         if (form.getLogin().equals("") || form.getPassword().equals("")) {
-            return "login-page";
+            return "/sql/login-page";
         }
 
         User currentUser = service.getByLoginAndPassword(form.getLogin(), form.getPassword());
@@ -61,7 +61,7 @@ public class LogInController {
             user = currentUser;
         }
         else{
-            return "login-page";
+            return "/sql/login-page";
         }
 
         return "redirect:/";
@@ -79,13 +79,13 @@ public class LogInController {
     public String register(Model model) {
         model.addAttribute("form", new RegisterForm());
 
-        return "register-page";
+        return "/sql/register-page";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute RegisterForm form) {
         if (form.IsHasBlankFields()) {
-            return "register-page";
+            return "/sql/register-page";
         }
 
         User newUser = new User();

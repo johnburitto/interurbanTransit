@@ -11,12 +11,12 @@ package com.johnburitto.interurbantransit.controller;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
-import com.johnburitto.interurbantransit.form.UserForm;
-import com.johnburitto.interurbantransit.model.FiltersManager;
-import com.johnburitto.interurbantransit.model.User;
-import com.johnburitto.interurbantransit.service.impls.BookedPlaceService;
-import com.johnburitto.interurbantransit.service.impls.FlightService;
-import com.johnburitto.interurbantransit.service.impls.UserService;
+import com.johnburitto.interurbantransit.form.sql.UserForm;
+import com.johnburitto.interurbantransit.model.sql.FiltersManager;
+import com.johnburitto.interurbantransit.model.sql.User;
+import com.johnburitto.interurbantransit.service.impls.sql.BookedPlaceService;
+import com.johnburitto.interurbantransit.service.impls.sql.FlightService;
+import com.johnburitto.interurbantransit.service.impls.sql.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 @Controller
 @RequestMapping("")
@@ -47,7 +46,7 @@ public class ProjectUIController {
         model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
         bookedPlaceService.updateAndGetAll();
 
-        return "start-page";
+        return "/sql/start-page";
     }
 
     @RequestMapping("/personal-office")
@@ -55,7 +54,7 @@ public class ProjectUIController {
         model.addAttribute("personalInf", logInController.user);
         model.addAttribute("role", logInController.perms.getType());
 
-        return "personal-office";
+        return "/sql/personal-office";
     }
 
     @RequestMapping(value = "/personal-office/edit", method = RequestMethod.GET)
@@ -65,7 +64,7 @@ public class ProjectUIController {
         form.fillOnlyContactData(logInController.user);
         model.addAttribute("form", form);
 
-        return "personal-office-edit";
+        return "/sql/personal-office-edit";
     }
 
     @RequestMapping(value = "/personal-office/edit", method = RequestMethod.POST)
