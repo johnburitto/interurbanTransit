@@ -5,6 +5,7 @@ package com.johnburitto.interurbantransit.service.interfaces;
  * @project interurbanTransit
  * @class IService
  * @version 1.0.0
+ * @since 22.08.2022, 15:02
  * @since 07.06.2022, 14:03
  * Software Engineering Department
  *
@@ -15,8 +16,7 @@ import java.util.List;
 
 public interface IService<T> {
     T create(T t);
-    T get(String id);
+    T get(Integer id);
     T update(T t);
-    void delete(String id);
-    List<T> getAll();
+    void delete(Integer id);
 }
