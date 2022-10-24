@@ -62,8 +62,11 @@ public class BookedPlaceUIController {
     @RequestMapping("/book/{id}")
     public String bookPlace(@PathVariable String id) {
         BookedPlace newBookedPlace = new BookedPlace("", flightService.get(id), userService.get(logInController.currentUserId), LocalDate.now());
+        Flight flight = flightService.get(newBookedPlace.getFlight().getId());
 
-        bookedPlaceService.create(newBookedPlace);
+        if (flight.getFlightStatus() == FlightStatus.Postponed || flight.getFlightStatus() == FlightStatus.Waiting) {
+            bookedPlaceService.create(newBookedPlace);
+        }
 
         return "redirect:/";
     }
@@ -162,15 +165,7 @@ public class BookedPlaceUIController {
 
     @RequestMapping("/paging/{size}&{pageNumber}")
     public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
-        if (logInController.perms.getType() == UserType.Guest) {
-            model.addAttribute("bookedPlaces", bookedPlaceService.getAllPlacesByName(logInController.contactInf.getName()));
-            model.addAttribute("perms", logInController.perms);
-            model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
-
-            return "/nosql/booked-places-paging";
-        }
-
-        model.addAttribute("bookedPlaces", bookedPlaceService.updateAndGetAll());
+        model.addAttribute("bookedPlaces", bookedPlaceService.getAllInPage(size, pageNumber));
         model.addAttribute("perms", logInController.perms);
         model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
 

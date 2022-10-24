@@ -43,6 +43,9 @@
                 <button class="btn btn-outline-dark oswald-bold"
                         onclick="location.href='/personal-office/edit'">Change personal info</button>
                 <button class="btn btn-outline-dark oswald-bold"
+                        onclick="location.href='/ui/v1/booked-places/name/${personalInf.name.firstName}-${personalInf.name.middleName}-${personalInf.name.lastName}'">
+                    Booked places</button>
+                <button class="btn btn-outline-dark oswald-bold"
                         onclick="location.href='/'">Home</button>
             </div>
         </div>

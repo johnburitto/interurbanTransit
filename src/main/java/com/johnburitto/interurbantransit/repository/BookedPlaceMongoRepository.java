@@ -21,11 +21,8 @@ import java.util.List;
 
 @Repository
 public interface BookedPlaceMongoRepository extends MongoRepository<BookedPlace, String> {
-    @Query(value = "{$and: [{flight: ?0}, {flight_flightStatus: ?1}]}")
-    public List<BookedPlace> queryFindByFlightAndItsStatus(Flight flight, FlightStatus flightStatus);
-
-    @Query(value = "{flight: ?0}")
-    public List<BookedPlace> queryFindByFlight(Flight flight);
+    @Query(value = "{$and: [{flight_id: ?0}, {flight_flightStatus: ?1}]}")
+    public List<BookedPlace> queryFindByFlightAndItsStatus(String flight, FlightStatus flightStatus);
 
     @Query(value = "{flight_flightStatus: ?0}")
     public List<BookedPlace> queryFindByFlightStatus(FlightStatus flightStatus);
@@ -36,8 +33,8 @@ public interface BookedPlaceMongoRepository extends MongoRepository<BookedPlace,
     @Query(value = "{passenger_contactPerson_name_lastName: ?0}")
     public List<BookedPlace> queryFindByLastName(String lastName);
 
-    @Query(value = "{$and: [{flight_route: ?0}, {flight_endDay: ?1}]}")
-    public List<BookedPlace> queryFindByRouteAndEndDay(Route route, LocalDate endDay);
+    @Query(value = "{$and: [{flight_route_id: ?0}, {flight_endDay: ?1}]}")
+    public List<BookedPlace> queryFindByRouteAndEndDay(String route, LocalDate endDay);
 
     @Query(value = "{dayOfBooking: ?0}")
     public List<BookedPlace> queryFindByDayOfBooking(LocalDate dayOfBooking);

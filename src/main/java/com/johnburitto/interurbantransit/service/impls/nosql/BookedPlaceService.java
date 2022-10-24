@@ -129,7 +129,7 @@ public class BookedPlaceService implements IService<BookedPlace> {
         }
     }
 
-    public List<BookedPlace> getAllPlacesByFlightAndItsStatus(Flight flight, FlightStatus flightStatus) {
+    public List<BookedPlace> getAllPlacesByFlightAndItsStatus(String flight, FlightStatus flightStatus) {
         return bookedPlaceRepository.queryFindByFlightAndItsStatus(flight, flightStatus);
     }
 
@@ -152,7 +152,7 @@ public class BookedPlaceService implements IService<BookedPlace> {
     }
 
     public List<BookedPlace> getAllByRouteAndEndDay(Route route, LocalDate endDay) {
-        return bookedPlaceRepository.queryFindByRouteAndEndDay(route, endDay);
+        return bookedPlaceRepository.queryFindByRouteAndEndDay(route.getId(), endDay);
     }
 
     public List<BookedPlace> getAllByDayOfBooking(String startDay, String endDay) {

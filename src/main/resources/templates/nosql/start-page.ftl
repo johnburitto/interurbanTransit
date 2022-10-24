@@ -11,19 +11,19 @@
     <link href="/static/nosql/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body class="start-page-app-container">
-    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%">
+    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%; display: ${perms.allTables}">
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/transports/paging/7&0'" style="display: ${perms.allTables}">Transports</button>
+                onclick="location.href='/ui/v1/transports/paging/7&0'">Transports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/drivers/paging/7&0'" style="display: ${perms.allTables}">Drivers</button>
+                onclick="location.href='/ui/v1/drivers/paging/7&0'">Drivers</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/routes/paging/7&0'" style="display: ${perms.allTables}">Routes</button>
+                onclick="location.href='/ui/v1/routes/paging/7&0'">Routes</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 onclick="location.href='/ui/v1/booked-places/paging/5&0'">Booked places</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/route-profitabilities/paging/7&0'" style="display: ${perms.allTables}">Profitabilities</button>
+                onclick="location.href='/ui/v1/route-profitabilities/paging/7&0'">Profitabilities</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/ui/v1/transport-passports/paging/7&0'" style="display: ${perms.allTables}">Transport passports</button>
+                onclick="location.href='/ui/v1/transport-passports/paging/7&0'">Transport passports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 style="display: ${perms.keys}"
                 onclick="location.href='/ui/v1/keys/paging/7&0'">Keys</button>

@@ -240,7 +240,7 @@ public class FlightService implements IService<Flight> {
     }
 
     public List<Flight> findByRouteAndStatus(String id, FlightStatus flightStatus) {
-        return flightRepository.queryFindByRouteAndStatus(routeService.get(id), flightStatus);
+        return flightRepository.queryFindByRouteAndStatus(routeService.get(id).getId(), flightStatus);
     }
 
     public List<User> getAllPassengersOfFlight(String id, String flightStatus) {
@@ -249,16 +249,16 @@ public class FlightService implements IService<Flight> {
 
         switch (flightStatus) {
             case "canceled": {
-              allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Canceled));
+              allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(id, FlightStatus.Canceled));
             } break;
             case "postponed": {
-                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Postponed));
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(id, FlightStatus.Postponed));
             } break;
             case "waiting": {
-                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Waiting));
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(id, FlightStatus.Waiting));
             } break;
             case "completed": {
-                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(get(id), FlightStatus.Completed));
+                allBookedPlaces.addAll(bookedPlaceService.getAllPlacesByFlightAndItsStatus(id, FlightStatus.Completed));
             }
             default: break;
         }

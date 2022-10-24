@@ -26,8 +26,8 @@ public interface FlightMongoRepository extends MongoRepository<Flight, String> {
     @Query(value = "{flightStatus: ?0}")
     public List<Flight> queryFindByStatus(FlightStatus flightStatus);
 
-    @Query(value = "{$and: [{route: ?0}, {flightStatus: ?1}]}")
-    public List<Flight> queryFindByRouteAndStatus(Route route, FlightStatus flightStatus);
+    @Query(value = "{$and: [{route_id: ?0}, {flightStatus: ?1}]}")
+    public List<Flight> queryFindByRouteAndStatus(String route, FlightStatus flightStatus);
 
     @Query(value = "{startDay: ?0}")
     public List<Flight> queryFindByStartDay(LocalDate startDay);
