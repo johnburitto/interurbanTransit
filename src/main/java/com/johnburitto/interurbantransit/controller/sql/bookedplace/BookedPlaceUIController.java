@@ -62,8 +62,11 @@ public class BookedPlaceUIController {
     @RequestMapping("/book/{id}")
     public String bookPlace(@PathVariable Integer id) {
         BookedPlace newBookedPlace = new BookedPlace(flightService.get(id), userService.get(logInController.user.getId()), LocalDate.now());
+        Flight flight = flightService.get(newBookedPlace.getFlight());
 
-        bookedPlaceService.create(newBookedPlace);
+        if (flight.getFlightStatus() == FlightStatus.Postponed || flight.getFlightStatus() == FlightStatus.Waiting) {
+            bookedPlaceService.create(newBookedPlace);
+        }
 
         return "redirect:/";
     }

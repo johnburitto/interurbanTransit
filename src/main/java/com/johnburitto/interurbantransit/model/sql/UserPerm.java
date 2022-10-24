@@ -36,13 +36,13 @@ public class UserPerm {
     public static UserPerm PermOf(UserType type) {
         switch (type) {
             case Owner: {
-                return new UserPerm("block", "block", "table-cell", "table-cell", "flex", "block", type);
+                return new UserPerm("block", "block", "table-cell", "table-cell", "flex", "flex", type);
             }
             case Administrator: {
-                return new UserPerm("none", "block", "table-cell", "table-cell", "flex", "block", type);
+                return new UserPerm("none", "block", "table-cell", "table-cell", "flex", "flex", type);
             }
             case Operator: {
-                return new UserPerm("none", "none", "none", "table-cell", "none", "block", type);
+                return new UserPerm("none", "none", "none", "table-cell", "none", "flex", type);
             }
             default: {
                 return new UserPerm("none", "none", "none", "none", "none", "none", type);

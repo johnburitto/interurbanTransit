@@ -43,6 +43,8 @@
                 <button class="btn btn-outline-dark oswald-bold"
                         onclick="location.href='/personal-office/edit'">Change personal info</button>
                 <button class="btn btn-outline-dark oswald-bold"
+                        onclick="location.href='/sql/ui/v1/booked-places/'">Booked places</button>
+                <button class="btn btn-outline-dark oswald-bold"
                         onclick="location.href='/'">Home</button>
             </div>
         </div>

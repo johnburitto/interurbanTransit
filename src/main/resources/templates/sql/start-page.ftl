@@ -11,17 +11,17 @@
     <link href="/static/sql/css/display-filters.css?version=2200" type="text/css" rel="stylesheet"/>
 </head>
 <body class="start-page-app-container">
-    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%">
+    <div class="start-page-container" style="margin-left: 10px; margin-top: 7%; display: ${perms.allTables}">
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/transports/'" style="display: ${perms.allTables}">Transports</button>
+                onclick="location.href='/sql/ui/v1/transports/'">Transports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/drivers/'" style="display: ${perms.allTables}">Drivers</button>
+                onclick="location.href='/sql/ui/v1/drivers/'">Drivers</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/routes/'" style="display: ${perms.allTables}">Routes</button>
+                onclick="location.href='/sql/ui/v1/routes/'">Routes</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 onclick="location.href='/sql/ui/v1/booked-places/'">Booked places</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/route-profitabilities/'" style="display: ${perms.allTables}">Profitabilities</button>
+                onclick="location.href='/sql/ui/v1/route-profitabilities/'">Profitabilities</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 style="display: ${perms.keys}"
                 onclick="location.href='/sql/ui/v1/keys/'">Keys</button>
