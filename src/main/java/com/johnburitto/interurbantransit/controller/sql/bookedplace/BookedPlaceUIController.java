@@ -157,4 +157,13 @@ public class BookedPlaceUIController {
 
         return "redirect:/sql/tables";
     }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("bookedPlaces", bookedPlaceService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("bookedPlaceFilters.txt"));
+
+        return "/sql/booked-places-paging";
+    }
 }

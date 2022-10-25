@@ -15,6 +15,8 @@ import com.johnburitto.interurbantransit.model.sql.*;
 import com.johnburitto.interurbantransit.repository.BookedPlacePostgreSQLRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -199,5 +201,9 @@ public class BookedPlaceService implements IService<BookedPlace> {
         }
 
         return neededPlaces;
+    }
+
+    public List<BookedPlace> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

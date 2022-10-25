@@ -107,4 +107,13 @@ public class TransportUIController {
 
         return "redirect:/sql/ui/v1/transports/";
     }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("transports", transportService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("transportFilters.txt"));
+
+        return "/sql/transport-paging";
+    }
 }

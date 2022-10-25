@@ -16,6 +16,8 @@ import com.johnburitto.interurbantransit.model.sql.*;
 import com.johnburitto.interurbantransit.repository.FlightPostgreSQLRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -253,5 +255,9 @@ public class FlightService implements IService<Flight> {
         transportToUpdate.setNumberOfBookedPlaces(0);
 
         transportService.update(transportToUpdate);
+    }
+
+    public List<Flight> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

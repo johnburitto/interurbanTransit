@@ -171,4 +171,13 @@ public class FlightUIController {
 
         return "redirect:/sql/tables";
     }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("flights", flightService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("flightFilters.txt"));
+
+        return "/sql/flight-paging";
+    }
 }

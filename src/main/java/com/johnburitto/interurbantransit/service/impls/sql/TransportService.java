@@ -11,10 +11,13 @@ package com.johnburitto.interurbantransit.service.impls.sql;
  * Copyright (c) 1993-1996 Sun Microsystems, Inc. All Rights Reserved.
  */
 
+import com.johnburitto.interurbantransit.model.sql.BookedPlace;
 import com.johnburitto.interurbantransit.model.sql.Transport;
 import com.johnburitto.interurbantransit.repository.TransportPostgreSQLRepository;
 import com.johnburitto.interurbantransit.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -59,5 +62,9 @@ public class TransportService implements IService<Transport> {
 
     public List<Transport> getOneAsList(Integer id) {
         return Collections.singletonList(get(id));
+    }
+
+    public List<Transport> getAllInPage(int size, int pageNumber) {
+        return repository.findAll(PageRequest.of(pageNumber, size, Sort.by("id"))).getContent();
     }
 }

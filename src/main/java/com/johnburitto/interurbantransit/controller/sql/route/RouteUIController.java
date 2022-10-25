@@ -92,4 +92,13 @@ public class RouteUIController {
 
         return "redirect:/sql/ui/v1/routes/";
     }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("routes", service.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("routeFilters.txt"));
+
+        return "/sql/routes-paging";
+    }
 }

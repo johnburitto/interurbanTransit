@@ -102,4 +102,13 @@ public class DriverUIController {
 
         return "redirect:/sql/ui/v1/drivers/";
     }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) throws IOException {
+        model.addAttribute("drivers", driverService.getAllInPage(size, pageNumber));
+        model.addAttribute("perms", logInController.perms);
+        model.addAttribute("filters", FiltersManager.readFromFile("driverFilters.txt"));
+
+        return "/sql/drivers-paging";
+    }
 }

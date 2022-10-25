@@ -13,18 +13,18 @@
 <body class="start-page-app-container">
     <div class="start-page-container" style="margin-left: 10px; margin-top: 7%; display: ${perms.allTables}">
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/transports/'">Transports</button>
+                onclick="location.href='/sql/ui/v1/transports/paging/7&0'">Transports</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/drivers/'">Drivers</button>
+                onclick="location.href='/sql/ui/v1/drivers/paging/7&0'">Drivers</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/routes/'">Routes</button>
+                onclick="location.href='/sql/ui/v1/routes/paging/7&0'">Routes</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/booked-places/'">Booked places</button>
+                onclick="location.href='/sql/ui/v1/booked-places/paging/5&0'">Booked places</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
-                onclick="location.href='/sql/ui/v1/route-profitabilities/'">Profitabilities</button>
+                onclick="location.href='/sql/ui/v1/route-profitabilities/paging/7&0'">Profitabilities</button>
         <button class="btn btn-outline-dark oswald-bold start-page-button"
                 style="display: ${perms.keys}"
-                onclick="location.href='/sql/ui/v1/keys/'">Keys</button>
+                onclick="location.href='/sql/ui/v1/keys/paging/7&0'">Keys</button>
     </div>
     <div class="start-page-container width-100" style="width: 150%; justify-content: flex-start">
         <div class="width-100" style="display: flex; justify-content: flex-end; align-items: baseline; padding-right: 5%">
@@ -172,10 +172,15 @@
                     <button class="btn btn-outline-dark"
                             onclick="location.href='/sql/ui/v1/flights/in-road'">In road</button>
                 </div>
+                <div class="width-100 filters-container oswald-bold" style="margin-top: 2%">
+                    <button class="btn btn-outline-dark" id="previous">Previous</button>
+                    <button class="btn btn-outline-dark" id="next">Next</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="/static/sql/scripts/changeFlightDisplayFilters.js?version=600"></script>
+    <script src="/static/sql/scripts/flightPaging.js?version=500"></script>
 </body>
 </html>

@@ -38,7 +38,7 @@ public class LogInController {
             return "redirect:/login";
         }
 
-        return "redirect:/sql/tables";
+        return "redirect:/sql/tables/paging/5&0";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

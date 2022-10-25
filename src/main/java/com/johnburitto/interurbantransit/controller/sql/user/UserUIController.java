@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/sql/ui/v1/keys")
 public class UserUIController {
@@ -81,5 +83,12 @@ public class UserUIController {
         service.update(userToEdit);
 
         return "redirect:/sql/ui/v1/keys/";
+    }
+
+    @RequestMapping("/paging/{size}&{pageNumber}")
+    public String getUserInPaging(@PathVariable int size, @PathVariable int pageNumber, Model model) {
+        model.addAttribute("users", service.getAllInPage(size, pageNumber));
+
+        return "/sql/users-paging";
     }
 }
